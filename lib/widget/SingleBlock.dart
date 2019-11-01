@@ -6,11 +6,13 @@ class SingleBlockWidget extends StatefulWidget {
     @required this.icon,
     @required this.text,
     @required this.color,
+    this.callback,
   }) : super(key: key);
 
   final IconData icon;
   final String text;
   final Color color;
+  final VoidCallback callback;
 
   @override
   State<StatefulWidget> createState() => _SingleBlockState();
@@ -29,7 +31,7 @@ class _SingleBlockState extends State<SingleBlockWidget> {
           ),
           child: InkWell(
             borderRadius: BorderRadius.circular(20),
-            onTap: () {},
+            onTap: widget.callback,
             child: Column(
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.center,

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:treex_flutter/widget/SingleBlock.dart';
 
 class FilesUIPage extends StatefulWidget {
@@ -12,13 +13,48 @@ class _FilesUIState extends State<FilesUIPage> {
     return Column(
       children: <Widget>[
         Expanded(
-          child: GridView.builder(
+          child: GridView(
             padding: EdgeInsets.all(10),
+            physics: BouncingScrollPhysics(),
+            children: <Widget>[
+              SingleBlockWidget(
+                icon: FontAwesomeIcons.fileAlt,
+                text: 'Document',
+                color: Colors.blueAccent,
+              ),
+              SingleBlockWidget(
+                icon: FontAwesomeIcons.music,
+                text: 'Music',
+                color: Colors.deepOrange,
+              ),
+              SingleBlockWidget(
+                icon: FontAwesomeIcons.code,
+                text: 'Codes',
+                color: Colors.blueGrey,
+              ),
+              SingleBlockWidget(
+                icon: FontAwesomeIcons.video,
+                text: 'Video',
+                color: Colors.lightGreen,
+              ),
+              SingleBlockWidget(
+                icon: FontAwesomeIcons.image,
+                text: 'Image',
+                color: Colors.green,
+              ),
+              SingleBlockWidget(
+                icon: FontAwesomeIcons.fileArchive,
+                text: 'Archive',
+                color: Colors.brown,
+              ),
+              SingleBlockWidget(
+                icon: FontAwesomeIcons.android,
+                text: 'Apk',
+                color: Colors.lightGreenAccent,
+              ),
+            ],
             gridDelegate:
                 SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
-            itemBuilder: (BuildContext context, int index) {
-              return SingleBlockWidget(icon: Icons.add_to_home_screen, text: 'test', color: Colors.pink);
-            },
           ),
         ),
       ],

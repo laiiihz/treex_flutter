@@ -24,7 +24,7 @@ dependencies:
   flare_flutter: ^1.6.2
   provider: ^3.1.0+1  # state manage
   screenshot: ^0.1.1  #capture screen (using flutter tree)
-
+  font_awesome_flutter: ^8.5.0 #font_awesome icon
 
 dev_dependencies:
   flutter_test:
