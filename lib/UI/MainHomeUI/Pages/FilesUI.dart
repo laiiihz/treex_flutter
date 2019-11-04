@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:treex_flutter/ColorSchemes.dart';
 import 'package:treex_flutter/widget/SingleBlock.dart';
 
 class FilesUIPage extends StatefulWidget {
@@ -20,7 +21,7 @@ class _FilesUIState extends State<FilesUIPage> {
               SingleBlockWidget(
                 icon: FontAwesomeIcons.fileAlt,
                 text: 'Document',
-                color: Colors.blueAccent,
+                color: blueBackgroundDark,
               ),
               SingleBlockWidget(
                 icon: FontAwesomeIcons.music,

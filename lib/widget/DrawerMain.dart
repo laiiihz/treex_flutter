@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:treex_flutter/ColorSchemes.dart';
+import 'package:treex_flutter/UI/DrawerMenus/About.dart';
 
 class DrawerMainWidget extends StatefulWidget {
   @override
@@ -9,6 +10,7 @@ class DrawerMainWidget extends StatefulWidget {
 class _DrawerMainState extends State<DrawerMainWidget> {
   double _userHeight = 0;
   bool _userOpen = false;
+  bool _hideMoreUser = true;
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -25,10 +27,21 @@ class _DrawerMainState extends State<DrawerMainWidget> {
               color: Colors.transparent,
               child: InkWell(
                 onTap: () {
-                  _userOpen =!_userOpen;
+                  _userOpen = !_userOpen;
                   setState(() {
-                    _userHeight = _userOpen?150:0;
+                    _userHeight = _userOpen ? 150 : 0;
                   });
+                  if (_hideMoreUser) {
+                    setState(() {
+                      _hideMoreUser = false;
+                    });
+                  } else {
+                    Future.delayed(Duration(milliseconds: 500), () {
+                      setState(() {
+                        _hideMoreUser = true;
+                      });
+                    });
+                  }
                 },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -48,21 +61,32 @@ class _DrawerMainState extends State<DrawerMainWidget> {
           AnimatedContainer(
             curve: Curves.easeInOutCubic,
             duration: Duration(milliseconds: 500),
-            color: Colors.pink,
             height: _userHeight,
-            child: Column(
-              children: <Widget>[
-                Expanded(
-                  child: ListTile(
-                    title: Text('test'),
+            child: Offstage(
+              offstage: _hideMoreUser,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  Expanded(
+                    child: InkWell(
+                      child: ListTile(
+                        leading: Icon(Icons.person),
+                        title: Text('用户设置'),
+                      ),
+                      onTap: () {},
+                    ),
                   ),
-                ),
-                Expanded(
-                  child: ListTile(
-                    title: Text('test'),
+                  Expanded(
+                    child: InkWell(
+                      child: ListTile(
+                        leading: Icon(Icons.add),
+                        title: Text('添加用户'),
+                      ),
+                      onTap: () {},
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
           Expanded(
@@ -80,6 +104,19 @@ class _DrawerMainState extends State<DrawerMainWidget> {
                     title: Text('Settings'),
                   ),
                   onTap: () {},
+                ),
+                InkWell(
+                  child: ListTile(
+                    leading: Icon(Icons.settings),
+                    title: Text('About'),
+                  ),
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (BuildContext context) => AboutPage(),
+                      ),
+                    );
+                  },
                 ),
               ],
             ),

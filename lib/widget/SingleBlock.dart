@@ -39,10 +39,11 @@ class _SingleBlockState extends State<SingleBlockWidget> {
                 Icon(
                   widget.icon,
                   size: 50,
+                  color: Colors.white,
                 ),
                 Text(
                   widget.text,
-                  style: TextStyle(fontSize: 30),
+                  style: TextStyle(fontSize: 30,color: Colors.white),
                 ),
               ],
             ),

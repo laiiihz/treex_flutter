@@ -2,6 +2,8 @@ import 'dart:io';
 import 'dart:ui' as prefix0;
 
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:treex_flutter/UI/AddTools/QrScanView.dart';
 
 class ToolsPage extends StatefulWidget {
   ToolsPage({Key key, @required this.image}) : super(key: key);
@@ -26,25 +28,28 @@ class _ToolsState extends State<ToolsPage> {
               child: Container(
                 height: MediaQuery.of(context).size.height,
                 width: MediaQuery.of(context).size.width,
-                color: Colors.transparent,
+                color: Colors.white54,
                 child: Align(
                   alignment: Alignment(0, 0.8),
-                  child: GridView.builder(
+                  child: GridView(
                     physics: NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 4),
-                    itemBuilder: (BuildContext context, int index) {
-                      return Material(
-                        child: IconButton(
-                          icon: Icon(Icons.home),
-                          onPressed: () {
-                            print('test');
-                          },),
-                        color: Colors.transparent,
-                      );
-                    },
-                    itemCount: 4,
+                    children: [
+                      Padding(padding: EdgeInsets.all(10),child: MaterialButton(
+                        color: Colors.green,
+                        child: Icon(FontAwesomeIcons.qrcode),
+                        onPressed: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (BuildContext context) =>
+                                  QrScanViewPage(),
+                            ),
+                          );
+                        },
+                      ),),
+                    ],
                   ),
                 ),
               ),
