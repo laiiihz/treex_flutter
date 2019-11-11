@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:treex_flutter/ColorSchemes.dart';
+import 'package:treex_flutter/UI/MainHomeUI/Pages/Message/FriendDetail.dart';
 
 class SingleFriendMessagePage extends StatefulWidget {
   @override
@@ -65,14 +66,33 @@ class _SingleFriendMessageState extends State<SingleFriendMessagePage> {
       appBar: PreferredSize(
         child: Container(
           decoration: BoxDecoration(
-            boxShadow: [BoxShadow(
-              blurRadius: 20,
-              color: tealBackgroundDark,
-            )],
+            boxShadow: [
+              BoxShadow(
+                blurRadius: 20,
+                color: tealBackgroundDark,
+              )
+            ],
           ),
           child: AppBar(
             title: Text('NAME'),
             centerTitle: true,
+            actions: <Widget>[
+              IconButton(
+                icon: Hero(
+                  tag: 'friend_hero',
+                  child: CircleAvatar(),
+                ),
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (BuildContext context) => FriendDetailPage(
+                        canMessage: false,
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ],
           ),
         ),
         preferredSize: Size.fromHeight(60),
@@ -107,12 +127,18 @@ class _SingleFriendMessageState extends State<SingleFriendMessagePage> {
           Offstage(
             offstage: !_delayShowTextField,
             child: AnimatedContainer(
-              height: _showTextField ? 80 : 0,
-              child: Column(
+              height: _showTextField ? 60 : 0,
+              child: Row(
                 children: <Widget>[
                   Expanded(
                     child: Center(
                       child: TextField(),
+                    ),
+                  ),
+                  Material(
+                    child: IconButton(
+                      icon: Icon(Icons.send),
+                      onPressed: () {},
                     ),
                   ),
                 ],

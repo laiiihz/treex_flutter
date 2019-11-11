@@ -19,6 +19,7 @@ class _User2PasswordState extends State<User2PasswordPage> {
   TextEditingController _textEditingController = TextEditingController();
   bool _couldNext = false;
   bool _firstEnter = true;
+  bool _showPasswd = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,30 +42,33 @@ class _User2PasswordState extends State<User2PasswordPage> {
                     backgroundColor: Colors.white30,
                   )
                 : null,
-            onPressed:_couldNext? () {
-              setState(() {
-                _networkOperate = true;
-              });
-              Future<bool> checkUserAuth() async {
-                //TODO User Auth (Auth API)
-                await Future.delayed(Duration(seconds: 1), () {});
-                return true;
-              }
+            onPressed: _couldNext
+                ? () {
+                    setState(() {
+                      _networkOperate = true;
+                    });
+                    Future<bool> checkUserAuth() async {
+                      //TODO User Auth (Auth API)
+                      await Future.delayed(Duration(seconds: 1), () {});
+                      return true;
+                    }
 
-              checkUserAuth().then((passed) {
-                setState(() {
-                  _networkOperate = false;
-                });
-                if (passed) {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (BuildContext context) => HomeStructurePage(),
-                    ),
-                  );
-                }
-              });
-            }:null,
-            backgroundColor: _couldNext?null:Colors.grey,
+                    checkUserAuth().then((passed) {
+                      setState(() {
+                        _networkOperate = false;
+                      });
+                      if (passed) {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (BuildContext context) =>
+                                HomeStructurePage(),
+                          ),
+                        );
+                      }
+                    });
+                  }
+                : null,
+            backgroundColor: _couldNext ? null : Colors.grey,
             label: Text('下一步'),
             heroTag: 'next',
           ),
@@ -106,8 +110,9 @@ class _User2PasswordState extends State<User2PasswordPage> {
                     '输入您的密码 ',
                     style: TextStyle(fontSize: 40, color: Colors.white),
                   ),
-
                   TextField(
+                    autofocus: true,
+                    obscureText: !_showPasswd,
                     controller: _textEditingController,
                     onChanged: (text) {
                       setState(() {
@@ -125,13 +130,24 @@ class _User2PasswordState extends State<User2PasswordPage> {
                     },
                     decoration: InputDecoration(
                       labelText: '密码',
-                      errorText: (!_couldNext&&!_firstEnter)?'密码不能为空':null,
+                      errorText:
+                          (!_couldNext && !_firstEnter) ? '密码不能为空' : null,
                       prefixIcon: IconButton(
                         icon: Icon(
                           Icons.person,
                         ),
                         onPressed: () {
                           _textEditingController.clear();
+                        },
+                      ),
+                      suffixIcon: IconButton(
+                        icon: Icon(_showPasswd
+                            ? Icons.visibility
+                            : Icons.visibility_off),
+                        onPressed: () {
+                          setState(() {
+                            _showPasswd = !_showPasswd;
+                          });
                         },
                       ),
                     ),

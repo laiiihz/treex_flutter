@@ -1,4 +1,3 @@
-import 'dart:math';
 
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
@@ -78,52 +77,48 @@ class _HomeUIState extends State<HomeUIPage> {
           ),
         ),
         Expanded(
-          child: RefreshIndicator(
-            onRefresh: () {
-              return;
-            },
-            child: GridView(
-              padding: EdgeInsets.all(10),
-              gridDelegate:
-                  SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
-              children: <Widget>[
-                SingleBlockWidget(
-                  icon: FontAwesomeIcons.qrcode,
-                  text: '扫一扫',
-                  color: Colors.blueGrey,
-                  callback: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (BuildContext context) => QrScanViewPage(),
-                      ),
-                    );
-                  },
-                ),
-                Padding(
-                  padding: EdgeInsets.all(10),
-                  child: InkWell(
-                    onTap: () {},
-                    child: Container(
-                      child: Icon(
-                        Icons.ac_unit,
-                        size: 50,
-                      ),
-                      height: 100,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        color: Colors.grey,
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey,
-                            blurRadius: 20,
-                          )
-                        ],
-                      ),
+          child:GridView(
+            physics: BouncingScrollPhysics(),
+            padding: EdgeInsets.all(10),
+            gridDelegate:
+            SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+            children: <Widget>[
+              SingleBlockWidget(
+                icon: FontAwesomeIcons.qrcode,
+                text: '扫一扫',
+                color: Colors.blueGrey,
+                callback: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (BuildContext context) => QrScanViewPage(),
+                    ),
+                  );
+                },
+              ),
+              Padding(
+                padding: EdgeInsets.all(10),
+                child: InkWell(
+                  onTap: () {},
+                  child: Container(
+                    child: Icon(
+                      Icons.ac_unit,
+                      size: 50,
+                    ),
+                    height: 100,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      color: Colors.grey,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey,
+                          blurRadius: 20,
+                        )
+                      ],
                     ),
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ],

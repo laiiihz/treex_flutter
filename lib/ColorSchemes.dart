@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import 'Provider/AppProvider.dart';
 
 const blueBackgroundDark = Color(0xff1976d2);
 const yellowBackgroundDark = Color(0xfffbc02d);
@@ -12,6 +15,11 @@ const tealDark = Color(0xff00766c);
 
 const limePrimary = Color(0xffc6ff00);
 const limeDark = Color(0xff90cc00);
+
+Color getTealBackgroundDark(BuildContext context) {
+  final provider = Provider.of<AppProvider>(context);
+  return provider.nightModeOn ? tealBackgroundDark : tealBackground;
+}
 
 var defaultTheme = ThemeData(
   floatingActionButtonTheme: FloatingActionButtonThemeData(

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:treex_flutter/ColorSchemes.dart';
+import 'package:treex_flutter/Provider/AppProvider.dart';
 import 'package:treex_flutter/UI/AddTools/Tools.dart';
 import 'package:treex_flutter/UI/MainHomeUI/Pages/FilesUI.dart';
 import 'package:treex_flutter/UI/MainHomeUI/Pages/HomeUI.dart';
@@ -50,13 +52,14 @@ class _HomeStructureState extends State<HomeStructurePage> {
 
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<AppProvider>(context);
     return Screenshot(
       controller: _screenshotController,
       child: Scaffold(
         appBar: PreferredSize(
           child: AnimatedContainer(
             decoration: BoxDecoration(
-              color: _appBarColor,
+              color: provider.nightModeOn ? Color(0xff333333) : _appBarColor,
               boxShadow: [
                 BoxShadow(
                   offset: Offset(0, 0),
@@ -145,8 +148,10 @@ class _HomeStructureState extends State<HomeStructurePage> {
               curve: Curves.easeInOutCubic,
             );
           },
+          elevation: 0,
           currentIndex: _bottomBarCurrentIndex,
-          selectedItemColor: Colors.black54,
+          selectedItemColor:
+              provider.nightModeOn ? Colors.white54 : Colors.black54,
           items: [
             BottomNavigationBarItem(
               icon: Icon(
@@ -154,7 +159,9 @@ class _HomeStructureState extends State<HomeStructurePage> {
                 color: Colors.yellow,
               ),
               title: Text('Home'),
-              backgroundColor: tealBackground,
+              backgroundColor: provider.nightModeOn
+                  ? Colors.teal.withOpacity(0.2)
+                  : tealBackground,
             ),
             BottomNavigationBarItem(
               icon: Icon(
@@ -162,7 +169,9 @@ class _HomeStructureState extends State<HomeStructurePage> {
                 color: Colors.teal,
               ),
               title: Text('Message'),
-              backgroundColor: blueBackground,
+              backgroundColor: provider.nightModeOn
+                  ? Colors.blue.withOpacity(0.2)
+                  : blueBackground,
             ),
             BottomNavigationBarItem(
               icon: Icon(
@@ -170,7 +179,9 @@ class _HomeStructureState extends State<HomeStructurePage> {
                 color: Colors.blue,
               ),
               title: Text('Folder'),
-              backgroundColor: yellowBackground,
+              backgroundColor: provider.nightModeOn
+                  ? Colors.yellow.withOpacity(0.2)
+                  : yellowBackground,
             ),
           ],
         ),

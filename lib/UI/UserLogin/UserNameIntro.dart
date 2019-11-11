@@ -117,6 +117,7 @@ class _UserNameIntroState extends State<UserNameIntroPage> {
                     ),
                     TextField(
                       controller: _textEditingController,
+                      autofocus: true,
                       onChanged: (text) {
                         setState(() {
                           _firstEnter = false;

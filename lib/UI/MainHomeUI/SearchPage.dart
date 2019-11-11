@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:treex_flutter/Provider/AppProvider.dart';
 
 class SearchPage extends SearchDelegate<String> {
   @override
@@ -19,6 +21,12 @@ class SearchPage extends SearchDelegate<String> {
       },
       itemCount: 5,
     );
+  }
+
+  @override
+  ThemeData appBarTheme(BuildContext context) {
+    final provider = Provider.of<AppProvider>(context);
+    return provider.nightModeOn ? ThemeData.dark() : super.appBarTheme(context);
   }
 
   @override

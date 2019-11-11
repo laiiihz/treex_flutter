@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:treex_flutter/UI/MainHomeUI/Pages/Message/FriendDetail.dart';
 import 'package:treex_flutter/UI/MainHomeUI/Pages/Message/SingleFriendMessage.dart';
 
 class FriendsPage extends StatefulWidget {
@@ -30,8 +31,9 @@ class _FriendsState extends State<FriendsPage> {
                 onTap: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (BuildContext context) =>
-                          SingleFriendMessagePage(),
+                      builder: (BuildContext context) => FriendDetailPage(
+                        canMessage: true,
+                      ),
                     ),
                   );
                 },

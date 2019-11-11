@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:treex_flutter/ColorSchemes.dart';
+import 'package:treex_flutter/Provider/AppProvider.dart';
 import 'package:treex_flutter/UI/DrawerMenus/About.dart';
 
 class DrawerMainWidget extends StatefulWidget {
@@ -13,6 +15,7 @@ class _DrawerMainState extends State<DrawerMainWidget> {
   bool _hideMoreUser = true;
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<AppProvider>(context);
     return Drawer(
       child: Column(
         children: <Widget>[
@@ -101,13 +104,6 @@ class _DrawerMainState extends State<DrawerMainWidget> {
                 InkWell(
                   child: ListTile(
                     leading: Icon(Icons.settings),
-                    title: Text('Settings'),
-                  ),
-                  onTap: () {},
-                ),
-                InkWell(
-                  child: ListTile(
-                    leading: Icon(Icons.settings),
                     title: Text('About'),
                   ),
                   onTap: () {
@@ -120,6 +116,19 @@ class _DrawerMainState extends State<DrawerMainWidget> {
                 ),
               ],
             ),
+          ),
+          Row(
+            children: <Widget>[
+              IconButton(icon: Icon(Icons.settings), onPressed: () {}),
+              Spacer(),
+              Text('夜间模式'),
+              Switch(
+                value: provider.nightModeOn,
+                onChanged: (value) {
+                  provider.changeNightModeState(value);
+                },
+              ),
+            ],
           ),
         ],
       ),

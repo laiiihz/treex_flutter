@@ -1,5 +1,5 @@
 import 'dart:io';
-import 'dart:ui' as prefix0;
+import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -20,7 +20,7 @@ class _ToolsState extends State<ToolsPage> {
         children: <Widget>[
           Image.file(widget.image),
           BackdropFilter(
-            filter: prefix0.ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+            filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
             child: GestureDetector(
               onTap: () {
                 Navigator.of(context).pop();

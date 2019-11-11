@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:treex_flutter/Provider/AppProvider.dart';
 
 class SingleBlockWidget extends StatefulWidget {
   SingleBlockWidget({
@@ -21,6 +23,7 @@ class SingleBlockWidget extends StatefulWidget {
 class _SingleBlockState extends State<SingleBlockWidget> {
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<AppProvider>(context);
     return Padding(
       padding: EdgeInsets.all(10),
       child: Container(
@@ -43,7 +46,7 @@ class _SingleBlockState extends State<SingleBlockWidget> {
                 ),
                 Text(
                   widget.text,
-                  style: TextStyle(fontSize: 30,color: Colors.white),
+                  style: TextStyle(fontSize: 30, color: Colors.white),
                 ),
               ],
             ),
@@ -51,13 +54,18 @@ class _SingleBlockState extends State<SingleBlockWidget> {
         ),
         height: 100,
         decoration: BoxDecoration(
-          color: widget.color,
+          color: provider.nightModeOn ? Color(0xff444444) : widget.color,
           borderRadius: BorderRadius.circular(20),
           boxShadow: [
-            BoxShadow(
-              blurRadius: 20,
-              color: widget.color,
+            provider.nightModeOn
+                ? BoxShadow(
+              blurRadius: 0,
+              color: Colors.transparent,
             )
+                : BoxShadow(
+                    blurRadius: 20,
+                    color: widget.color,
+                  )
           ],
         ),
       ),

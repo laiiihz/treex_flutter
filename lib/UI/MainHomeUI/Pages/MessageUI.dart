@@ -82,6 +82,13 @@ class _MessageUIState extends State<MessageUIPage> {
                 onDismissed: (direction) {},
                 background: Container(
                   color: Colors.red,
+                  child: Row(
+                    children: <Widget>[
+                      Icon(Icons.delete),
+                      Spacer(),
+                      Icon(Icons.delete),
+                    ],
+                  ),
                 ),
                 key: Key('#list_key$index'),
                 child: Column(
