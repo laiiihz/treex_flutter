@@ -27,6 +27,7 @@ dependencies:
   font_awesome_flutter: ^8.5.0 #font_awesome icon
   qr_code_scanner: ^0.0.12 #Qrcode scanner
   badges: ^1.1.0 #badges on ListTile
+  share: ^0.6.3+1 #share api
 
 dev_dependencies:
   flutter_test:

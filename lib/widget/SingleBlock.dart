@@ -9,12 +9,14 @@ class SingleBlockWidget extends StatefulWidget {
     @required this.text,
     @required this.color,
     this.callback,
+    this.smallText = false,
   }) : super(key: key);
 
   final IconData icon;
   final String text;
   final Color color;
   final VoidCallback callback;
+  final bool smallText;
 
   @override
   State<StatefulWidget> createState() => _SingleBlockState();
@@ -44,9 +46,14 @@ class _SingleBlockState extends State<SingleBlockWidget> {
                   size: 50,
                   color: Colors.white,
                 ),
+                SizedBox(
+                  height: 5,
+                ),
                 Text(
                   widget.text,
-                  style: TextStyle(fontSize: 30, color: Colors.white),
+                  style: TextStyle(
+                      fontSize: widget.smallText ? 15 : 30,
+                      color: Colors.white),
                 ),
               ],
             ),
@@ -59,9 +66,9 @@ class _SingleBlockState extends State<SingleBlockWidget> {
           boxShadow: [
             provider.nightModeOn
                 ? BoxShadow(
-              blurRadius: 0,
-              color: Colors.transparent,
-            )
+                    blurRadius: 0,
+                    color: Colors.transparent,
+                  )
                 : BoxShadow(
                     blurRadius: 20,
                     color: widget.color,

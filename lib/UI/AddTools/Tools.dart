@@ -3,6 +3,8 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
+import 'package:treex_flutter/Provider/AppProvider.dart';
 import 'package:treex_flutter/UI/AddTools/QrScanView.dart';
 
 class ToolsPage extends StatefulWidget {
@@ -15,6 +17,7 @@ class ToolsPage extends StatefulWidget {
 class _ToolsState extends State<ToolsPage> {
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<AppProvider>(context);
     return Scaffold(
       body: Stack(
         children: <Widget>[
@@ -28,7 +31,7 @@ class _ToolsState extends State<ToolsPage> {
               child: Container(
                 height: MediaQuery.of(context).size.height,
                 width: MediaQuery.of(context).size.width,
-                color: Colors.white54,
+                color: provider.nightModeOn ? Colors.black54 : Colors.white54,
                 child: Align(
                   alignment: Alignment(0, 0.8),
                   child: GridView(
@@ -37,18 +40,21 @@ class _ToolsState extends State<ToolsPage> {
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 4),
                     children: [
-                      Padding(padding: EdgeInsets.all(10),child: MaterialButton(
-                        color: Colors.green,
-                        child: Icon(FontAwesomeIcons.qrcode),
-                        onPressed: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (BuildContext context) =>
-                                  QrScanViewPage(),
-                            ),
-                          );
-                        },
-                      ),),
+                      Padding(
+                        padding: EdgeInsets.all(10),
+                        child: MaterialButton(
+                          color: Colors.green,
+                          child: Icon(FontAwesomeIcons.qrcode),
+                          onPressed: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (BuildContext context) =>
+                                    QrScanViewPage(),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
                     ],
                   ),
                 ),

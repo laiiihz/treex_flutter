@@ -4,7 +4,7 @@ import 'package:screenshot/screenshot.dart';
 import 'package:treex_flutter/ColorSchemes.dart';
 import 'package:treex_flutter/Provider/AppProvider.dart';
 import 'package:treex_flutter/UI/AddTools/Tools.dart';
-import 'package:treex_flutter/UI/MainHomeUI/Pages/FilesUI.dart';
+import 'package:treex_flutter/UI/MainHomeUI/Pages/File/FilesUI.dart';
 import 'package:treex_flutter/UI/MainHomeUI/Pages/HomeUI.dart';
 import 'package:treex_flutter/UI/MainHomeUI/Pages/MessageUI.dart';
 import 'package:treex_flutter/UI/MainHomeUI/SearchPage.dart';

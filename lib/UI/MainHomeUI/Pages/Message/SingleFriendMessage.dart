@@ -128,20 +128,22 @@ class _SingleFriendMessageState extends State<SingleFriendMessagePage> {
             offstage: !_delayShowTextField,
             child: AnimatedContainer(
               height: _showTextField ? 60 : 0,
-              child: Row(
-                children: <Widget>[
-                  Expanded(
-                    child: Center(
-                      child: TextField(),
+              child: Material(
+                child: Row(
+                  children: <Widget>[
+                    Expanded(
+                      child: Center(
+                        child: TextField(),
+                      ),
                     ),
-                  ),
-                  Material(
-                    child: IconButton(
-                      icon: Icon(Icons.send),
-                      onPressed: () {},
+                    Material(
+                      child: IconButton(
+                        icon: Icon(Icons.send),
+                        onPressed: () {},
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
               decoration: BoxDecoration(
                 color: Colors.white,

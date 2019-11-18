@@ -1,8 +1,9 @@
-
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 import 'package:treex_flutter/ColorSchemes.dart';
+import 'package:treex_flutter/Provider/AppProvider.dart';
 import 'package:treex_flutter/UI/AddTools/QrScanView.dart';
 import 'package:treex_flutter/widget/SingleBlock.dart';
 
@@ -25,6 +26,7 @@ class _HomeUIState extends State<HomeUIPage> {
 
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<AppProvider>(context);
     return Column(
       children: <Widget>[
         AnimatedContainer(
@@ -59,7 +61,8 @@ class _HomeUIState extends State<HomeUIPage> {
           ),
           height: _welcomeTitleHeight,
           decoration: BoxDecoration(
-            color: tealBackgroundDark,
+            color:
+                provider.nightModeOn ? Color(0xff333333) : tealBackgroundDark,
             borderRadius: BorderRadius.only(
               bottomLeft: Radius.circular(10),
               bottomRight: Radius.circular(10),
@@ -68,7 +71,9 @@ class _HomeUIState extends State<HomeUIPage> {
               BoxShadow(
                 offset: Offset(0, 0),
                 blurRadius: 20,
-                color: tealBackgroundDark,
+                color: provider.nightModeOn
+                    ? Color(0xff666666)
+                    : tealBackgroundDark,
               ),
             ],
           ),
@@ -77,11 +82,11 @@ class _HomeUIState extends State<HomeUIPage> {
           ),
         ),
         Expanded(
-          child:GridView(
+          child: GridView(
             physics: BouncingScrollPhysics(),
             padding: EdgeInsets.all(10),
             gridDelegate:
-            SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+                SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
             children: <Widget>[
               SingleBlockWidget(
                 icon: FontAwesomeIcons.qrcode,
@@ -95,28 +100,11 @@ class _HomeUIState extends State<HomeUIPage> {
                   );
                 },
               ),
-              Padding(
-                padding: EdgeInsets.all(10),
-                child: InkWell(
-                  onTap: () {},
-                  child: Container(
-                    child: Icon(
-                      Icons.ac_unit,
-                      size: 50,
-                    ),
-                    height: 100,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: Colors.grey,
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey,
-                          blurRadius: 20,
-                        )
-                      ],
-                    ),
-                  ),
-                ),
+              SingleBlockWidget(
+                icon: Icons.settings,
+                text: 'test',
+                color: Colors.indigo,
+                callback: () {},
               ),
             ],
           ),
