@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:treex_flutter/UI/UserLogin/User2Password.dart';
 import 'package:treex_flutter/UI/UserLogin/User2SignUp.dart';
+import 'package:treex_flutter/utils/NetUtil.dart';
 import 'package:treex_flutter/widget/BackgroundPage.dart';
 
 class UserNameIntroPage extends StatefulWidget {

@@ -5,6 +5,7 @@ import 'package:treex_flutter/ColorSchemes.dart';
 import 'package:treex_flutter/Provider/AppProvider.dart';
 import 'package:treex_flutter/UI/DrawerMenus/About.dart';
 import 'package:treex_flutter/UI/DrawerMenus/Settings.dart';
+import 'package:treex_flutter/dev/Developer.dart';
 
 class DrawerMainWidget extends StatefulWidget {
   @override
@@ -71,8 +72,28 @@ class _DrawerMainState extends State<DrawerMainWidget> {
                         Share.share('test');
                       },
                     ),
+
+                    //TEST ONLY
+                    InkWell(
+                      child: ListTile(
+                        leading: Icon(Icons.developer_mode),
+                        title: Text('Developer Mode'),
+                      ),
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (BuildContext context) => DeveloperPage(),
+                          ),
+                        );
+                      },
+                    ),
                   ],
                 ),
+              ),
+              MaterialButton(
+                onPressed: () {},
+                child: Text('退出登录'),
+                color: Colors.red,
               ),
               Row(
                 children: <Widget>[

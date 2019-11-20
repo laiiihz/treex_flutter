@@ -1,7 +1,9 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:treex_flutter/UI/MainHomeUI/HomeStructure.dart';
+import 'package:treex_flutter/utils/NetUtil.dart';
 import 'package:treex_flutter/widget/BackgroundPage.dart';
 
 class User2PasswordPage extends StatefulWidget {
@@ -49,7 +51,15 @@ class _User2PasswordState extends State<User2PasswordPage> {
                     });
                     Future<bool> checkUserAuth() async {
                       //TODO User Auth (Auth API)
+                      String token = await LoginUtil(
+                        userName: widget.userName,
+                        password: _textEditingController.text,
+                        serverPrefix: '10.27.16.66:8080',
+                      ).getToken();
+                      SharedPreferences shared = await SharedPreferences.getInstance();
+                      shared.setString('token', token);
                       await Future.delayed(Duration(seconds: 1), () {});
+                      print(shared.getString('token'));
                       return true;
                     }
 

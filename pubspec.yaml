@@ -28,6 +28,10 @@ dependencies:
   qr_code_scanner: ^0.0.12 #Qrcode scanner
   badges: ^1.1.0 #badges on ListTile
   share: ^0.6.3+1 #share api
+  dio: ^3.0.4 #net support
+  shared_preferences: ^0.5.4+5 #shared_preferences
+  path_provider: ^1.4.2 #path
+  device_info: ^0.4.1+1
 
 dev_dependencies:
   flutter_test:

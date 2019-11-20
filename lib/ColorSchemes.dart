@@ -42,3 +42,11 @@ var defaultTheme = ThemeData(
   ),
   bottomAppBarColor: tealBackground,
 );
+var darkTheme = ThemeData.dark().copyWith(
+  buttonTheme: ButtonThemeData(
+    shape: StadiumBorder(),
+    buttonColor: tealPrimary,
+    textTheme: ButtonTextTheme.primary,
+    splashColor: tealDark,
+  ),
+);

@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
     final provider = Provider.of<AppProvider>(context);
     return MaterialApp(
       title: 'Treex',
-      theme: provider.nightModeOn ? ThemeData.dark() : defaultTheme,
+      theme: provider.nightModeOn ? darkTheme : defaultTheme,
       home: SplashPage(),
     );
   }

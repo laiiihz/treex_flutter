@@ -6,7 +6,7 @@ import 'package:treex_flutter/Provider/AppProvider.dart';
 import 'package:treex_flutter/UI/AddTools/Tools.dart';
 import 'package:treex_flutter/UI/MainHomeUI/Pages/File/FilesUI.dart';
 import 'package:treex_flutter/UI/MainHomeUI/Pages/HomeUI.dart';
-import 'package:treex_flutter/UI/MainHomeUI/Pages/MessageUI.dart';
+import 'package:treex_flutter/UI/MainHomeUI/Pages/LocalFile/LocalFiles.dart';
 import 'package:treex_flutter/UI/MainHomeUI/SearchPage.dart';
 import 'package:treex_flutter/widget/DrawerMain.dart';
 
@@ -29,10 +29,10 @@ class _HomeStructureState extends State<HomeStructurePage> {
         textParam = 'Home';
         break;
       case 1:
-        textParam = 'Message';
+        textParam = 'Cloud Files';
         break;
       case 2:
-        textParam = 'Files';
+        textParam = 'Local Files';
         break;
       default:
         textParam = 'Home';
@@ -155,7 +155,7 @@ class _HomeStructureState extends State<HomeStructurePage> {
           items: [
             BottomNavigationBarItem(
               icon: Icon(
-                Icons.cloud,
+                Icons.home,
                 color: Colors.yellow,
               ),
               title: Text('Home'),
@@ -165,10 +165,10 @@ class _HomeStructureState extends State<HomeStructurePage> {
             ),
             BottomNavigationBarItem(
               icon: Icon(
-                Icons.message,
+                Icons.cloud,
                 color: Colors.teal,
               ),
-              title: Text('Message'),
+              title: Text('Cloud Files'),
               backgroundColor: provider.nightModeOn
                   ? Colors.blue.withOpacity(0.2)
                   : blueBackground,
@@ -178,7 +178,7 @@ class _HomeStructureState extends State<HomeStructurePage> {
                 Icons.folder,
                 color: Colors.blue,
               ),
-              title: Text('Folder'),
+              title: Text('Local Files'),
               backgroundColor: provider.nightModeOn
                   ? Colors.yellow.withOpacity(0.2)
                   : yellowBackground,
@@ -194,10 +194,10 @@ class _HomeStructureState extends State<HomeStructurePage> {
                 return HomeUIPage();
                 break;
               case 1:
-                return MessageUIPage();
+                return FilesUIPage();
                 break;
               case 2:
-                return FilesUIPage();
+                return LocalFilesPage();
                 break;
               default:
                 return HomeUIPage();
