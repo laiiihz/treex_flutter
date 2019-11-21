@@ -48,7 +48,10 @@ class _MusicListState extends State<MusicListPage> {
               color: Colors.grey,
               child: Column(
                 children: <Widget>[
-                  LinearProgressIndicator(),
+                  Hero(
+                    tag: 'slider',
+                    child: LinearProgressIndicator(value: 0.4,),
+                  ),
                   Expanded(
                     child: Material(
                       child: Row(

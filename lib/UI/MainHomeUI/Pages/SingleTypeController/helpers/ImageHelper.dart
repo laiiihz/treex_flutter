@@ -27,9 +27,12 @@ class _ImageHelperState extends State<ImageHelperPage> {
             child: Center(
               child: Transform.translate(
                 offset: Offset(_dx, _dy),
-                child: Image.file(
-                  File(widget.file.path),
-                  fit: BoxFit.contain,
+                child: Hero(
+                  tag: widget.file.path,
+                  child: Image.file(
+                    File(widget.file.path),
+                    fit: BoxFit.contain,
+                  ),
                 ),
               ),
             ),

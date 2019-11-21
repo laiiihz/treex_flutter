@@ -37,6 +37,38 @@ class _MusicHelperState extends State<MusicHelperPage> {
                       minRadius: 100,
                     ),
                   ),
+                  Spacer(),
+                  Hero(
+                    tag: 'slider',
+                    child: Material(
+                      color: Colors.transparent,
+                      child: Slider(
+                        value: 0.1,
+                        onChanged: (value) {},
+                      ),
+                    ),
+                  ),
+                  Row(
+                    children: <Widget>[
+                      Spacer(),
+                      IconButton(
+                          iconSize: 40,
+                          icon: Icon(Icons.skip_previous),
+                          onPressed: () {}),
+                      MaterialButton(
+                        onPressed: () {},
+                        child: Icon(
+                          Icons.pause,
+                          size: 80,
+                        ),
+                      ),
+                      IconButton(
+                          iconSize: 40,
+                          icon: Icon(Icons.skip_next),
+                          onPressed: () {}),
+                      Spacer(),
+                    ],
+                  ),
                 ],
               ),
             ),

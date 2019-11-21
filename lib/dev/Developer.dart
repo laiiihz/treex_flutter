@@ -13,6 +13,7 @@ class _DeveloperState extends State<DeveloperPage> {
   AndroidDeviceInfo _androidDeviceInfo;
   String _board = '';
   String _brand = '';
+  String _deviceInfos = '';
 
   @override
   void initState() {
@@ -25,8 +26,19 @@ class _DeveloperState extends State<DeveloperPage> {
     Future getDeviceInfo() async {
       _androidDeviceInfo = await _deviceInfoPlugin.androidInfo;
       setState(() {
-        _board = _androidDeviceInfo.board.toString();
-        _brand = _androidDeviceInfo.brand.toString();
+        _deviceInfos += _androidDeviceInfo.brand + '\n';
+        _deviceInfos += _androidDeviceInfo.board + '\n';
+        _deviceInfos += _androidDeviceInfo.device + '\n';
+        _deviceInfos += _androidDeviceInfo.display + '\n';
+        _deviceInfos += _androidDeviceInfo.fingerprint + '\n';
+        _deviceInfos += _androidDeviceInfo.manufacturer + '\n';
+        _deviceInfos += _androidDeviceInfo.hardware + '\n';
+        _deviceInfos += _androidDeviceInfo.isPhysicalDevice.toString() + '\n';
+        _deviceInfos += _androidDeviceInfo.id + '\n';
+        _deviceInfos += _androidDeviceInfo.model + '\n';
+        _deviceInfos += _androidDeviceInfo.product + '\n';
+        _deviceInfos += _androidDeviceInfo.tags + '\n';
+        _deviceInfos += _androidDeviceInfo.version.securityPatch + '\n';
       });
     }
 
@@ -51,14 +63,7 @@ class _DeveloperState extends State<DeveloperPage> {
             child: Text(_token),
           ),
           Card(
-            child: Row(
-              children: <Widget>[Text('board:$_board')],
-            ),
-          ),
-          Card(
-            child: Row(
-              children: <Widget>[Text('brand:$_brand')],
-            ),
+            child: Text(_deviceInfos),
           ),
         ],
       ),

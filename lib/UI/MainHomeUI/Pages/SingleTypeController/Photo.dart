@@ -86,15 +86,27 @@ class _PhotoState extends State<PhotoPage> {
                       ),
                       Material(
                         color: Colors.transparent,
-                        child: InkWell(
-                          onTap: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (BuildContext context) =>
-                                    ImageHelperPage(file: _photosFiles[index]),
-                              ),
-                            );
-                          },
+                        child: AnimatedContainer(
+                          duration: Duration(milliseconds: 300),
+                          child: InkWell(
+                            onTap: () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (BuildContext context) =>
+                                      ImageHelperPage(
+                                          file: _photosFiles[index]),
+                                ),
+                              );
+                            },
+                            onLongPress: () {
+                              showMenu(
+                                  context: context,
+                                  position: RelativeRect.fromLTRB(0, 0, 0, 0),
+                                  items: [
+                                    PopupMenuItem(child: Text('test')),
+                                  ]);
+                            },
+                          ),
                         ),
                       ),
                     ],
