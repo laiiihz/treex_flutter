@@ -6,7 +6,7 @@ import 'package:treex_flutter/Provider/AppProvider.dart';
 import 'package:treex_flutter/UI/AddTools/Tools.dart';
 import 'package:treex_flutter/UI/MainHomeUI/Pages/File/FilesUI.dart';
 import 'package:treex_flutter/UI/MainHomeUI/Pages/HomeUI.dart';
-import 'package:treex_flutter/UI/MainHomeUI/Pages/LocalFile/LocalFiles.dart';
+import 'package:treex_flutter/UI/MainHomeUI/Pages/LocalFile/LocalFile.dart';
 import 'package:treex_flutter/UI/MainHomeUI/SearchPage.dart';
 import 'package:treex_flutter/widget/DrawerMain.dart';
 
@@ -19,31 +19,9 @@ class _HomeStructureState extends State<HomeStructurePage> {
   ScreenshotController _screenshotController = ScreenshotController();
   PageController _pageController = PageController(initialPage: 0);
   int _bottomBarCurrentIndex = 0;
-  double _titleOpacity = 1.0;
-  int _animateTitleIndex = 0;
+
   Color _appBarColor = tealBackgroundDark;
-  Widget _buildTitle(index) {
-    String textParam = '';
-    switch (index) {
-      case 0:
-        textParam = 'Home';
-        break;
-      case 1:
-        textParam = 'Cloud Files';
-        break;
-      case 2:
-        textParam = 'Local Files';
-        break;
-      default:
-        textParam = 'Home';
-        break;
-    }
-    return AnimatedOpacity(
-      opacity: _titleOpacity,
-      duration: Duration(milliseconds: 250),
-      child: Text(textParam),
-    );
-  }
+  Widget _textTile = Text('HOME', key: Key('defalt'));
 
   @override
   void initState() {
@@ -71,7 +49,18 @@ class _HomeStructureState extends State<HomeStructurePage> {
             child: AppBar(
               backgroundColor: Colors.transparent,
               elevation: 0,
-              title: _buildTitle(_animateTitleIndex),
+              title: AnimatedSwitcher(
+                duration: Duration(milliseconds: 500),
+                child: _textTile,
+                switchInCurve: Curves.easeIn,
+                switchOutCurve: Curves.easeOut,
+                transitionBuilder: (child, animation) {
+                  return FadeTransition(
+                    opacity: animation,
+                    child: child,
+                  );
+                },
+              ),
               centerTitle: true,
               actions: <Widget>[
                 Builder(
@@ -119,29 +108,26 @@ class _HomeStructureState extends State<HomeStructurePage> {
               case 0:
                 setState(() {
                   _appBarColor = tealBackgroundDark;
+                  _textTile = Text('HOME', key: Key('home'));
                 });
                 break;
               case 1:
                 setState(() {
                   _appBarColor = blueBackgroundDark;
+                  _textTile = Text('Cloud Files', key: Key('cloudFiles'));
                 });
                 break;
               case 2:
                 setState(() {
                   _appBarColor = yellowBackgroundDark;
+                  _textTile = Text('LocalFiles', key: Key('localFiles'));
                 });
                 break;
             }
             setState(() {
               _bottomBarCurrentIndex = index;
-              _titleOpacity = 0.0;
             });
-            Future.delayed(Duration(milliseconds: 300), () {
-              setState(() {
-                _titleOpacity = 1.0;
-                _animateTitleIndex = index;
-              });
-            });
+
             _pageController.animateToPage(
               index,
               duration: Duration(milliseconds: 500),
@@ -158,7 +144,7 @@ class _HomeStructureState extends State<HomeStructurePage> {
                 Icons.home,
                 color: Colors.yellow,
               ),
-              title: Text('Home'),
+              title: Text('HOME'),
               backgroundColor: provider.nightModeOn
                   ? Colors.teal.withOpacity(0.2)
                   : tealBackground,
@@ -168,7 +154,7 @@ class _HomeStructureState extends State<HomeStructurePage> {
                 Icons.cloud,
                 color: Colors.teal,
               ),
-              title: Text('Cloud Files'),
+              title: Text('CLOUD FILES'),
               backgroundColor: provider.nightModeOn
                   ? Colors.blue.withOpacity(0.2)
                   : blueBackground,
@@ -178,7 +164,7 @@ class _HomeStructureState extends State<HomeStructurePage> {
                 Icons.folder,
                 color: Colors.blue,
               ),
-              title: Text('Local Files'),
+              title: Text('LOCAL FILES'),
               backgroundColor: provider.nightModeOn
                   ? Colors.yellow.withOpacity(0.2)
                   : yellowBackground,
@@ -197,7 +183,7 @@ class _HomeStructureState extends State<HomeStructurePage> {
                 return FilesUIPage();
                 break;
               case 2:
-                return LocalFilesPage();
+                return LocalFilePage();
                 break;
               default:
                 return HomeUIPage();
