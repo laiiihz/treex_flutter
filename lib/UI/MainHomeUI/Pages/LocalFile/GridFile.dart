@@ -39,7 +39,9 @@ class _GridFileState extends State<GridFileWidget> {
       text: _realFileType,
       color: _realColor,
       smallText: true,
-      callback: widget.onTap,
+      callback: () {
+        goToFileTypesPage(context, _shortPath);
+      },
     );
   }
 }
