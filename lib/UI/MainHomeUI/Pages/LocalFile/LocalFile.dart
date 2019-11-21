@@ -17,6 +17,8 @@ class _LocalFileState extends State<LocalFilePage> {
   List<FileSystemEntity> _presentFiles = [];
   Widget _buildGrid() {
     return GridView.builder(
+      key: Key('build grid'),
+      physics: BouncingScrollPhysics(),
       gridDelegate:
           SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
       itemBuilder: (BuildContext context, int index) {
@@ -31,6 +33,7 @@ class _LocalFileState extends State<LocalFilePage> {
 
   Widget _buildList() {
     return ListView.builder(
+      key: Key('build list'),
       physics: BouncingScrollPhysics(),
       itemBuilder: (BuildContext context, int index) {
         return ListFileWidget(onTap: () {}, file: _presentFiles[index]);
@@ -78,7 +81,20 @@ class _LocalFileState extends State<LocalFilePage> {
         AnimatedContainer(
           duration: Duration(milliseconds: 500),
           height: 50,
-          decoration: BoxDecoration(color: yellowBackgroundDark),
+          decoration: BoxDecoration(
+            color: yellowBackgroundDark,
+            borderRadius: BorderRadius.only(
+              bottomRight: Radius.circular(10),
+              bottomLeft: Radius.circular(10),
+            ),
+            boxShadow: [
+              BoxShadow(
+                color: yellowBackgroundDark,
+                blurRadius: 10,
+                offset: Offset(0, 5),
+              ),
+            ],
+          ),
           child: Row(
             children: <Widget>[
               Spacer(),
@@ -109,9 +125,18 @@ class _LocalFileState extends State<LocalFilePage> {
           ),
         ),
         Expanded(
-          child: _crossFadeStateGrid == CrossFadeState.showFirst
-              ? _buildGrid()
-              : _buildList(),
+          child: AnimatedSwitcher(
+            duration: Duration(milliseconds: 500),
+            child: _crossFadeStateGrid == CrossFadeState.showFirst
+                ? _buildGrid()
+                : _buildList(),
+            transitionBuilder: (child, animation) {
+              return FadeTransition(
+                opacity: animation,
+                child: child,
+              );
+            },
+          ),
         ),
       ],
     );

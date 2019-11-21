@@ -1,3 +1,4 @@
+import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:treex_flutter/Provider/AppProvider.dart';
@@ -10,6 +11,8 @@ class SingleBlockWidget extends StatefulWidget {
     @required this.color,
     this.callback,
     this.smallText = false,
+    this.showBadge = false,
+    this.badgeChild,
   }) : super(key: key);
 
   final IconData icon;
@@ -17,6 +20,8 @@ class SingleBlockWidget extends StatefulWidget {
   final Color color;
   final VoidCallback callback;
   final bool smallText;
+  final bool showBadge;
+  final Widget badgeChild;
 
   @override
   State<StatefulWidget> createState() => _SingleBlockState();
@@ -41,10 +46,18 @@ class _SingleBlockState extends State<SingleBlockWidget> {
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Icon(
-                  widget.icon,
-                  size: 50,
-                  color: Colors.white,
+                Badge(
+                  child: Icon(
+                    widget.icon,
+                    size: 50,
+                    color: Colors.white,
+                  ),
+                  badgeColor: Colors.white54,
+                  elevation: 0,
+                  badgeContent: widget.badgeChild,
+                  showBadge: widget.showBadge,
+                  borderRadius: 5,
+                  shape: BadgeShape.square,
                 ),
                 SizedBox(
                   height: 5,

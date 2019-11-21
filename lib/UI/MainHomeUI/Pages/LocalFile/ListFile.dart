@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:treex_flutter/UI/MainHomeUI/Pages/LocalFile/LocalFileFunc.dart';
 
@@ -41,6 +42,16 @@ class _ListFileState extends State<ListFileWidget> {
         trailing: Row(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
+            Badge(
+              showBadge: false,
+              badgeContent: Text(
+                '',  //TODO new file size
+                style: TextStyle(color: Colors.white),
+              ),
+              badgeColor: Colors.blue,
+              shape: BadgeShape.square,
+              borderRadius: 5,
+            ),
             Text(_fileNumber),
           ],
         ),
