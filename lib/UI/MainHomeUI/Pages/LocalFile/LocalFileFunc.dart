@@ -1,6 +1,11 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:treex_flutter/UI/MainHomeUI/Pages/SingleTypeController/Document.dart';
+import 'package:treex_flutter/UI/MainHomeUI/Pages/SingleTypeController/Movie.dart';
+import 'package:treex_flutter/UI/MainHomeUI/Pages/SingleTypeController/MusicList.dart';
+import 'package:treex_flutter/UI/MainHomeUI/Pages/SingleTypeController/NormalFiles.dart';
+import 'package:treex_flutter/UI/MainHomeUI/Pages/SingleTypeController/Photo.dart';
 
 final Map<String, IconData> _displayIcons = {
   'music': Icons.library_music,
@@ -23,6 +28,23 @@ final Map<String, Color> _displayColor = {
   'docs': Colors.blue,
   'others': Colors.yellow,
 };
+
+final Map<String, Widget> _namedPagesOnFileTypes = {
+  'music': MusicListPage(),
+  'movies': MoviePage(),
+  'pics': PhotoPage(),
+  'docs': DocumentPage(),
+  'others': NormalFilesPage(),
+};
+
+goToFileTypesPage(BuildContext context, String name) {
+  Navigator.of(context).push(
+    MaterialPageRoute(
+      builder: (BuildContext context) => _namedPagesOnFileTypes[name],
+    ),
+  );
+}
+
 String getDisplayName(String name) {
   return _displayName[name];
 }

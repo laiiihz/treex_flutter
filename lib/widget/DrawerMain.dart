@@ -107,11 +107,41 @@ class _DrawerMainState extends State<DrawerMainWidget> {
                         );
                       }),
                   Spacer(),
-                  Text('夜间模式'),
-                  Switch(
-                    value: provider.nightModeOn,
-                    onChanged: (value) {
-                      provider.changeNightModeState(value);
+                  PopupMenuButton<int>(
+                    itemBuilder: (context) {
+                      return [
+                        PopupMenuItem(
+                          child: Text('开'),
+                          value: 0,
+                        ),
+                        PopupMenuItem(
+                          child: Text('关'),
+                          value: 1,
+                        ),
+                        PopupMenuItem(
+                          child: Text('自动'),
+                          value: 2,
+                        ),
+                      ];
+                    },
+                    child: Padding(
+                      padding: EdgeInsets.all(5),
+                      child: Text('夜间模式'),
+                    ),
+                    onSelected: (value) {
+                      switch (value) {
+                        case 0:
+                          provider.changeNightModeState(true);
+                          provider.changeAutoNightModeState(false);
+                          break;
+                        case 1:
+                          provider.changeNightModeState(false);
+                          provider.changeAutoNightModeState(false);
+                          break;
+                        case 2:
+                          provider.changeAutoNightModeState(true);
+                          break;
+                      }
                     },
                   ),
                 ],

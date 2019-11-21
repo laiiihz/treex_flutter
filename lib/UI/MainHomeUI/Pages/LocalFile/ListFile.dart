@@ -35,9 +35,11 @@ class _ListFileState extends State<ListFileWidget> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: widget.onTap,
+      onTap: () {
+        goToFileTypesPage(context, _shortPath);
+      },
       child: ListTile(
-        leading: Icon(_realFileIcon),
+        leading: Hero(tag: _shortPath, child: Icon(_realFileIcon)),
         title: Text(_realFileType),
         trailing: Row(
           mainAxisSize: MainAxisSize.min,
@@ -45,7 +47,7 @@ class _ListFileState extends State<ListFileWidget> {
             Badge(
               showBadge: false,
               badgeContent: Text(
-                '',  //TODO new file size
+                '', //TODO new file size
                 style: TextStyle(color: Colors.white),
               ),
               badgeColor: Colors.blue,

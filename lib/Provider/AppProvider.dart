@@ -7,4 +7,11 @@ class AppProvider extends ChangeNotifier {
     _nightModeOn = nightState;
     notifyListeners();
   }
+
+  bool _autoNightMode = false;
+  get autoNightMode => _autoNightMode;
+  changeAutoNightModeState(bool autoState) {
+    _autoNightMode = autoState;
+    notifyListeners();
+  }
 }

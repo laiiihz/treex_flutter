@@ -68,7 +68,7 @@ class _User2PasswordState extends State<User2PasswordPage> {
                         _networkOperate = false;
                       });
                       if (passed) {
-                        Navigator.of(context).push(
+                        Navigator.of(context).pushReplacement(
                           MaterialPageRoute(
                             builder: (BuildContext context) =>
                                 HomeStructurePage(),

@@ -34,6 +34,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Treex',
       theme: provider.nightModeOn ? darkTheme : defaultTheme,
+      darkTheme: provider.autoNightMode ? darkTheme : null,
       home: SplashPage(),
       localizationsDelegates: [
         S.delegate,

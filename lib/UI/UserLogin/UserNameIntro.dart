@@ -55,7 +55,7 @@ class _UserNameIntroState extends State<UserNameIntroPage> {
                         _networkOperate = false;
                       });
                       if (haveUser) {
-                        Navigator.of(context).push(
+                        Navigator.of(context).pushReplacement(
                           MaterialPageRoute(
                             builder: (BuildContext context) =>
                                 User2PasswordPage(
@@ -64,7 +64,7 @@ class _UserNameIntroState extends State<UserNameIntroPage> {
                           ),
                         );
                       } else {
-                        Navigator.of(context).push(
+                        Navigator.of(context).pushReplacement(
                           MaterialPageRoute(
                             builder: (BuildContext context) => User2SignUpPage(
                               userName: _textEditingController.text,
@@ -119,6 +119,9 @@ class _UserNameIntroState extends State<UserNameIntroPage> {
                     TextField(
                       controller: _textEditingController,
                       autofocus: true,
+                      onSubmitted: (text){
+                        print('test');
+                      },
                       onChanged: (text) {
                         setState(() {
                           _firstEnter = false;
