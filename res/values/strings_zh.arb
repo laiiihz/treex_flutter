@@ -13,5 +13,15 @@
   "password_cant_be_empty": "密码不能为空",
   "home": "主页",
   "cloud_files": "云盘",
-  "local_files": "本地"
+  "local_files": "本地",
+  "night_mode": "夜间模式",
+  "auto": "自动",
+  "off": "关闭",
+  "on": "开启",
+  "settings": "设置",
+  "log_out": "退出登录",
+  "share": "分享",
+  "developer_mode": "开发模式",
+  "user_settings": "用户设置",
+  "add_user": "添加用户"
 }

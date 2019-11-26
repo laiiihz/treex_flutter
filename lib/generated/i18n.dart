@@ -22,19 +22,29 @@ class S implements WidgetsLocalizations {
   TextDirection get textDirection => TextDirection.ltr;
 
   String get about => "About";
+  String get add_user => "Add User";
+  String get auto => "AUTO";
   String get cloud_files => "CLOUD FILES";
   String get create_a_account_if_you_dont_have => "Create a Account if you don't have";
+  String get developer_mode => "Developer Mode";
   String get home => "HOME";
   String get local_files => "LOCAL FILES";
+  String get log_out => "LOG OUT";
   String get loginin_on_signup => "LOGININ ON SIGNUP";
   String get next => "NEXT";
+  String get night_mode => "NIGHT MODE";
+  String get off => "OFF";
+  String get on => "ON";
   String get password => "YOUR PASSWORD";
   String get password_cant_be_empty => "PASSWORD CANT BE EMPTY";
+  String get settings => "SETTINGS";
+  String get share => "Share";
   String get short_password => "PASSWORD";
   String get sign_up_sign_in => "SIGN UP/SIGN IN";
   String get tree => "Tree";
   String get user_name => "User Name";
   String get user_name_cant_empty => "User Name can't be Empty";
+  String get user_settings => "User Settings";
   String get x => "x";
 }
 
@@ -51,33 +61,53 @@ class $zh extends S {
   @override
   String get next => "下一步";
   @override
-  String get create_a_account_if_you_dont_have => "若无账户将创建账户";
+  String get auto => "自动";
   @override
   String get user_name => "用户名";
   @override
   String get about => "关于";
   @override
-  String get tree => "Tree";
-  @override
   String get local_files => "本地";
   @override
-  String get loginin_on_signup => "登录或注册 ";
+  String get night_mode => "夜间模式";
   @override
   String get short_password => "密码";
   @override
-  String get home => "主页";
+  String get developer_mode => "开发模式";
   @override
-  String get cloud_files => "云盘";
+  String get user_settings => "用户设置";
   @override
   String get password => "输入您的密码 ";
+  @override
+  String get share => "分享";
+  @override
+  String get user_name_cant_empty => "用户名不能为空1";
+  @override
+  String get password_cant_be_empty => "密码不能为空";
+  @override
+  String get on => "开启";
+  @override
+  String get create_a_account_if_you_dont_have => "若无账户将创建账户";
+  @override
+  String get settings => "设置";
+  @override
+  String get tree => "Tree";
+  @override
+  String get loginin_on_signup => "登录或注册 ";
+  @override
+  String get off => "关闭";
+  @override
+  String get home => "主页";
+  @override
+  String get log_out => "退出登录";
+  @override
+  String get cloud_files => "云盘";
   @override
   String get x => "x";
   @override
   String get sign_up_sign_in => "登录/注册";
   @override
-  String get user_name_cant_empty => "用户名不能为空1";
-  @override
-  String get password_cant_be_empty => "密码不能为空";
+  String get add_user => "添加用户";
 }
 
 class GeneratedLocalizationsDelegate extends LocalizationsDelegate<S> {

@@ -3,8 +3,8 @@ import 'package:provider/provider.dart';
 import 'package:share/share.dart';
 import 'package:treex_flutter/ColorSchemes.dart';
 import 'package:treex_flutter/Provider/AppProvider.dart';
-import 'package:treex_flutter/UI/DrawerMenus/About.dart';
-import 'package:treex_flutter/UI/DrawerMenus/Settings.dart';
+import 'package:treex_flutter/UI/Overlay/DrawerMenus/About.dart';
+import 'package:treex_flutter/UI/Overlay/DrawerMenus/Settings.dart';
 import 'package:treex_flutter/dev/Developer.dart';
 import 'package:treex_flutter/generated/i18n.dart';
 
@@ -34,14 +34,14 @@ class _DrawerMainState extends State<DrawerMainWidget> {
                     InkWell(
                       child: ListTile(
                         leading: Icon(Icons.person),
-                        title: Text('用户设置'),
+                        title: Text(S.of(context).user_settings),
                       ),
                       onTap: () {},
                     ),
                     InkWell(
                       child: ListTile(
                         leading: Icon(Icons.add),
-                        title: Text('添加用户'),
+                        title: Text(S.of(context).add_user),
                       ),
                       onTap: () {},
                     ),
@@ -54,7 +54,7 @@ class _DrawerMainState extends State<DrawerMainWidget> {
                     InkWell(
                       child: ListTile(
                         leading: Icon(Icons.sentiment_satisfied),
-                        title: Text('About'),
+                        title: Text(S.of(context).about),
                       ),
                       onTap: () {
                         Navigator.of(context).push(
@@ -67,10 +67,10 @@ class _DrawerMainState extends State<DrawerMainWidget> {
                     InkWell(
                       child: ListTile(
                         leading: Icon(Icons.share),
-                        title: Text('Share'),
+                        title: Text(S.of(context).share),
                       ),
                       onTap: () {
-                        Share.share('test');
+                        Share.share('https://baidu.com');
                       },
                     ),
 
@@ -78,7 +78,7 @@ class _DrawerMainState extends State<DrawerMainWidget> {
                     InkWell(
                       child: ListTile(
                         leading: Icon(Icons.developer_mode),
-                        title: Text('Developer Mode'),
+                        title: Text(S.of(context).developer_mode),
                       ),
                       onTap: () {
                         Navigator.of(context).push(

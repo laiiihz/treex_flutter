@@ -13,5 +13,15 @@
   "password_cant_be_empty": "PASSWORD CANT BE EMPTY",
   "home": "HOME",
   "cloud_files": "CLOUD FILES",
-  "local_files": "LOCAL FILES"
+  "local_files": "LOCAL FILES",
+  "night_mode": "NIGHT MODE",
+  "auto": "AUTO",
+  "off": "OFF",
+  "on": "ON",
+  "settings": "SETTINGS",
+  "log_out": "LOG OUT",
+  "share": "Share",
+  "developer_mode": "Developer Mode",
+  "user_settings": "User Settings",
+  "add_user": "Add User"
 }

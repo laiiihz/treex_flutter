@@ -9,7 +9,7 @@ import 'package:treex_flutter/UI/MainHomeUI/Pages/HomeUI.dart';
 import 'package:treex_flutter/UI/MainHomeUI/Pages/LocalFile/LocalFile.dart';
 import 'package:treex_flutter/UI/MainHomeUI/SearchPage.dart';
 import 'package:treex_flutter/generated/i18n.dart';
-import 'package:treex_flutter/widget/DrawerMain.dart';
+import 'package:treex_flutter/UI/Overlay/DrawerMain.dart';
 
 class HomeStructurePage extends StatefulWidget {
   @override
