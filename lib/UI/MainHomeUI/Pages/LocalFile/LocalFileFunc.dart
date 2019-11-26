@@ -65,3 +65,15 @@ String getFileShortName(FileSystemEntity fileSystemEntity) {
 int getUnderFileLength(FileSystemEntity fileSystemEntity) {
   return Directory(fileSystemEntity.path).listSync().length;
 }
+
+bool getFileIsDir(FileSystemEntity fileSystemEntity) {
+  return FileSystemEntity.isDirectorySync(fileSystemEntity.path);
+}
+
+IconData getFileOrDirIcon(FileSystemEntity fileSystemEntity) {
+  if (getFileIsDir(fileSystemEntity)) {
+    return Icons.folder;
+  } else {
+    return Icons.insert_drive_file;
+  }
+}

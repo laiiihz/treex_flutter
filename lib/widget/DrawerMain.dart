@@ -52,7 +52,7 @@ class _DrawerMainState extends State<DrawerMainWidget> {
                     ),
                     InkWell(
                       child: ListTile(
-                        leading: Icon(Icons.settings),
+                        leading: Icon(Icons.sentiment_satisfied),
                         title: Text('About'),
                       ),
                       onTap: () {
@@ -173,7 +173,7 @@ class _DrawerMainState extends State<DrawerMainWidget> {
                           maxRadius: 30,
                         ),
                         Text(
-                          'name',
+                          provider.userName,
                           style: TextStyle(fontSize: 25),
                         ),
                       ],

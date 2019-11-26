@@ -1,9 +1,11 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:treex_flutter/Provider/AppProvider.dart';
 import 'package:treex_flutter/UI/UserLogin/User2Password.dart';
 import 'package:treex_flutter/UI/UserLogin/User2SignUp.dart';
-import 'package:treex_flutter/utils/NetUtil.dart';
+import 'package:treex_flutter/generated/i18n.dart';
 import 'package:treex_flutter/widget/BackgroundPage.dart';
 
 class UserNameIntroPage extends StatefulWidget {
@@ -18,6 +20,7 @@ class _UserNameIntroState extends State<UserNameIntroPage> {
   bool _firstEnter = true;
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<AppProvider>(context);
     return Scaffold(
       floatingActionButton: Row(
         children: <Widget>[
@@ -50,6 +53,7 @@ class _UserNameIntroState extends State<UserNameIntroPage> {
                       return true;
                     }
 
+                    provider.setUserName(_textEditingController.text);
                     haveUser().then((haveUser) {
                       setState(() {
                         _networkOperate = false;
@@ -75,7 +79,7 @@ class _UserNameIntroState extends State<UserNameIntroPage> {
                     });
                   }
                 : null,
-            label: Text('下一步'),
+            label: Text(S.of(context).next),
             heroTag: 'next',
           ),
         ],
@@ -113,13 +117,13 @@ class _UserNameIntroState extends State<UserNameIntroPage> {
                       ),
                     ),
                     Text(
-                      '登录或注册 ',
+                      S.of(context).loginin_on_signup,
                       style: TextStyle(fontSize: 35, color: Colors.white),
                     ),
                     TextField(
                       controller: _textEditingController,
                       autofocus: true,
-                      onSubmitted: (text){
+                      onSubmitted: (text) {
                         print('test');
                       },
                       onChanged: (text) {
@@ -137,10 +141,10 @@ class _UserNameIntroState extends State<UserNameIntroPage> {
                         }
                       },
                       decoration: InputDecoration(
-                        labelText: '用户名',
-                        helperText: '若无账户将创建账户',
+                        labelText: S.of(context).user_name,
+                        helperText: S.of(context).create_a_account_if_you_dont_have,
                         errorText:
-                            !_couldNext && !_firstEnter ? '用户名不能为空' : null,
+                            !_couldNext && !_firstEnter ? S.of(context).user_name_cant_empty : null,
                         helperStyle: TextStyle(color: Colors.white),
                         prefixIcon: IconButton(
                           icon: Icon(

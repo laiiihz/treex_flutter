@@ -13,6 +13,7 @@ class PhotoPage extends StatefulWidget {
 
 class _PhotoState extends State<PhotoPage> {
   List<FileSystemEntity> _photosFiles = [];
+  TapDownDetails _tapDownDetails;
   @override
   void initState() {
     super.initState();
@@ -98,10 +99,20 @@ class _PhotoState extends State<PhotoPage> {
                                 ),
                               );
                             },
+                            onTapDown: (detail) {
+                              setState(() {
+                                _tapDownDetails = detail;
+                              });
+                            },
                             onLongPress: () {
                               showMenu(
                                   context: context,
-                                  position: RelativeRect.fromLTRB(0, 0, 0, 0),
+                                  position: RelativeRect.fromLTRB(
+                                    _tapDownDetails.globalPosition.dx,
+                                    _tapDownDetails.globalPosition.dy,
+                                    MediaQuery.of(context).size.width,
+                                    MediaQuery.of(context).size.height,
+                                  ),
                                   items: [
                                     PopupMenuItem(child: Text('test')),
                                   ]);

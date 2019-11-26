@@ -1,6 +1,5 @@
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
-import 'package:share/share.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:treex_flutter/ColorSchemes.dart';
 import 'package:treex_flutter/UI/UserLogin/UserIntro.dart';

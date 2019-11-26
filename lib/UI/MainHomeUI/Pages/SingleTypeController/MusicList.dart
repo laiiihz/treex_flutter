@@ -46,50 +46,58 @@ class _MusicListState extends State<MusicListPage> {
               duration: Duration(milliseconds: 150),
               height: _openMusicface ? MediaQuery.of(context).size.height : 80,
               color: Colors.grey,
-              child: Column(
-                children: <Widget>[
-                  Hero(
-                    tag: 'slider',
-                    child: LinearProgressIndicator(value: 0.4,),
-                  ),
-                  Expanded(
-                    child: Material(
-                      child: Row(
-                        children: <Widget>[
-                          Padding(
-                            padding: EdgeInsets.only(left: 10),
-                            child: InkWell(
-                              child: Hero(
-                                tag: 'music_face',
-                                child: CircleAvatar(child: Text('F')),
-                              ),
-                              onTap: () {
-                                setState(() {
-                                  _openMusicface = true;
-                                });
-                                Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                    builder: (BuildContext context) =>
-                                        MusicHelperPage(),
-                                  ),
-                                );
-                                Future.delayed(Duration(milliseconds: 500), () {
-                                  setState(() {
-                                    _openMusicface = false;
-                                  });
-                                });
-                              },
-                            ),
-                          ),
-                          Spacer(),
-                          IconButton(icon: Icon(Icons.pause), onPressed: () {}),
-                          IconButton(
-                              icon: Icon(Icons.skip_next), onPressed: () {}),
-                        ],
+              child: Material(
+                child: InkWell(
+                  onTap: (){
+                    setState(() {
+                      _openMusicface = true;
+                    });
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (BuildContext context) =>
+                            MusicHelperPage(),
                       ),
-                    ),
+                    );
+                    Future.delayed(Duration(milliseconds: 500), () {
+                      setState(() {
+                        _openMusicface = false;
+                      });
+                    });
+                  },
+                  child: Column(
+                    children: <Widget>[
+                      Hero(
+                        tag: 'slider',
+                        child: LinearProgressIndicator(value: 0.4,),
+                      ),
+                      Expanded(
+                        child: Material(
+                          color: Colors.transparent,
+                          child: Row(
+                            children: <Widget>[
+                              Padding(
+                                padding: EdgeInsets.only(left: 10),
+                                child: InkWell(
+                                  child: Hero(
+                                    tag: 'music_face',
+                                    child: CircleAvatar(child: Text('F')),
+                                  ),
+                                  onTap: () {
+
+                                  },
+                                ),
+                              ),
+                              Spacer(),
+                              IconButton(icon: Icon(Icons.pause), onPressed: () {}),
+                              IconButton(
+                                  icon: Icon(Icons.skip_next), onPressed: () {}),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                ],
+                ),
               ),
             ),
           ),

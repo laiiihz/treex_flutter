@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:treex_flutter/generated/i18n.dart';
 
 class AboutPage extends StatefulWidget {
   @override
@@ -10,7 +11,7 @@ class _AboutState extends State<AboutPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('About'),
+        title: Text(S.of(context).about),
       ),
       body: Column(
         children: <Widget>[

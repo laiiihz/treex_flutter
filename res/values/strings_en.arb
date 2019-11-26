@@ -1,1 +1,17 @@
-{}
+{
+  "about": "About",
+  "tree": "Tree",
+  "x": "x",
+  "sign_up_sign_in": "SIGN UP/SIGN IN",
+  "next": "NEXT",
+  "user_name": "User Name",
+  "user_name_cant_empty": "User Name can't be Empty",
+  "create_a_account_if_you_dont_have": "Create a Account if you don't have",
+  "loginin_on_signup": "LOGININ ON SIGNUP",
+  "password": "YOUR PASSWORD",
+  "short_password": "PASSWORD",
+  "password_cant_be_empty": "PASSWORD CANT BE EMPTY",
+  "home": "HOME",
+  "cloud_files": "CLOUD FILES",
+  "local_files": "LOCAL FILES"
+}

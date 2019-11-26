@@ -1,1 +1,17 @@
-{}
+{
+  "about": "关于",
+  "tree": "Tree",
+  "x": "x",
+  "sign_up_sign_in": "登录/注册",
+  "next": "下一步",
+  "user_name": "用户名",
+  "user_name_cant_empty": "用户名不能为空1",
+  "create_a_account_if_you_dont_have": "若无账户将创建账户",
+  "loginin_on_signup": "登录或注册 ",
+  "password": "输入您的密码 ",
+  "short_password": "密码",
+  "password_cant_be_empty": "密码不能为空",
+  "home": "主页",
+  "cloud_files": "云盘",
+  "local_files": "本地"
+}

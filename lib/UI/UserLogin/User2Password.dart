@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:treex_flutter/UI/MainHomeUI/HomeStructure.dart';
+import 'package:treex_flutter/generated/i18n.dart';
 import 'package:treex_flutter/utils/NetUtil.dart';
 import 'package:treex_flutter/widget/BackgroundPage.dart';
 
@@ -79,7 +80,7 @@ class _User2PasswordState extends State<User2PasswordPage> {
                   }
                 : null,
             backgroundColor: _couldNext ? null : Colors.grey,
-            label: Text('下一步'),
+            label: Text(S.of(context).next),
             heroTag: 'next',
           ),
         ],
@@ -105,9 +106,9 @@ class _User2PasswordState extends State<User2PasswordPage> {
                           fontSize: 60,
                         ),
                         children: [
-                          TextSpan(text: 'Tree'),
+                          TextSpan(text: S.of(context).tree),
                           TextSpan(
-                              text: 'x', style: TextStyle(color: Colors.red)),
+                              text: S.of(context).x, style: TextStyle(color: Colors.red)),
                         ],
                       ),
                     ),
@@ -117,7 +118,7 @@ class _User2PasswordState extends State<User2PasswordPage> {
                     style: TextStyle(fontSize: 40, color: Colors.white),
                   ),
                   Text(
-                    '输入您的密码 ',
+                    S.of(context).password,
                     style: TextStyle(fontSize: 40, color: Colors.white),
                   ),
                   TextField(
@@ -139,9 +140,9 @@ class _User2PasswordState extends State<User2PasswordPage> {
                       }
                     },
                     decoration: InputDecoration(
-                      labelText: '密码',
+                      labelText: S.of(context).short_password,
                       errorText:
-                          (!_couldNext && !_firstEnter) ? '密码不能为空' : null,
+                          (!_couldNext && !_firstEnter) ? S.of(context).password_cant_be_empty : null,
                       prefixIcon: IconButton(
                         icon: Icon(
                           Icons.person,
