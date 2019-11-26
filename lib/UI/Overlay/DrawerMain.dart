@@ -6,6 +6,7 @@ import 'package:treex_flutter/Provider/AppProvider.dart';
 import 'package:treex_flutter/UI/DrawerMenus/About.dart';
 import 'package:treex_flutter/UI/DrawerMenus/Settings.dart';
 import 'package:treex_flutter/dev/Developer.dart';
+import 'package:treex_flutter/generated/i18n.dart';
 
 class DrawerMainWidget extends StatefulWidget {
   @override
@@ -92,7 +93,7 @@ class _DrawerMainState extends State<DrawerMainWidget> {
               ),
               MaterialButton(
                 onPressed: () {},
-                child: Text('退出登录'),
+                child: Text(S.of(context).log_out),
                 color: Colors.red,
               ),
               Row(
@@ -111,22 +112,22 @@ class _DrawerMainState extends State<DrawerMainWidget> {
                     itemBuilder: (context) {
                       return [
                         PopupMenuItem(
-                          child: Text('开'),
+                          child: Text(S.of(context).on),
                           value: 0,
                         ),
                         PopupMenuItem(
-                          child: Text('关'),
+                          child: Text(S.of(context).off),
                           value: 1,
                         ),
                         PopupMenuItem(
-                          child: Text('自动'),
+                          child: Text(S.of(context).auto),
                           value: 2,
                         ),
                       ];
                     },
                     child: Padding(
                       padding: EdgeInsets.all(5),
-                      child: Text('夜间模式'),
+                      child: Text(S.of(context).night_mode),
                     ),
                     onSelected: (value) {
                       switch (value) {
