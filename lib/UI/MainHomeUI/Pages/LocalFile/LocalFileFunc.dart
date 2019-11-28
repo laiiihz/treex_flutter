@@ -45,7 +45,7 @@ goToFileTypesPage(BuildContext context, String name) {
   );
 }
 
-String getDisplayName(String name) {
+String getDisplayName(String name,) {
   return _displayName[name];
 }
 

@@ -26,5 +26,6 @@
   "add_user": "Add User",
   "new_folder": "NEW FOLDER",
   "cancel": "CANCEL",
-  "folder_name_cant_be_empty": "Folder name can't be empty"
+  "folder_name_cant_be_empty": "Folder name can't be empty",
+  "photos": "PHOTOS"
 }

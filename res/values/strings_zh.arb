@@ -26,5 +26,6 @@
   "add_user": "添加用户",
   "new_folder": "新建文件夹",
   "cancel": "取消",
-  "folder_name_cant_be_empty": "文件夹名称不能为空"
+  "folder_name_cant_be_empty": "文件夹名称不能为空",
+  "photos": "相册"
 }

@@ -40,6 +40,7 @@ class S implements WidgetsLocalizations {
   String get on => "ON";
   String get password => "YOUR PASSWORD";
   String get password_cant_be_empty => "PASSWORD CANT BE EMPTY";
+  String get photos => "PHOTOS";
   String get settings => "SETTINGS";
   String get share => "Share";
   String get short_password => "PASSWORD";
@@ -75,6 +76,8 @@ class $zh extends S {
   String get local_files => "本地";
   @override
   String get night_mode => "夜间模式";
+  @override
+  String get photos => "相册";
   @override
   String get short_password => "密码";
   @override

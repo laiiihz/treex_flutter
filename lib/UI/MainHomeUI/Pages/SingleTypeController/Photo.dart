@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:treex_flutter/UI/MainHomeUI/Pages/LocalFile/LocalFileFunc.dart';
 import 'package:treex_flutter/UI/MainHomeUI/Pages/SingleTypeController/helpers/ImageHelper.dart';
+import 'package:treex_flutter/generated/i18n.dart';
 
 class PhotoPage extends StatefulWidget {
   @override
@@ -36,7 +37,7 @@ class _PhotoState extends State<PhotoPage> {
           SliverAppBar(
             floating: true,
             snap: false,
-            title: Text('PHOTOS'),
+            title: Text(S.of(context).photos),
             expandedHeight: 200,
             flexibleSpace: Stack(
               children: <Widget>[
@@ -69,10 +70,22 @@ class _PhotoState extends State<PhotoPage> {
             ),
           ),
           SliverGrid(
-            gridDelegate:
-                SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: _photosFiles.length == 0 ? 1 : 3),
             delegate: SliverChildBuilderDelegate(
               (context, index) {
+                if (_photosFiles.length == 0) {
+                  return Center(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        Icon(Icons.add_circle_outline),
+                        Text('Empty'),
+                      ],
+                    ),
+                  );
+                }
+
                 return Card(
                   child: Stack(
                     children: <Widget>[
@@ -124,7 +137,7 @@ class _PhotoState extends State<PhotoPage> {
                   ),
                 );
               },
-              childCount: _photosFiles.length,
+              childCount: _photosFiles.length == 0 ? 1 : _photosFiles.length,
             ),
           ),
         ],
