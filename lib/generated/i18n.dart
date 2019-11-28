@@ -24,13 +24,16 @@ class S implements WidgetsLocalizations {
   String get about => "About";
   String get add_user => "Add User";
   String get auto => "AUTO";
+  String get cancel => "CANCEL";
   String get cloud_files => "CLOUD FILES";
   String get create_a_account_if_you_dont_have => "Create a Account if you don't have";
   String get developer_mode => "Developer Mode";
+  String get folder_name_cant_be_empty => "Folder name can't be empty";
   String get home => "HOME";
   String get local_files => "LOCAL FILES";
   String get log_out => "LOG OUT";
   String get loginin_on_signup => "LOGININ ON SIGNUP";
+  String get new_folder => "NEW FOLDER";
   String get next => "NEXT";
   String get night_mode => "NIGHT MODE";
   String get off => "OFF";
@@ -61,6 +64,8 @@ class $zh extends S {
   @override
   String get next => "下一步";
   @override
+  String get cancel => "取消";
+  @override
   String get auto => "自动";
   @override
   String get user_name => "用户名";
@@ -81,6 +86,8 @@ class $zh extends S {
   @override
   String get share => "分享";
   @override
+  String get folder_name_cant_be_empty => "文件夹名称不能为空";
+  @override
   String get user_name_cant_empty => "用户名不能为空1";
   @override
   String get password_cant_be_empty => "密码不能为空";
@@ -92,6 +99,8 @@ class $zh extends S {
   String get settings => "设置";
   @override
   String get tree => "Tree";
+  @override
+  String get new_folder => "新建文件夹";
   @override
   String get loginin_on_signup => "登录或注册 ";
   @override

@@ -28,7 +28,9 @@ class _HomeStructureState extends State<HomeStructurePage> {
   @override
   void initState() {
     super.initState();
-    _textTile = Text(S.of(context).home, key: Key('defalt'));
+    Future.delayed(Duration.zero, () {
+      _textTile = Text(S.of(context).home, key: Key('defalt'));
+    });
   }
 
   @override
@@ -47,7 +49,6 @@ class _HomeStructureState extends State<HomeStructurePage> {
       ),
     );
   }
-
 
   //BUILD FUNCTIONS
   Widget _buildPages(BuildContext context) {
@@ -223,6 +224,4 @@ class _HomeStructureState extends State<HomeStructurePage> {
       preferredSize: Size.fromHeight(60),
     );
   }
-
-
 }

@@ -47,12 +47,6 @@ class _DrawerMainState extends State<DrawerMainWidget> {
                     ),
                     InkWell(
                       child: ListTile(
-                        title: Text('test'),
-                      ),
-                      onTap: () {},
-                    ),
-                    InkWell(
-                      child: ListTile(
                         leading: Icon(Icons.sentiment_satisfied),
                         title: Text(S.of(context).about),
                       ),

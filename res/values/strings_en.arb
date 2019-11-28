@@ -23,5 +23,8 @@
   "share": "Share",
   "developer_mode": "Developer Mode",
   "user_settings": "User Settings",
-  "add_user": "Add User"
+  "add_user": "Add User",
+  "new_folder": "NEW FOLDER",
+  "cancel": "CANCEL",
+  "folder_name_cant_be_empty": "Folder name can't be empty"
 }

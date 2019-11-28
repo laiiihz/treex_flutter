@@ -23,5 +23,8 @@
   "share": "分享",
   "developer_mode": "开发模式",
   "user_settings": "用户设置",
-  "add_user": "添加用户"
+  "add_user": "添加用户",
+  "new_folder": "新建文件夹",
+  "cancel": "取消",
+  "folder_name_cant_be_empty": "文件夹名称不能为空"
 }
