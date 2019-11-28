@@ -18,6 +18,9 @@ class _NormalFilesState extends State<NormalFilesPage> {
   TapDownDetails _tapDownDetails;
   bool _showFAB = true;
   TextEditingController _textEditingController = TextEditingController();
+  //Default stack index 0
+  //enter a folder index +1
+  int _stackIndex = 0;
 
   @override
   void initState() {
@@ -63,14 +66,22 @@ class _NormalFilesState extends State<NormalFilesPage> {
               ),
             ),
             onWillPop: () async {
-              setState(() {
-                _showFAB = true;
-              });
-              Navigator.of(context).pop();
-              if (_showFAB) {
+              if (!_showFAB) {
+                setState(() {
+                  _showFAB = true;
+                });
+                Navigator.of(context).pop();
                 return false;
-              } else
+              } else if (_stackIndex > 0) {
+                setState(() {
+                  _stackIndex--;
+                  _nowDir = _nowDir.parent;
+                  _files = _nowDir.listSync();
+                });
+                return false;
+              } else {
                 return true;
+              }
             });
   }
 
@@ -168,6 +179,7 @@ class _NormalFilesState extends State<NormalFilesPage> {
           return SingleFileListedWidget(
             fileSystemEntity: _files[index],
             onTap: () {
+              _stackIndex++;
               if (getFileIsDir(_files[index])) {
                 setState(() {
                   _nowDir = _files[index];
