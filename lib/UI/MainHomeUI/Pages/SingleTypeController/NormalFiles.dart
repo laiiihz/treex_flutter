@@ -18,9 +18,11 @@ class _NormalFilesState extends State<NormalFilesPage> {
   TapDownDetails _tapDownDetails;
   bool _showFAB = true;
   TextEditingController _textEditingController = TextEditingController();
+  ScrollController _scrollController = ScrollController();
   //Default stack index 0
   //enter a folder index +1
   int _stackIndex = 0;
+  List<FileSystemEntity> _folderStack = [];
 
   @override
   void initState() {
@@ -34,9 +36,11 @@ class _NormalFilesState extends State<NormalFilesPage> {
       setState(() {
         _nowDir = tempDir;
         _files = tempDir.listSync();
+        _folderStack.insert(0, _nowDir);
       });
     }
 
+    animatedScroll();
     initDir();
   }
 
@@ -58,6 +62,7 @@ class _NormalFilesState extends State<NormalFilesPage> {
                 children: <Widget>[
                   Container(
                     height: 50,
+                    child: _buildFolderStackList(context),
                   ),
                   _files.length == 0
                       ? _buildEmptyDirectory()
@@ -65,24 +70,29 @@ class _NormalFilesState extends State<NormalFilesPage> {
                 ],
               ),
             ),
-            onWillPop: () async {
-              if (!_showFAB) {
-                setState(() {
-                  _showFAB = true;
-                });
-                Navigator.of(context).pop();
-                return false;
-              } else if (_stackIndex > 0) {
-                setState(() {
-                  _stackIndex--;
-                  _nowDir = _nowDir.parent;
-                  _files = _nowDir.listSync();
-                });
-                return false;
-              } else {
-                return true;
-              }
-            });
+            onWillPop: willPopFunc,
+          );
+  }
+
+  Future<bool> willPopFunc() async {
+    if (!_showFAB) {
+      setState(() {
+        _showFAB = true;
+      });
+      Navigator.of(context).pop();
+      return false;
+    } else if (_stackIndex > 0) {
+      setState(() {
+        _stackIndex--;
+        _nowDir = _nowDir.parent;
+        _files = _nowDir.listSync();
+        _folderStack.removeAt(0);
+        animatedScroll();
+      });
+      return false;
+    } else {
+      return true;
+    }
   }
 
   Widget _buildFAB(BuildContext context) {
@@ -187,6 +197,11 @@ class _NormalFilesState extends State<NormalFilesPage> {
                 setState(() {
                   _files = _nowDir.listSync();
                 });
+
+                setState(() {
+                  _folderStack.insert(0, _nowDir);
+                  animatedScroll();
+                });
               } else {
                 Navigator.of(context).push(
                   MaterialPageRoute(
@@ -237,5 +252,34 @@ class _NormalFilesState extends State<NormalFilesPage> {
         itemCount: _files.length,
       ),
     );
+  }
+
+  Widget _buildFolderStackList(BuildContext context) {
+    return ListView.builder(
+      physics: BouncingScrollPhysics(),
+      controller: _scrollController,
+      scrollDirection: Axis.horizontal,
+      itemBuilder: (BuildContext context, int index) {
+        return Row(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            Container(
+              child: Icon(Icons.arrow_left),
+            ),
+            Center(
+              child: Text(getFileShortName(_folderStack[index])),
+            ),
+          ],
+        );
+      },
+      itemCount: _folderStack.length,
+    );
+  }
+
+  Future animatedScroll() async {
+    Future.delayed(Duration(milliseconds: 500), () {
+      _scrollController.animateTo(-20,
+          duration: Duration(milliseconds: 500), curve: Curves.easeInOutCubic);
+    });
   }
 }
