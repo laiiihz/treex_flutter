@@ -6,6 +6,8 @@ import 'package:treex_flutter/Provider/AppProvider.dart';
 import 'package:treex_flutter/UI/UserLogin/User2Password.dart';
 import 'package:treex_flutter/UI/UserLogin/User2SignUp.dart';
 import 'package:treex_flutter/generated/i18n.dart';
+import 'package:treex_flutter/utils/NetUtil.dart';
+import 'package:treex_flutter/utils/PasswordGen.dart';
 import 'package:treex_flutter/widget/BackgroundPage.dart';
 
 class UserNameIntroPage extends StatefulWidget {
@@ -18,6 +20,13 @@ class _UserNameIntroState extends State<UserNameIntroPage> {
   bool _networkOperate = false;
   bool _couldNext = false;
   bool _firstEnter = true;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    genPasswordHMAC(rawPassword: 'testtest', mixed: 'name');
+  }
+
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<AppProvider>(context);
@@ -48,9 +57,11 @@ class _UserNameIntroState extends State<UserNameIntroPage> {
                       _networkOperate = true;
                     });
                     Future<bool> haveUser() async {
-                      //TODO Have user (have user API)
-                      await Future.delayed(Duration(seconds: 1), () {});
-                      return true;
+                      Map<String ,dynamic> result =await UserExistUtil(
+                          name: _textEditingController.text, serverPrefix: '10.27.16.66:8080')
+                          .check();
+                      if(result['exist'])return true;
+                      else return false;
                     }
 
                     provider.setUserName(_textEditingController.text);
@@ -142,9 +153,11 @@ class _UserNameIntroState extends State<UserNameIntroPage> {
                       },
                       decoration: InputDecoration(
                         labelText: S.of(context).user_name,
-                        helperText: S.of(context).create_a_account_if_you_dont_have,
-                        errorText:
-                            !_couldNext && !_firstEnter ? S.of(context).user_name_cant_empty : null,
+                        helperText:
+                            S.of(context).create_a_account_if_you_dont_have,
+                        errorText: !_couldNext && !_firstEnter
+                            ? S.of(context).user_name_cant_empty
+                            : null,
                         helperStyle: TextStyle(color: Colors.white),
                         prefixIcon: IconButton(
                           icon: Icon(

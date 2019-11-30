@@ -8,6 +8,7 @@ import 'package:treex_flutter/UI/Intro/Splash.dart';
 import 'package:treex_flutter/generated/i18n.dart';
 
 void main() {
+  print('--APP START--');
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
