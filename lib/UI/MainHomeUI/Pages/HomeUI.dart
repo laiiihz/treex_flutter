@@ -61,8 +61,9 @@ class _HomeUIState extends State<HomeUIPage> {
           ),
           height: _welcomeTitleHeight,
           decoration: BoxDecoration(
-            color:
-                provider.nightModeOn ? Color(0xff333333) : tealBackgroundDark,
+            color: MediaQuery.of(context).platformBrightness == Brightness.dark
+                ? Color(0xff333333)
+                : tealBackgroundDark,
             borderRadius: BorderRadius.only(
               bottomLeft: Radius.circular(10),
               bottomRight: Radius.circular(10),
@@ -71,9 +72,10 @@ class _HomeUIState extends State<HomeUIPage> {
               BoxShadow(
                 offset: Offset(0, 0),
                 blurRadius: 20,
-                color: provider.nightModeOn
-                    ? Color(0xff666666)
-                    : tealBackgroundDark,
+                color:
+                    MediaQuery.of(context).platformBrightness == Brightness.dark
+                        ? Color(0xff666666)
+                        : tealBackgroundDark,
               ),
             ],
           ),

@@ -27,5 +27,14 @@
   "new_folder": "NEW FOLDER",
   "cancel": "CANCEL",
   "folder_name_cant_be_empty": "Folder name can't be empty",
-  "photos": "PHOTOS"
+  "photos": "PHOTOS",
+  "network_settings": "Network Settings",
+  "set_an_avatar": "Avatar",
+  "sign_up": "Sign Up",
+  "user_agreement": "User Agreement",
+  "agree_and_continue": "Agree and Continue",
+  "user_prefix": "user:",
+  "create_a_account": "Create a Account",
+  "reenter_your_password": "Re-enter your password",
+  "create": "CREATE"
 }

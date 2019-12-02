@@ -25,8 +25,9 @@ class SearchPage extends SearchDelegate<String> {
 
   @override
   ThemeData appBarTheme(BuildContext context) {
-    final provider = Provider.of<AppProvider>(context);
-    return provider.nightModeOn ? ThemeData.dark() : super.appBarTheme(context);
+    return MediaQuery.of(context).platformBrightness == Brightness.dark
+        ? ThemeData.dark()
+        : super.appBarTheme(context);
   }
 
   @override

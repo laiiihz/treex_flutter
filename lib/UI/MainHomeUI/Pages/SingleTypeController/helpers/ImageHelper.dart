@@ -19,7 +19,6 @@ class _ImageHelperState extends State<ImageHelperPage> {
 
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<AppProvider>(context);
     return Scaffold(
       body: Stack(
         children: <Widget>[
@@ -53,7 +52,10 @@ class _ImageHelperState extends State<ImageHelperPage> {
             height: 80,
             child: AppBar(
               leading: BackButton(
-                color: provider.nightModeOn ? Colors.white : Colors.black,
+                color:
+                    MediaQuery.of(context).platformBrightness == Brightness.dark
+                        ? Colors.white
+                        : Colors.black,
               ),
               elevation: 0,
               backgroundColor: Colors.transparent,

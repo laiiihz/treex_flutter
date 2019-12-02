@@ -37,15 +37,20 @@ class _HomeStructureState extends State<HomeStructurePage> {
   Widget build(BuildContext context) {
     return Screenshot(
       controller: _screenshotController,
-      child: Scaffold(
-        appBar: _buildAnimateColoredAppBar(context),
-        drawer: DrawerMainWidget(),
-        floatingActionButton: _buildFAB(context),
-        floatingActionButtonLocation: _bottomBarCurrentIndex == 0
-            ? FloatingActionButtonLocation.centerFloat
-            : FloatingActionButtonLocation.endFloat,
-        bottomNavigationBar: _buildBottomNavBar(context),
-        body: _buildPages(context),
+      child: WillPopScope(
+        onWillPop: () async {
+          return false;
+        },
+        child: Scaffold(
+          appBar: _buildAnimateColoredAppBar(context),
+          drawer: DrawerMainWidget(),
+          floatingActionButton: _buildFAB(context),
+          floatingActionButtonLocation: _bottomBarCurrentIndex == 0
+              ? FloatingActionButtonLocation.centerFloat
+              : FloatingActionButtonLocation.endFloat,
+          bottomNavigationBar: _buildBottomNavBar(context),
+          body: _buildPages(context),
+        ),
       ),
     );
   }
@@ -76,7 +81,6 @@ class _HomeStructureState extends State<HomeStructurePage> {
   }
 
   List<BottomNavigationBarItem> _buildNavBarItems(BuildContext context) {
-    final provider = Provider.of<AppProvider>(context);
     return [
       BottomNavigationBarItem(
         icon: Icon(
@@ -84,7 +88,7 @@ class _HomeStructureState extends State<HomeStructurePage> {
           color: Colors.yellow,
         ),
         title: Text(S.of(context).home),
-        backgroundColor: provider.nightModeOn
+        backgroundColor: MediaQuery.of(context).platformBrightness==Brightness.dark
             ? Colors.teal.withOpacity(0.2)
             : tealBackground,
       ),
@@ -94,7 +98,7 @@ class _HomeStructureState extends State<HomeStructurePage> {
           color: Colors.teal,
         ),
         title: Text(S.of(context).cloud_files),
-        backgroundColor: provider.nightModeOn
+        backgroundColor: MediaQuery.of(context).platformBrightness==Brightness.dark
             ? Colors.blue.withOpacity(0.2)
             : blueBackground,
       ),
@@ -104,7 +108,7 @@ class _HomeStructureState extends State<HomeStructurePage> {
           color: Colors.blue,
         ),
         title: Text(S.of(context).local_files),
-        backgroundColor: provider.nightModeOn
+        backgroundColor: MediaQuery.of(context).platformBrightness==Brightness.dark
             ? Colors.yellow.withOpacity(0.2)
             : yellowBackground,
       ),
@@ -112,7 +116,6 @@ class _HomeStructureState extends State<HomeStructurePage> {
   }
 
   Widget _buildBottomNavBar(BuildContext context) {
-    final provider = Provider.of<AppProvider>(context);
     return BottomNavigationBar(
       type: BottomNavigationBarType.shifting,
       onTap: (index) {
@@ -150,7 +153,7 @@ class _HomeStructureState extends State<HomeStructurePage> {
       },
       elevation: 0,
       currentIndex: _bottomBarCurrentIndex,
-      selectedItemColor: provider.nightModeOn ? Colors.white54 : Colors.black54,
+      selectedItemColor: MediaQuery.of(context).platformBrightness==Brightness.dark ? Colors.white54 : Colors.black54,
       items: _buildNavBarItems(context),
     );
   }
@@ -177,11 +180,10 @@ class _HomeStructureState extends State<HomeStructurePage> {
   }
 
   Widget _buildAnimateColoredAppBar(BuildContext context) {
-    final provider = Provider.of<AppProvider>(context);
     return PreferredSize(
       child: AnimatedContainer(
         decoration: BoxDecoration(
-          color: provider.nightModeOn ? Color(0xff333333) : _appBarColor,
+          color: MediaQuery.of(context).platformBrightness==Brightness.dark ? Color(0xff333333) : _appBarColor,
           boxShadow: [
             BoxShadow(
               offset: Offset(0, 0),

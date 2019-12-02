@@ -17,7 +17,6 @@ class ToolsPage extends StatefulWidget {
 class _ToolsState extends State<ToolsPage> {
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<AppProvider>(context);
     return Scaffold(
       body: Stack(
         children: <Widget>[
@@ -31,7 +30,10 @@ class _ToolsState extends State<ToolsPage> {
               child: Container(
                 height: MediaQuery.of(context).size.height,
                 width: MediaQuery.of(context).size.width,
-                color: provider.nightModeOn ? Colors.black54 : Colors.white54,
+                color:
+                    MediaQuery.of(context).platformBrightness == Brightness.dark
+                        ? Colors.black54
+                        : Colors.white54,
                 child: Align(
                   alignment: Alignment(0, 0.8),
                   child: GridView(

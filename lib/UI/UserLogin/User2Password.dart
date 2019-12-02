@@ -51,16 +51,14 @@ class _User2PasswordState extends State<User2PasswordPage> {
                       _networkOperate = true;
                     });
                     Future<bool> checkUserAuth() async {
-                      //TODO User Auth (Auth API)
-                      String token = await LoginUtil(
+                      dynamic json = await LoginUtil(
                         userName: widget.userName,
                         password: _textEditingController.text,
                         serverPrefix: '10.27.16.66:8080',
                       ).getToken();
-                      SharedPreferences shared = await SharedPreferences.getInstance();
-                      shared.setString('token', token);
-                      await Future.delayed(Duration(seconds: 1), () {});
-                      print(shared.getString('token'));
+                      SharedPreferences shared =
+                          await SharedPreferences.getInstance();
+                      shared.setString('token', json['token']);
                       return true;
                     }
 
@@ -108,7 +106,8 @@ class _User2PasswordState extends State<User2PasswordPage> {
                         children: [
                           TextSpan(text: S.of(context).tree),
                           TextSpan(
-                              text: S.of(context).x, style: TextStyle(color: Colors.red)),
+                              text: S.of(context).x,
+                              style: TextStyle(color: Colors.red)),
                         ],
                       ),
                     ),
@@ -141,8 +140,9 @@ class _User2PasswordState extends State<User2PasswordPage> {
                     },
                     decoration: InputDecoration(
                       labelText: S.of(context).short_password,
-                      errorText:
-                          (!_couldNext && !_firstEnter) ? S.of(context).password_cant_be_empty : null,
+                      errorText: (!_couldNext && !_firstEnter)
+                          ? S.of(context).password_cant_be_empty
+                          : null,
                       prefixIcon: IconButton(
                         icon: Icon(
                           Icons.person,

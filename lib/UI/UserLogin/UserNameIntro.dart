@@ -57,11 +57,14 @@ class _UserNameIntroState extends State<UserNameIntroPage> {
                       _networkOperate = true;
                     });
                     Future<bool> haveUser() async {
-                      Map<String ,dynamic> result =await UserExistUtil(
-                          name: _textEditingController.text, serverPrefix: '10.27.16.66:8080')
+                      Map<String, dynamic> result = await UserExistUtil(
+                              name: _textEditingController.text,
+                              serverPrefix: '10.27.16.66:8080')
                           .check();
-                      if(result['exist'])return true;
-                      else return false;
+                      if (result['exist'])
+                        return true;
+                      else
+                        return false;
                     }
 
                     provider.setUserName(_textEditingController.text);

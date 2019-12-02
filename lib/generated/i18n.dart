@@ -23,9 +23,12 @@ class S implements WidgetsLocalizations {
 
   String get about => "About";
   String get add_user => "Add User";
+  String get agree_and_continue => "Agree and Continue";
   String get auto => "AUTO";
   String get cancel => "CANCEL";
   String get cloud_files => "CLOUD FILES";
+  String get create => "CREATE";
+  String get create_a_account => "Create a Account";
   String get create_a_account_if_you_dont_have => "Create a Account if you don't have";
   String get developer_mode => "Developer Mode";
   String get folder_name_cant_be_empty => "Folder name can't be empty";
@@ -33,6 +36,7 @@ class S implements WidgetsLocalizations {
   String get local_files => "LOCAL FILES";
   String get log_out => "LOG OUT";
   String get loginin_on_signup => "LOGININ ON SIGNUP";
+  String get network_settings => "Network Settings";
   String get new_folder => "NEW FOLDER";
   String get next => "NEXT";
   String get night_mode => "NIGHT MODE";
@@ -41,13 +45,18 @@ class S implements WidgetsLocalizations {
   String get password => "YOUR PASSWORD";
   String get password_cant_be_empty => "PASSWORD CANT BE EMPTY";
   String get photos => "PHOTOS";
+  String get reenter_your_password => "Re-enter your password";
+  String get set_an_avatar => "Avatar";
   String get settings => "SETTINGS";
   String get share => "Share";
   String get short_password => "PASSWORD";
+  String get sign_up => "Sign Up";
   String get sign_up_sign_in => "SIGN UP/SIGN IN";
   String get tree => "Tree";
+  String get user_agreement => "User Agreement";
   String get user_name => "User Name";
   String get user_name_cant_empty => "User Name can't be Empty";
+  String get user_prefix => "user:";
   String get user_settings => "User Settings";
   String get x => "x";
 }
@@ -69,13 +78,21 @@ class $zh extends S {
   @override
   String get auto => "自动";
   @override
+  String get create_a_account => "创建一个新账户";
+  @override
   String get user_name => "用户名";
   @override
+  String get user_agreement => "用户使用协议";
+  @override
   String get about => "关于";
+  @override
+  String get network_settings => "网络设置";
   @override
   String get local_files => "本地";
   @override
   String get night_mode => "夜间模式";
+  @override
+  String get user_prefix => "用户:";
   @override
   String get photos => "相册";
   @override
@@ -87,9 +104,13 @@ class $zh extends S {
   @override
   String get password => "输入您的密码 ";
   @override
+  String get create => "创建";
+  @override
   String get share => "分享";
   @override
   String get folder_name_cant_be_empty => "文件夹名称不能为空";
+  @override
+  String get agree_and_continue => "同意并继续";
   @override
   String get user_name_cant_empty => "用户名不能为空1";
   @override
@@ -101,7 +122,13 @@ class $zh extends S {
   @override
   String get settings => "设置";
   @override
+  String get sign_up => "注册";
+  @override
   String get tree => "Tree";
+  @override
+  String get set_an_avatar => "头像";
+  @override
+  String get reenter_your_password => "重新输入您的密码";
   @override
   String get new_folder => "新建文件夹";
   @override

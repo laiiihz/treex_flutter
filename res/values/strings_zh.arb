@@ -27,5 +27,14 @@
   "new_folder": "新建文件夹",
   "cancel": "取消",
   "folder_name_cant_be_empty": "文件夹名称不能为空",
-  "photos": "相册"
+  "photos": "相册",
+  "network_settings": "网络设置",
+  "set_an_avatar": "头像",
+  "sign_up": "注册",
+  "user_agreement": "用户使用协议",
+  "agree_and_continue": "同意并继续",
+  "user_prefix": "用户:",
+  "create_a_account": "创建一个新账户",
+  "reenter_your_password": "重新输入您的密码",
+  "create": "创建"
 }

@@ -74,10 +74,12 @@ class _SingleBlockState extends State<SingleBlockWidget> {
         ),
         height: 100,
         decoration: BoxDecoration(
-          color: provider.nightModeOn ? Color(0xff444444) : widget.color,
+          color: MediaQuery.of(context).platformBrightness == Brightness.dark
+              ? Color(0xff444444)
+              : widget.color,
           borderRadius: BorderRadius.circular(20),
           boxShadow: [
-            provider.nightModeOn
+            MediaQuery.of(context).platformBrightness == Brightness.dark
                 ? BoxShadow(
                     blurRadius: 0,
                     color: Colors.transparent,

@@ -1,14 +1,27 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:treex_flutter/utils/PasswordGen.dart';
 
 class NetUtil {
   String path;
-  NetUtil({@required this.path});
-  Future<Object> getResult() async {
-    Dio dio = Dio();
-    Response response;
-    response = await dio.get(path);
-    return response.data;
+  Dio _dio;
+  Response _response;
+  NetUtil({@required this.path}) {
+    _dio = Dio();
+  }
+  Future<Object> get() async {
+    _response = await _dio.get(path);
+    return _response.data;
+  }
+
+  Future<Object> post() async {
+    _response = await _dio.post(path);
+    return _response.data;
+  }
+
+  Future<Object> put() async {
+    _response = await _dio.put(path);
+    return _response.data;
   }
 }
 
@@ -25,8 +38,8 @@ class LoginUtil {
     return await NetUtil(
       path: 'http://${this.serverPrefix}/api/login?'
           'name=${this.userName}&'
-          'password=${this.password}',
-    ).getResult();
+          'password=${genPasswordHMAC(rawPassword: this.password, mixed: this.userName)}',
+    ).get();
   }
 }
 
@@ -38,7 +51,29 @@ class UserExistUtil {
     @required this.serverPrefix,
   });
   Future<Object> check() async {
-    return await NetUtil(path: 'http://${this.serverPrefix}/api/existuser?'
-        'name=${this.name}').getResult();
+    return await NetUtil(
+            path: 'http://${this.serverPrefix}/api/existuser?'
+                'name=${this.name}')
+        .get();
   }
 }
+
+class CreateANewUserUtil {
+  String name;
+  String password;
+  String serverPrefix;
+  CreateANewUserUtil({
+    @required this.name,
+    @required this.password,
+    @required this.serverPrefix,
+  });
+  Future<Object> create() async {
+    return await NetUtil(
+            path: 'http://${this.serverPrefix}/'
+                'api/newuser?'
+                'name=${this.name}&'
+                'password=${genPasswordHMAC(rawPassword: this.password, mixed: this.name)}')
+        .post();
+  }
+}
+

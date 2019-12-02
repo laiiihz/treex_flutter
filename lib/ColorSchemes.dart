@@ -17,8 +17,9 @@ const limePrimary = Color(0xffc6ff00);
 const limeDark = Color(0xff90cc00);
 
 Color getTealBackgroundDark(BuildContext context) {
-  final provider = Provider.of<AppProvider>(context);
-  return provider.nightModeOn ? tealBackgroundDark : tealBackground;
+  return MediaQuery.of(context).platformBrightness == Brightness.dark
+      ? tealBackgroundDark
+      : tealBackground;
 }
 
 var defaultTheme = ThemeData(
