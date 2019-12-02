@@ -40,7 +40,10 @@ class _SplashState extends State<SplashPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: tealBackground,
+      backgroundColor:
+          MediaQuery.of(context).platformBrightness == Brightness.dark
+              ? tealNightBackground
+              : tealBackground,
       body: Center(
         child: FlareActor(
           'assets/treex-brand.flr',

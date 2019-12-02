@@ -28,7 +28,10 @@ class _User2SignUpState extends State<User2SignUpPage> {
         children: <Widget>[
           Expanded(
             child: Card(
-              color: Colors.white70,
+              color:
+                  MediaQuery.of(context).platformBrightness == Brightness.dark
+                      ? Colors.white10
+                      : Colors.white70,
               child: ListView(
                 physics: BouncingScrollPhysics(),
                 children: <Widget>[

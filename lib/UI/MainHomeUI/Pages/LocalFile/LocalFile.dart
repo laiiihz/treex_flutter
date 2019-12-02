@@ -82,14 +82,19 @@ class _LocalFileState extends State<LocalFilePage> {
           duration: Duration(milliseconds: 500),
           height: 50,
           decoration: BoxDecoration(
-            color: yellowBackgroundDark,
+            color: MediaQuery.of(context).platformBrightness == Brightness.dark
+                ? Color(0xff333333)
+                : yellowBackgroundDark,
             borderRadius: BorderRadius.only(
               bottomRight: Radius.circular(10),
               bottomLeft: Radius.circular(10),
             ),
             boxShadow: [
               BoxShadow(
-                color: yellowBackgroundDark,
+                color:
+                    MediaQuery.of(context).platformBrightness == Brightness.dark
+                        ? Color(0xff666666)
+                        : yellowBackgroundDark,
                 blurRadius: 10,
                 offset: Offset(0, 5),
               ),

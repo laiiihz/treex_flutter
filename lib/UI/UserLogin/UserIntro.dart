@@ -37,6 +37,7 @@ class _UserIntroState extends State<UserIntroPage>
       body: Stack(
         children: <Widget>[
           BackgroundPageWidget(),
+          buildDarkOverlay(context),
           Column(
             children: <Widget>[
               SizedBox(
@@ -64,7 +65,6 @@ class _UserIntroState extends State<UserIntroPage>
               ),
             ],
           ),
-
         ],
       ),
     );

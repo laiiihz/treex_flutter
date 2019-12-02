@@ -88,9 +88,10 @@ class _HomeStructureState extends State<HomeStructurePage> {
           color: Colors.yellow,
         ),
         title: Text(S.of(context).home),
-        backgroundColor: MediaQuery.of(context).platformBrightness==Brightness.dark
-            ? Colors.teal.withOpacity(0.2)
-            : tealBackground,
+        backgroundColor:
+            MediaQuery.of(context).platformBrightness == Brightness.dark
+                ? Colors.teal.withOpacity(0.2)
+                : tealBackground,
       ),
       BottomNavigationBarItem(
         icon: Icon(
@@ -98,9 +99,10 @@ class _HomeStructureState extends State<HomeStructurePage> {
           color: Colors.teal,
         ),
         title: Text(S.of(context).cloud_files),
-        backgroundColor: MediaQuery.of(context).platformBrightness==Brightness.dark
-            ? Colors.blue.withOpacity(0.2)
-            : blueBackground,
+        backgroundColor:
+            MediaQuery.of(context).platformBrightness == Brightness.dark
+                ? Colors.blue.withOpacity(0.2)
+                : blueBackground,
       ),
       BottomNavigationBarItem(
         icon: Icon(
@@ -108,9 +110,10 @@ class _HomeStructureState extends State<HomeStructurePage> {
           color: Colors.blue,
         ),
         title: Text(S.of(context).local_files),
-        backgroundColor: MediaQuery.of(context).platformBrightness==Brightness.dark
-            ? Colors.yellow.withOpacity(0.2)
-            : yellowBackground,
+        backgroundColor:
+            MediaQuery.of(context).platformBrightness == Brightness.dark
+                ? Colors.yellow.withOpacity(0.2)
+                : yellowBackground,
       ),
     ];
   }
@@ -153,7 +156,10 @@ class _HomeStructureState extends State<HomeStructurePage> {
       },
       elevation: 0,
       currentIndex: _bottomBarCurrentIndex,
-      selectedItemColor: MediaQuery.of(context).platformBrightness==Brightness.dark ? Colors.white54 : Colors.black54,
+      selectedItemColor:
+          MediaQuery.of(context).platformBrightness == Brightness.dark
+              ? Colors.white54
+              : Colors.black54,
       items: _buildNavBarItems(context),
     );
   }
@@ -183,12 +189,17 @@ class _HomeStructureState extends State<HomeStructurePage> {
     return PreferredSize(
       child: AnimatedContainer(
         decoration: BoxDecoration(
-          color: MediaQuery.of(context).platformBrightness==Brightness.dark ? Color(0xff333333) : _appBarColor,
+          color: MediaQuery.of(context).platformBrightness == Brightness.dark
+              ? Color(0xff333333)
+              : _appBarColor,
           boxShadow: [
             BoxShadow(
               offset: Offset(0, 0),
               blurRadius: 20,
-              color: _appBarColor,
+              color:
+                  MediaQuery.of(context).platformBrightness == Brightness.dark
+                      ? Colors.transparent
+                      : _appBarColor,
             ),
           ],
         ),

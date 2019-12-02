@@ -15,3 +15,11 @@ class _BackgroundPageState extends State<BackgroundPageWidget> {
     );
   }
 }
+
+Widget buildDarkOverlay(BuildContext context) {
+  return MediaQuery.of(context).platformBrightness == Brightness.dark
+      ? Container(
+          color: Colors.black54,
+        )
+      : SizedBox();
+}

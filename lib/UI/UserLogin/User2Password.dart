@@ -86,6 +86,7 @@ class _User2PasswordState extends State<User2PasswordPage> {
       body: Stack(
         children: <Widget>[
           BackgroundPageWidget(),
+          buildDarkOverlay(context),
           BackdropFilter(
             child: Padding(
               padding: EdgeInsets.only(

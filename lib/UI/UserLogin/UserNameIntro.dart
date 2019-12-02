@@ -105,7 +105,10 @@ class _UserNameIntroState extends State<UserNameIntroPage> {
             filter: ImageFilter.blur(sigmaX: 30, sigmaY: 30),
             child: Container(
               width: MediaQuery.of(context).size.width,
-              color: Colors.white30,
+              color:
+                  MediaQuery.of(context).platformBrightness == Brightness.dark
+                      ? Colors.black26
+                      : Colors.white30,
               child: Padding(
                 padding: EdgeInsets.only(
                   left: 20,

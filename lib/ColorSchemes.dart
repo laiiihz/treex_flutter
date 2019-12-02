@@ -10,6 +10,7 @@ const tealBackgroundDark = Color(0xff00796b);
 const blueBackground = Color(0xffbbdefb);
 const yellowBackground = Color(0xfffff9c4);
 const tealBackground = Color(0xffb2dfdb);
+const tealNightBackground = Color(0x33b2dfdb);
 const tealPrimary = Color(0xff26a69a);
 const tealDark = Color(0xff00766c);
 
