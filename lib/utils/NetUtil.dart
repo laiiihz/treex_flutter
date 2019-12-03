@@ -23,6 +23,11 @@ class NetUtil {
     _response = await _dio.put(path);
     return _response.data;
   }
+
+  Future<Object> delete() async {
+    _response = await _dio.delete(path);
+    return _response.data;
+  }
 }
 
 class LoginUtil {
@@ -77,3 +82,13 @@ class CreateANewUserUtil {
   }
 }
 
+class DeleteTokenUtil {
+  String token;
+  String serverPrefix;
+  DeleteTokenUtil({@required this.token, @required this.serverPrefix});
+  Future<dynamic> delete() async {
+    return await NetUtil(
+            path: 'http://${this.serverPrefix}/api/delete/${this.token}')
+        .delete();
+  }
+}

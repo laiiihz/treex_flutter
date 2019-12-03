@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:treex_flutter/Provider/AppProvider.dart';
 import 'package:treex_flutter/generated/i18n.dart';
@@ -44,15 +45,26 @@ class _UserSettingsState extends State<UserSettingsPage> {
                     ),
                   ),
                 ),
-                InkWell(
-                  onTap: () {},
-                  child: ListTile(
-                    leading: Icon(Icons.details),
-                    title: Text(S.of(context).user_name),
-                    trailing: Text(
-                      provider.userName,
-                    ),
-                  ),
+                Builder(
+                  builder: (BuildContext context) {
+                    return InkWell(
+                      onTap: () {
+                        Scaffold.of(context)
+                            .showBottomSheet((BuildContext context) {
+                          return Card(
+                            child: TextField(),
+                          );
+                        });
+                      },
+                      child: ListTile(
+                        leading: Icon(Icons.details),
+                        title: Text(S.of(context).user_name),
+                        trailing: Text(
+                          provider.userName,
+                        ),
+                      ),
+                    );
+                  },
                 ),
                 SizedBox(
                   height: 1000,

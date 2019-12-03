@@ -10,6 +10,7 @@ import 'package:treex_flutter/UI/Overlay/DrawerMenus/Settings.dart';
 import 'package:treex_flutter/UI/Overlay/DrawerMenus/UserSettings.dart';
 import 'package:treex_flutter/dev/Developer.dart';
 import 'package:treex_flutter/generated/i18n.dart';
+import 'package:treex_flutter/utils/NetUtil.dart';
 
 class DrawerMainWidget extends StatefulWidget {
   @override
@@ -72,20 +73,10 @@ class _DrawerMainState extends State<DrawerMainWidget> {
           ),
           Expanded(
             child: ListView(
-              children: <Widget>[
-
-              ],
+              children: <Widget>[],
             ),
           ),
-          MaterialButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-              Navigator.of(context).pop();
-              //TODO logout (delete token from server redis)
-            },
-            child: Text(S.of(context).log_out),
-            color: Colors.red,
-          ),
+
           Row(
             children: <Widget>[
               IconButton(

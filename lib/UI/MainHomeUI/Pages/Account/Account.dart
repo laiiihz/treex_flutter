@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:share/share.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:treex_flutter/Provider/AppProvider.dart';
 import 'package:treex_flutter/UI/Overlay/DrawerMenus/About.dart';
 import 'package:treex_flutter/UI/Overlay/DrawerMenus/UserSettings.dart';
 import 'package:treex_flutter/canvas/PaintAccount.dart';
 import 'package:treex_flutter/dev/Developer.dart';
 import 'package:treex_flutter/generated/i18n.dart';
+import 'package:treex_flutter/utils/NetUtil.dart';
 
 class AccountPage extends StatefulWidget {
   @override
@@ -136,6 +138,33 @@ class _AccountState extends State<AccountPage> {
                             ),
                           );
                         },
+                      ),
+                      InkWell(
+                        onTap: () {
+                          
+                        },
+                        child: ListTile(
+                          leading: Icon(Icons.language),
+                          title: Text(S.of(context).network_settings),
+                        ),
+                      ),
+                      MaterialButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                          deleteTokenFromShared() async {
+                            SharedPreferences shared =
+                                await SharedPreferences.getInstance();
+                            shared.setString('token', '');
+                          }
+
+                          deleteTokenFromShared();
+                          DeleteTokenUtil(
+                                  token: provider.token,
+                                  serverPrefix: "10.27.16.66:8080")
+                              .delete();
+                        },
+                        child: Text(S.of(context).log_out),
+                        color: Colors.red,
                       ),
                     ],
                   ),

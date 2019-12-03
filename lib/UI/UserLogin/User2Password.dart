@@ -1,7 +1,9 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:treex_flutter/Provider/AppProvider.dart';
 import 'package:treex_flutter/UI/MainHomeUI/HomeStructure.dart';
 import 'package:treex_flutter/generated/i18n.dart';
 import 'package:treex_flutter/utils/NetUtil.dart';
@@ -25,6 +27,7 @@ class _User2PasswordState extends State<User2PasswordPage> {
   bool _showPasswd = false;
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<AppProvider>(context);
     return Scaffold(
       floatingActionButton: Row(
         children: <Widget>[
@@ -59,6 +62,7 @@ class _User2PasswordState extends State<User2PasswordPage> {
                       SharedPreferences shared =
                           await SharedPreferences.getInstance();
                       shared.setString('token', json['token']);
+                      provider.setToken(json['token']);
                       return true;
                     }
 

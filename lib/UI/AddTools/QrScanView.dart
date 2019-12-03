@@ -14,6 +14,13 @@ class _QrScanViewState extends State<QrScanViewPage> {
   QRViewController _qrViewController;
   String _scannedText = '';
   @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    _qrViewController.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -39,6 +46,7 @@ class _QrScanViewState extends State<QrScanViewPage> {
                       setState(() {
                         _scannedText = data;
                       });
+                      _qrViewController.dispose();
                       Navigator.of(context).pushReplacement(
                         MaterialPageRoute(
                           builder: (BuildContext context) => ScannedParsedPage(

@@ -45,7 +45,6 @@ class _HomeStructureState extends State<HomeStructurePage> {
         },
         child: Scaffold(
           appBar: _buildAnimateColoredAppBar(context),
-          drawer: DrawerMainWidget(),
           floatingActionButton: _buildFAB(context),
           floatingActionButtonLocation: _bottomBarCurrentIndex == 0
               ? FloatingActionButtonLocation.centerFloat
@@ -214,6 +213,7 @@ class _HomeStructureState extends State<HomeStructurePage> {
               : _appBarColor,
         ),
         child: AppBar(
+          leading: SizedBox(),
           backgroundColor: Colors.transparent,
           elevation: 0,
           title: AnimatedSwitcher(

@@ -8,4 +8,11 @@ class AppProvider extends ChangeNotifier {
     _userName = name;
     notifyListeners();
   }
+
+  String _token = '';
+  get token => _token;
+  setToken(String s) {
+    _token = s;
+    notifyListeners();
+  }
 }

@@ -2,6 +2,7 @@ import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:treex_flutter/ColorSchemes.dart';
+import 'package:treex_flutter/UI/MainHomeUI/HomeStructure.dart';
 import 'package:treex_flutter/UI/UserLogin/UserIntro.dart';
 import 'package:uuid/uuid.dart';
 
@@ -24,17 +25,21 @@ class _SplashState extends State<SplashPage> {
         sharedPreferences.setBool('not_first_login', true);
         sharedPreferences.setString('only_uuid', uuid.v4());
       }
+      if (sharedPreferences.getString('token').length != 0) {
+        Navigator.of(context).push(MaterialPageRoute(
+            builder: (BuildContext context) => HomeStructurePage()));
+      } else {
+        Future.delayed(Duration(seconds: 3), () {
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute(
+              builder: (BuildContext context) => UserIntroPage(),
+            ),
+          );
+        });
+      }
     }
 
     firstUser();
-
-    Future.delayed(Duration(seconds: 3), () {
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(
-          builder: (BuildContext context) => UserIntroPage(),
-        ),
-      );
-    });
   }
 
   @override
