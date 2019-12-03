@@ -33,6 +33,7 @@ class S implements WidgetsLocalizations {
   String get developer_mode => "Developer Mode";
   String get folder_name_cant_be_empty => "Folder name can't be empty";
   String get home => "HOME";
+  String get ip_address => "IP address";
   String get local_files => "LOCAL FILES";
   String get log_out => "LOG OUT";
   String get loginin_on_signup => "LOGININ ON SIGNUP";
@@ -47,7 +48,9 @@ class S implements WidgetsLocalizations {
   String get password_cant_be_empty => "PASSWORD CANT BE EMPTY";
   String get password_is_not_same => "Password is not same";
   String get photos => "PHOTOS";
+  String get port => "Port";
   String get reenter_your_password => "Re-enter your password";
+  String get save => "SAVE";
   String get set_an_avatar => "Avatar";
   String get settings => "SETTINGS";
   String get share => "Share";
@@ -90,6 +93,8 @@ class $zh extends S {
   String get about => "关于";
   @override
   String get password_is_not_same => "密码不一致";
+  @override
+  String get save => "SAVE";
   @override
   String get network_settings => "网络设置";
   @override
@@ -141,6 +146,8 @@ class $zh extends S {
   @override
   String get new_folder => "新建文件夹";
   @override
+  String get ip_address => "IP address";
+  @override
   String get loginin_on_signup => "登录或注册 ";
   @override
   String get off => "关闭";
@@ -150,6 +157,8 @@ class $zh extends S {
   String get log_out => "退出登录";
   @override
   String get cloud_files => "云盘";
+  @override
+  String get port => "Port";
   @override
   String get x => "x";
   @override

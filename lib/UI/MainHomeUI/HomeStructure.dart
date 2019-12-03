@@ -1,17 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:treex_flutter/ColorSchemes.dart';
-import 'package:treex_flutter/Provider/AppProvider.dart';
 import 'package:treex_flutter/UI/AddTools/Tools.dart';
 import 'package:treex_flutter/UI/MainHomeUI/Pages/Account/Account.dart';
 import 'package:treex_flutter/UI/MainHomeUI/Pages/CloudFIle/CloudFile.dart';
-import 'package:treex_flutter/UI/MainHomeUI/Pages/File/FilesUI.dart';
 import 'package:treex_flutter/UI/MainHomeUI/Pages/HomeUI.dart';
 import 'package:treex_flutter/UI/MainHomeUI/Pages/LocalFile/LocalFile.dart';
 import 'package:treex_flutter/UI/MainHomeUI/SearchPage.dart';
 import 'package:treex_flutter/generated/i18n.dart';
-import 'package:treex_flutter/UI/Overlay/DrawerMain.dart';
 
 class HomeStructurePage extends StatefulWidget {
   @override

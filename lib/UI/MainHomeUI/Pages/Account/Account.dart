@@ -4,6 +4,7 @@ import 'package:share/share.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:treex_flutter/Provider/AppProvider.dart';
 import 'package:treex_flutter/UI/Overlay/DrawerMenus/About.dart';
+import 'package:treex_flutter/UI/Overlay/DrawerMenus/NetworkSettings.dart';
 import 'package:treex_flutter/UI/Overlay/DrawerMenus/UserSettings.dart';
 import 'package:treex_flutter/canvas/PaintAccount.dart';
 import 'package:treex_flutter/dev/Developer.dart';
@@ -141,7 +142,11 @@ class _AccountState extends State<AccountPage> {
                       ),
                       InkWell(
                         onTap: () {
-                          
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                                builder: (BuildContext context) =>
+                                    NetworkSettingsPage()),
+                          );
                         },
                         child: ListTile(
                           leading: Icon(Icons.language),
@@ -154,14 +159,14 @@ class _AccountState extends State<AccountPage> {
                           deleteTokenFromShared() async {
                             SharedPreferences shared =
                                 await SharedPreferences.getInstance();
+                            DeleteTokenUtil(
+                                    token: provider.token,
+                                    serverPrefix: "10.27.16.66:8080")
+                                .delete();
                             shared.setString('token', '');
                           }
 
                           deleteTokenFromShared();
-                          DeleteTokenUtil(
-                                  token: provider.token,
-                                  serverPrefix: "10.27.16.66:8080")
-                              .delete();
                         },
                         child: Text(S.of(context).log_out),
                         color: Colors.red,

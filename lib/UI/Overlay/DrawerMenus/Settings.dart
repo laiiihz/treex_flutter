@@ -26,10 +26,7 @@ class _SettingsState extends State<SettingsPage> {
         children: <Widget>[
           InkWell(
             onTap: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                    builder: (BuildContext context) => NetworkSettingsPage()),
-              );
+
             },
             child: ListTile(
               leading: Icon(Icons.language),
