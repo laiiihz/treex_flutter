@@ -4,6 +4,7 @@ import 'package:screenshot/screenshot.dart';
 import 'package:treex_flutter/ColorSchemes.dart';
 import 'package:treex_flutter/Provider/AppProvider.dart';
 import 'package:treex_flutter/UI/AddTools/Tools.dart';
+import 'package:treex_flutter/UI/MainHomeUI/Pages/CloudFIle/CloudFile.dart';
 import 'package:treex_flutter/UI/MainHomeUI/Pages/File/FilesUI.dart';
 import 'package:treex_flutter/UI/MainHomeUI/Pages/HomeUI.dart';
 import 'package:treex_flutter/UI/MainHomeUI/Pages/LocalFile/LocalFile.dart';
@@ -66,7 +67,7 @@ class _HomeStructureState extends State<HomeStructurePage> {
             return HomeUIPage();
             break;
           case 1:
-            return FilesUIPage();
+            return CloudFilePage();
             break;
           case 2:
             return LocalFilePage();

@@ -44,11 +44,13 @@ class S implements WidgetsLocalizations {
   String get on => "ON";
   String get password => "YOUR PASSWORD";
   String get password_cant_be_empty => "PASSWORD CANT BE EMPTY";
+  String get password_is_not_same => "Password is not same";
   String get photos => "PHOTOS";
   String get reenter_your_password => "Re-enter your password";
   String get set_an_avatar => "Avatar";
   String get settings => "SETTINGS";
   String get share => "Share";
+  String get share_folder => "Share Folder";
   String get short_password => "PASSWORD";
   String get sign_up => "Sign Up";
   String get sign_up_sign_in => "SIGN UP/SIGN IN";
@@ -85,6 +87,8 @@ class $zh extends S {
   String get user_agreement => "用户使用协议";
   @override
   String get about => "关于";
+  @override
+  String get password_is_not_same => "密码不一致";
   @override
   String get network_settings => "网络设置";
   @override
@@ -129,6 +133,8 @@ class $zh extends S {
   String get set_an_avatar => "头像";
   @override
   String get reenter_your_password => "重新输入您的密码";
+  @override
+  String get share_folder => "共享";
   @override
   String get new_folder => "新建文件夹";
   @override

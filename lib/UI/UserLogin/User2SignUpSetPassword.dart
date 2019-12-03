@@ -12,18 +12,23 @@ class User2SignUpSetPasswordPage extends StatefulWidget {
 class _User2SignUpSetPasswordState extends State<User2SignUpSetPasswordPage> {
   TextEditingController _passwordEditController = TextEditingController();
   TextEditingController _passwordReEditController = TextEditingController();
+  bool _inputErr = false;
+  bool _secondInputErr = false;
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<AppProvider>(context);
     return Scaffold(
       floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
-          CreateANewUserUtil(
+        onPressed: _fabCouldGoNext()
+            ? () {
+                CreateANewUserUtil(
                   name: provider.userName,
                   password: _passwordEditController.text,
-                  serverPrefix: '10.27.16.66:8080')
-              .create();
-        },
+                  serverPrefix: '10.27.16.66:8080',
+                ).create();
+              }
+            : null,
+        backgroundColor: _fabCouldGoNext() ? null : Colors.grey,
         label: Text(S.of(context).create),
       ),
       appBar: AppBar(
@@ -38,11 +43,19 @@ class _User2SignUpSetPasswordState extends State<User2SignUpSetPasswordPage> {
           Padding(
             padding: EdgeInsets.all(10),
             child: TextField(
+              onChanged: (value) {
+                setState(() {
+                  _inputErr = value.length == 0;
+                  _secondInputErr = _passwordReEditController.text != value;
+                });
+              },
               controller: _passwordEditController,
               obscureText: true,
               decoration: InputDecoration(
                 labelText: S.of(context).short_password,
                 hintText: S.of(context).password,
+                errorText:
+                    _inputErr ? S.of(context).password_cant_be_empty : null,
                 border: OutlineInputBorder(),
               ),
             ),
@@ -50,11 +63,18 @@ class _User2SignUpSetPasswordState extends State<User2SignUpSetPasswordPage> {
           Padding(
             padding: EdgeInsets.all(10),
             child: TextField(
+              onChanged: (value) {
+                setState(() {
+                  _secondInputErr = _passwordEditController.text != value;
+                });
+              },
               controller: _passwordReEditController,
               obscureText: true,
               decoration: InputDecoration(
                 labelText: S.of(context).reenter_your_password,
                 hintText: S.of(context).password,
+                errorText:
+                    _secondInputErr ? S.of(context).password_is_not_same : null,
                 border: OutlineInputBorder(),
               ),
             ),
@@ -62,5 +82,11 @@ class _User2SignUpSetPasswordState extends State<User2SignUpSetPasswordPage> {
         ],
       ),
     );
+  }
+
+  bool _fabCouldGoNext() {
+    return !_inputErr &&
+        !_secondInputErr &&
+        _passwordEditController.text.length != 0;
   }
 }

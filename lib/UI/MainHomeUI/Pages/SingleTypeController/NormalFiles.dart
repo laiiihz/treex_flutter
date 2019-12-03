@@ -185,6 +185,7 @@ class _NormalFilesState extends State<NormalFilesPage> {
   Widget _buildListView() {
     return Expanded(
       child: ListView.builder(
+        physics: BouncingScrollPhysics(),
         itemBuilder: (BuildContext context, int index) {
           return SingleFileListedWidget(
             fileSystemEntity: _files[index],

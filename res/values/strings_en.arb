@@ -36,5 +36,7 @@
   "user_prefix": "user:",
   "create_a_account": "Create a Account",
   "reenter_your_password": "Re-enter your password",
-  "create": "CREATE"
+  "create": "CREATE",
+  "share_folder": "Share Folder",
+  "password_is_not_same": "Password is not same"
 }
