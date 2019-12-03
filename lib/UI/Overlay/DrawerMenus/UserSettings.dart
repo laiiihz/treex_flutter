@@ -13,33 +13,51 @@ class _UserSettingsState extends State<UserSettingsPage> {
   Widget build(BuildContext context) {
     final provider = Provider.of<AppProvider>(context);
     return Scaffold(
-      appBar: AppBar(
-        title: Text(S.of(context).user_settings),
-      ),
-      body: ListView(
+      body: CustomScrollView(
         physics: BouncingScrollPhysics(),
-        children: <Widget>[
-          InkWell(
-            onTap: () {},
-            child: ListTile(
-              leading: Icon(Icons.person),
-              title: Text(S.of(context).set_an_avatar),
-              trailing: Hero(
-                tag: 'user_avatar',
-                child: CircleAvatar(
-                  child: Text(provider.userName[0]),
-                ),
+        slivers: <Widget>[
+          SliverAppBar(
+            pinned: true,
+            centerTitle: true,
+            title: Text(S.of(context).user_settings),
+            expandedHeight: 300,
+            flexibleSpace: FlexibleSpaceBar(
+              background: Image.asset(
+                'assets/img/mountain.webp',
+                fit: BoxFit.cover,
               ),
             ),
           ),
-          InkWell(
-            onTap: () {},
-            child: ListTile(
-              leading: Icon(Icons.details),
-              title: Text(S.of(context).user_name),
-              trailing: Text(
-                provider.userName,
-              ),
+          SliverList(
+            delegate: SliverChildListDelegate(
+              [
+                InkWell(
+                  onTap: () {},
+                  child: ListTile(
+                    leading: Icon(Icons.person),
+                    title: Text(S.of(context).set_an_avatar),
+                    trailing: Hero(
+                      tag: 'user_avatar',
+                      child: CircleAvatar(
+                        child: Text(provider.userName[0]),
+                      ),
+                    ),
+                  ),
+                ),
+                InkWell(
+                  onTap: () {},
+                  child: ListTile(
+                    leading: Icon(Icons.details),
+                    title: Text(S.of(context).user_name),
+                    trailing: Text(
+                      provider.userName,
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 1000,
+                ),
+              ],
             ),
           ),
         ],

@@ -38,5 +38,6 @@
   "reenter_your_password": "重新输入您的密码",
   "create": "创建",
   "share_folder": "共享",
-  "password_is_not_same": "密码不一致"
+  "password_is_not_same": "密码不一致",
+  "me": "我"
 }

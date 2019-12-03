@@ -4,6 +4,7 @@ import 'package:screenshot/screenshot.dart';
 import 'package:treex_flutter/ColorSchemes.dart';
 import 'package:treex_flutter/Provider/AppProvider.dart';
 import 'package:treex_flutter/UI/AddTools/Tools.dart';
+import 'package:treex_flutter/UI/MainHomeUI/Pages/Account/Account.dart';
 import 'package:treex_flutter/UI/MainHomeUI/Pages/CloudFIle/CloudFile.dart';
 import 'package:treex_flutter/UI/MainHomeUI/Pages/File/FilesUI.dart';
 import 'package:treex_flutter/UI/MainHomeUI/Pages/HomeUI.dart';
@@ -72,12 +73,14 @@ class _HomeStructureState extends State<HomeStructurePage> {
           case 2:
             return LocalFilePage();
             break;
+          case 3:
+            return AccountPage();
           default:
             return HomeUIPage();
             break;
         }
       },
-      itemCount: 3,
+      itemCount: 4,
     );
   }
 
@@ -116,6 +119,17 @@ class _HomeStructureState extends State<HomeStructurePage> {
                 ? Colors.yellow.withOpacity(0.2)
                 : yellowBackground,
       ),
+      BottomNavigationBarItem(
+        icon: Icon(
+          Icons.person,
+          color: Colors.red,
+        ),
+        title: Text(S.of(context).me),
+        backgroundColor:
+            MediaQuery.of(context).platformBrightness == Brightness.dark
+                ? Colors.teal.withOpacity(0.2)
+                : tealBackground,
+      ),
     ];
   }
 
@@ -144,6 +158,11 @@ class _HomeStructureState extends State<HomeStructurePage> {
                   Text(S.of(context).local_files, key: Key('localFiles'));
             });
             break;
+          case 3:
+            setState(() {
+              _appBarColor = Colors.blue;
+              _textTile = Text(S.of(context).me, key: Key('Me'));
+            });
         }
         setState(() {
           _bottomBarCurrentIndex = index;
@@ -193,16 +212,6 @@ class _HomeStructureState extends State<HomeStructurePage> {
           color: MediaQuery.of(context).platformBrightness == Brightness.dark
               ? Color(0xff333333)
               : _appBarColor,
-          boxShadow: [
-            BoxShadow(
-              offset: Offset(0, 0),
-              blurRadius: 20,
-              color:
-                  MediaQuery.of(context).platformBrightness == Brightness.dark
-                      ? Colors.transparent
-                      : _appBarColor,
-            ),
-          ],
         ),
         child: AppBar(
           backgroundColor: Colors.transparent,

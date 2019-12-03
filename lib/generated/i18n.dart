@@ -36,6 +36,7 @@ class S implements WidgetsLocalizations {
   String get local_files => "LOCAL FILES";
   String get log_out => "LOG OUT";
   String get loginin_on_signup => "LOGININ ON SIGNUP";
+  String get me => "Me";
   String get network_settings => "Network Settings";
   String get new_folder => "NEW FOLDER";
   String get next => "NEXT";
@@ -107,6 +108,8 @@ class $zh extends S {
   String get user_settings => "用户设置";
   @override
   String get password => "输入您的密码 ";
+  @override
+  String get me => "我";
   @override
   String get create => "创建";
   @override

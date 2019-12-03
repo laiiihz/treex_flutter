@@ -73,43 +73,7 @@ class _DrawerMainState extends State<DrawerMainWidget> {
           Expanded(
             child: ListView(
               children: <Widget>[
-                InkWell(
-                  child: ListTile(
-                    leading: Icon(Icons.sentiment_satisfied),
-                    title: Text(S.of(context).about),
-                  ),
-                  onTap: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (BuildContext context) => AboutPage(),
-                      ),
-                    );
-                  },
-                ),
-                InkWell(
-                  child: ListTile(
-                    leading: Icon(Icons.share),
-                    title: Text(S.of(context).share),
-                  ),
-                  onTap: () {
-                    Share.share('https://baidu.com');
-                  },
-                ),
 
-                //TEST ONLY
-                InkWell(
-                  child: ListTile(
-                    leading: Icon(Icons.developer_mode),
-                    title: Text(S.of(context).developer_mode),
-                  ),
-                  onTap: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (BuildContext context) => DeveloperPage(),
-                      ),
-                    );
-                  },
-                ),
               ],
             ),
           ),
