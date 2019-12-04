@@ -27,6 +27,8 @@ class S implements WidgetsLocalizations {
   String get auto => "AUTO";
   String get cancel => "CANCEL";
   String get cloud_files => "CLOUD FILES";
+  String get connect_fail => "CONNECT FAIL";
+  String get connect_success => "CONNECT SUCCESS";
   String get create => "CREATE";
   String get create_a_account => "Create a Account";
   String get create_a_account_if_you_dont_have => "Create a Account if you don't have";
@@ -120,6 +122,8 @@ class $zh extends S {
   @override
   String get share => "分享";
   @override
+  String get connect_fail => "CONNECT FAIL";
+  @override
   String get folder_name_cant_be_empty => "文件夹名称不能为空";
   @override
   String get agree_and_continue => "同意并继续";
@@ -129,6 +133,8 @@ class $zh extends S {
   String get password_cant_be_empty => "密码不能为空";
   @override
   String get on => "开启";
+  @override
+  String get connect_success => "CONNECT SUCCESS";
   @override
   String get create_a_account_if_you_dont_have => "若无账户将创建账户";
   @override

@@ -8,10 +8,15 @@ class NetUtil {
   Response _response;
   NetUtil({@required this.path}) {
     _dio = Dio();
+    _dio.options.connectTimeout = 1500;
   }
   Future<Object> get() async {
-    _response = await _dio.get(path);
-    return _response.data;
+    try {
+      _response = await _dio.get(path);
+      return _response.data;
+    } catch (e) {
+      return {'status': 999999, 'message': e.toString()};
+    }
   }
 
   Future<Object> post() async {
@@ -90,5 +95,20 @@ class DeleteTokenUtil {
     return await NetUtil(
             path: 'http://${this.serverPrefix}/api/delete/${this.token}')
         .delete();
+  }
+}
+
+class CheckConnectionUtil {
+  String serverPrefix;
+  CheckConnectionUtil({@required this.serverPrefix});
+  Future<bool> check() async {
+    int status = ((await NetUtil(
+            path: 'http://${this.serverPrefix}/api/check-connection')
+        .get()) as dynamic)['status'];
+    if (status == 200) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }

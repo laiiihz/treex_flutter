@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:treex_flutter/UI/Overlay/DrawerMenus/NetworkSettings.dart';
 import 'package:treex_flutter/UI/UserLogin/UserNameIntro.dart';
 import 'package:treex_flutter/generated/i18n.dart';
 import 'package:treex_flutter/utils/NetUtil.dart';
@@ -24,15 +25,29 @@ class _UserIntroState extends State<UserIntroPage>
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: FloatingActionButton.extended(
-        heroTag: 'next',
-        onPressed: () {
-          Navigator.of(context).push(
-            MaterialPageRoute(
-                builder: (BuildContext context) => UserNameIntroPage()),
-          );
-        },
-        label: Text(S.of(context).sign_up_sign_in),
+      floatingActionButton: ButtonBar(
+        children: <Widget>[
+          FloatingActionButton.extended(
+            heroTag: 'next',
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                    builder: (BuildContext context) => UserNameIntroPage()),
+              );
+            },
+            label: Text(S.of(context).sign_up_sign_in),
+          ),
+          MaterialButton(
+            child: Icon(Icons.settings),
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                    builder: (BuildContext context) => NetworkSettingsPage()),
+              );
+            },
+            height: 50,
+          ),
+        ],
       ),
       body: Stack(
         children: <Widget>[

@@ -42,5 +42,7 @@
   "me": "我",
   "ip_address": "IP address",
   "port": "Port",
-  "save": "SAVE"
+  "save": "SAVE",
+  "connect_success": "CONNECT SUCCESS",
+  "connect_fail": "CONNECT FAIL"
 }
