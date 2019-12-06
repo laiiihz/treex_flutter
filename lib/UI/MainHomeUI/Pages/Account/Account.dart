@@ -177,7 +177,7 @@ class _AccountState extends State<AccountPage> {
               ),
             ),
             SizedBox(
-              height: 500,
+              height: 150,
             ),
           ],
         )

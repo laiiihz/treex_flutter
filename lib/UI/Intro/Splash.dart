@@ -1,7 +1,9 @@
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:treex_flutter/ColorSchemes.dart';
+import 'package:treex_flutter/Provider/AppProvider.dart';
 import 'package:treex_flutter/UI/MainHomeUI/HomeStructure.dart';
 import 'package:treex_flutter/UI/UserLogin/UserIntro.dart';
 import 'package:uuid/uuid.dart';
@@ -18,6 +20,9 @@ class _SplashState extends State<SplashPage> {
     firstUser() async {
       SharedPreferences sharedPreferences =
           await SharedPreferences.getInstance();
+      final provider = Provider.of<AppProvider>(context);
+      provider.setIPAndPort(
+          '${sharedPreferences.getString('net_addr')}:${sharedPreferences.getString('net_port')}');
       bool notFirst = sharedPreferences.getBool('not_first_login') ?? false;
       if (!notFirst) {
         print('gen');
@@ -25,7 +30,11 @@ class _SplashState extends State<SplashPage> {
         sharedPreferences.setBool('not_first_login', true);
         sharedPreferences.setString('only_uuid', uuid.v4());
       }
-      if (sharedPreferences.getString('token').length != 0) {
+      if ((sharedPreferences.getString('token') ?? '').length != 0) {
+        SharedPreferences sharedPreferences =
+            await SharedPreferences.getInstance();
+        provider.setUserName(sharedPreferences.getString('name'));
+        provider.setToken(sharedPreferences.getString('token'));
         Navigator.of(context).push(MaterialPageRoute(
             builder: (BuildContext context) => HomeStructurePage()));
       } else {

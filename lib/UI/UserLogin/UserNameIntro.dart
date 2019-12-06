@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:treex_flutter/Provider/AppProvider.dart';
 import 'package:treex_flutter/UI/UserLogin/User2Password.dart';
 import 'package:treex_flutter/UI/UserLogin/User2SignUp.dart';
@@ -68,6 +69,13 @@ class _UserNameIntroState extends State<UserNameIntroPage> {
                     }
 
                     provider.setUserName(_textEditingController.text);
+                    saveUserNameToShared() async {
+                      SharedPreferences shared =
+                          await SharedPreferences.getInstance();
+                      shared.setString('name', _textEditingController.text);
+                    }
+
+                    saveUserNameToShared();
                     haveUser().then((haveUser) {
                       setState(() {
                         _networkOperate = false;

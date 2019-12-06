@@ -1,5 +1,7 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:treex_flutter/Provider/AppProvider.dart';
 import 'package:treex_flutter/generated/i18n.dart';
@@ -10,6 +12,7 @@ class UserSettingsPage extends StatefulWidget {
 }
 
 class _UserSettingsState extends State<UserSettingsPage> {
+  File _fileAvatar;
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<AppProvider>(context);
@@ -33,7 +36,45 @@ class _UserSettingsState extends State<UserSettingsPage> {
             delegate: SliverChildListDelegate(
               [
                 InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    showModalBottomSheet(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return Container(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                IconButton(
+                                  icon: Icon(Icons.camera),
+                                  onPressed: () {
+                                    ImagePicker.pickImage(
+                                            source: ImageSource.camera)
+                                        .then((avatar) {
+                                      setState(() {
+                                        _fileAvatar = avatar;
+                                      });
+                                    });
+                                  },
+                                  iconSize: 50,
+                                ),
+                                IconButton(
+                                  icon: Icon(Icons.insert_photo),
+                                  onPressed: () {
+                                    ImagePicker.pickImage(
+                                            source: ImageSource.gallery)
+                                        .then((avatar) {
+                                      setState(() {
+                                        _fileAvatar = avatar;
+                                      });
+                                    });
+                                  },
+                                  iconSize: 50,
+                                ),
+                              ],
+                            ),
+                          );
+                        });
+                  },
                   child: ListTile(
                     leading: Icon(Icons.person),
                     title: Text(S.of(context).set_an_avatar),
