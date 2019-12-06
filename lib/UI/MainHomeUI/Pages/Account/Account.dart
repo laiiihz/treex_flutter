@@ -161,7 +161,7 @@ class _AccountState extends State<AccountPage> {
                                 await SharedPreferences.getInstance();
                             DeleteTokenUtil(
                                     token: provider.token,
-                                    serverPrefix: "10.27.16.66:8080")
+                                    serverPrefix: '${provider.serverPrefix}')
                                 .delete();
                             shared.setString('token', '');
                           }

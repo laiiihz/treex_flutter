@@ -57,7 +57,7 @@ class _User2PasswordState extends State<User2PasswordPage> {
                       dynamic json = await LoginUtil(
                         userName: widget.userName,
                         password: _textEditingController.text,
-                        serverPrefix: '10.27.16.66:8080',
+                        serverPrefix: '${provider.serverPrefix}',
                       ).getToken();
                       SharedPreferences shared =
                           await SharedPreferences.getInstance();

@@ -59,7 +59,7 @@ class _UserNameIntroState extends State<UserNameIntroPage> {
                     Future<bool> haveUser() async {
                       Map<String, dynamic> result = await UserExistUtil(
                               name: _textEditingController.text,
-                              serverPrefix: '10.27.16.66:8080')
+                              serverPrefix: '${provider.serverPrefix}')
                           .check();
                       if (result['exist'])
                         return true;

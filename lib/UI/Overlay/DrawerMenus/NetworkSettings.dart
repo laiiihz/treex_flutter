@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:treex_flutter/Provider/AppProvider.dart';
 import 'package:treex_flutter/generated/i18n.dart';
 import 'package:treex_flutter/utils/NetUtil.dart';
 
@@ -35,6 +37,7 @@ class _NetworkSettingsState extends State<NetworkSettingsPage> {
 
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<AppProvider>(context);
     return Scaffold(
       body: CustomScrollView(
         physics: BouncingScrollPhysics(),
@@ -135,7 +138,10 @@ class _NetworkSettingsState extends State<NetworkSettingsPage> {
                           shared.setString('net_port', _portController.text);
                         }
 
-                        saveToShared();
+                        saveToShared().then((_) {
+                          provider.setIPAndPort(
+                              '${_ipAddrController.text}:${_portController.text}');
+                        });
                       },
                       child: Text(S.of(context).save),
                     ),

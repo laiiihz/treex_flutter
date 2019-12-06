@@ -15,4 +15,11 @@ class AppProvider extends ChangeNotifier {
     _token = s;
     notifyListeners();
   }
+
+  String _serverPrefix = '127.0.0.1:8080';
+  get serverPrefix => _serverPrefix;
+  setIPAndPort(String prefix) {
+    _serverPrefix = prefix;
+    notifyListeners();
+  }
 }

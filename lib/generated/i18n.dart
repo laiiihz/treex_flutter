@@ -96,7 +96,7 @@ class $zh extends S {
   @override
   String get password_is_not_same => "密码不一致";
   @override
-  String get save => "SAVE";
+  String get save => "保存";
   @override
   String get network_settings => "网络设置";
   @override
@@ -122,7 +122,7 @@ class $zh extends S {
   @override
   String get share => "分享";
   @override
-  String get connect_fail => "CONNECT FAIL";
+  String get connect_fail => "连接失败";
   @override
   String get folder_name_cant_be_empty => "文件夹名称不能为空";
   @override
@@ -134,7 +134,7 @@ class $zh extends S {
   @override
   String get on => "开启";
   @override
-  String get connect_success => "CONNECT SUCCESS";
+  String get connect_success => "连接成功";
   @override
   String get create_a_account_if_you_dont_have => "若无账户将创建账户";
   @override
@@ -152,7 +152,7 @@ class $zh extends S {
   @override
   String get new_folder => "新建文件夹";
   @override
-  String get ip_address => "IP address";
+  String get ip_address => "IP 地址";
   @override
   String get loginin_on_signup => "登录或注册 ";
   @override
@@ -164,7 +164,7 @@ class $zh extends S {
   @override
   String get cloud_files => "云盘";
   @override
-  String get port => "Port";
+  String get port => "端口号";
   @override
   String get x => "x";
   @override

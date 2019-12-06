@@ -24,7 +24,7 @@ class _User2SignUpSetPasswordState extends State<User2SignUpSetPasswordPage> {
                 CreateANewUserUtil(
                   name: provider.userName,
                   password: _passwordEditController.text,
-                  serverPrefix: '10.27.16.66:8080',
+                  serverPrefix: '${provider.serverPrefix}',
                 ).create();
               }
             : null,

@@ -40,9 +40,9 @@
   "share_folder": "共享",
   "password_is_not_same": "密码不一致",
   "me": "我",
-  "ip_address": "IP address",
-  "port": "Port",
-  "save": "SAVE",
-  "connect_success": "CONNECT SUCCESS",
-  "connect_fail": "CONNECT FAIL"
+  "ip_address": "IP 地址",
+  "port": "端口号",
+  "save": "保存",
+  "connect_success": "连接成功",
+  "connect_fail": "连接失败"
 }
