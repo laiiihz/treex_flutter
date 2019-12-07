@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:treex_flutter/ColorSchemes.dart';
-import 'package:treex_flutter/UI/MainHomeUI/Pages/LocalFile/LocalFile.dart';
 import 'package:treex_flutter/generated/i18n.dart';
 
 class CloudFilePage extends StatefulWidget {

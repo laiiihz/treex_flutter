@@ -1,4 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:treex_flutter/UI/Files/FileListTile.dart';
 import 'package:treex_flutter/UI/Files/FilesStructure.dart';
 import 'package:treex_flutter/widget/RoundIconButton.dart';
 
@@ -9,6 +13,27 @@ class LocalFilesPage extends StatefulWidget {
 
 class _LocalFilesState extends State<LocalFilesPage> {
   bool _showViewList = true;
+  FileSystemEntity _rootDirectory;
+  FileSystemEntity _nowDirectory;
+  List<FileSystemEntity> _nowDirectories;
+  @override
+  void initState() {
+    super.initState();
+    initFiles() async {
+      FileSystemEntity fileSystemEntity = await getExternalStorageDirectory();
+      setState(() {
+        _rootDirectory = fileSystemEntity.parent.parent.parent.parent;
+        _nowDirectory = fileSystemEntity.parent.parent.parent.parent;
+      });
+    }
+
+    initFiles().then((_) {
+      setState(() {
+        _nowDirectories = Directory(_nowDirectory.path).listSync();
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return FilesStructurePage(
@@ -57,8 +82,11 @@ class _LocalFilesState extends State<LocalFilesPage> {
       physics: BouncingScrollPhysics(),
       padding: EdgeInsets.only(top: 40),
       itemBuilder: (BuildContext context, int index) {
-        return Text('test');
+        return FileListTileWidget(
+          fileSystemEntity: _nowDirectories[index],
+        );
       },
+      itemCount: _nowDirectories == null ? 0 : _nowDirectories.length,
     );
   }
 
@@ -73,6 +101,7 @@ class _LocalFilesState extends State<LocalFilesPage> {
           child: Text('test'),
         );
       },
+      itemCount: _nowDirectories == null ? 0 : _nowDirectories.length,
     );
   }
 }

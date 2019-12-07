@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:treex_flutter/ColorSchemes.dart';
 import 'package:treex_flutter/UI/AddTools/Tools.dart';
-import 'package:treex_flutter/UI/Files/FilesStructure.dart';
 import 'package:treex_flutter/UI/Files/local/LocalFiles.dart';
 import 'package:treex_flutter/UI/MainHomeUI/Pages/Account/Account.dart';
 import 'package:treex_flutter/UI/MainHomeUI/Pages/CloudFIle/CloudFile.dart';

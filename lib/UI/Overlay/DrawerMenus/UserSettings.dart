@@ -66,6 +66,7 @@ class _UserSettingsState extends State<UserSettingsPage> {
                                       setState(() {
                                         _fileAvatar = avatar;
                                       });
+                                      print(_fileAvatar.length());
                                     });
                                   },
                                   iconSize: 50,
@@ -81,7 +82,11 @@ class _UserSettingsState extends State<UserSettingsPage> {
                     trailing: Hero(
                       tag: 'user_avatar',
                       child: CircleAvatar(
-                        child: Text(provider.userName[0]),
+                        backgroundImage:
+                            _fileAvatar == null ? null : FileImage(_fileAvatar),
+                        child: _fileAvatar == null
+                            ? Text(provider.userName[0])
+                            : SizedBox(),
                       ),
                     ),
                   ),
