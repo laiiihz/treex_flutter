@@ -7,6 +7,15 @@ String getFileShortPath(FileSystemEntity fileSystemEntity) {
       .substring(fileSystemEntity.parent.path.length + 1);
 }
 
+String getFileSuffix(FileSystemEntity fileSystemEntity) {
+  int index = getFileShortPath(fileSystemEntity).indexOf('.');
+  if (index == -1) {
+    return '';
+  } else {
+    return getFileShortPath(fileSystemEntity).substring(index + 1);
+  }
+}
+
 int getSubFileLength(FileSystemEntity fileSystemEntity) {
   return Directory(fileSystemEntity.path).listSync().length;
 }
@@ -19,7 +28,25 @@ DateTime getFileCreateTime(FileSystemEntity fileSystemEntity) {
   return fileSystemEntity.statSync().modified;
 }
 
+DateTime getFileChangedTime(FileSystemEntity fileSystemEntity) {
+  return fileSystemEntity.statSync().changed;
+}
+
+DateTime getFileAccessedTime(FileSystemEntity fileSystemEntity) {
+  return fileSystemEntity.statSync().accessed;
+}
+
 String fileCreateTimeFormat(FileSystemEntity fileSystemEntity) {
+  return DateFormat('yyyy-MM-dd hh:mm:ss')
+      .format(getFileCreateTime(fileSystemEntity));
+}
+
+String fileChangedTimeFormat(FileSystemEntity fileSystemEntity) {
+  return DateFormat('yyyy-MM-dd hh:mm:ss')
+      .format(getFileCreateTime(fileSystemEntity));
+}
+
+String fileAccessedTimeFormat(FileSystemEntity fileSystemEntity) {
   return DateFormat('yyyy-MM-dd hh:mm:ss')
       .format(getFileCreateTime(fileSystemEntity));
 }

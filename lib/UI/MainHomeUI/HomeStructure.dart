@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:treex_flutter/ColorSchemes.dart';
 import 'package:treex_flutter/UI/AddTools/Tools.dart';
+import 'package:treex_flutter/UI/Files/cloud/CloudFiles.dart';
 import 'package:treex_flutter/UI/Files/local/LocalFiles.dart';
 import 'package:treex_flutter/UI/MainHomeUI/Pages/Account/Account.dart';
-import 'package:treex_flutter/UI/MainHomeUI/Pages/CloudFIle/CloudFile.dart';
 import 'package:treex_flutter/UI/MainHomeUI/Pages/HomeUI.dart';
 import 'package:treex_flutter/UI/MainHomeUI/SearchPage.dart';
 import 'package:treex_flutter/generated/i18n.dart';
@@ -41,7 +41,8 @@ class _HomeStructureState extends State<HomeStructurePage> {
         },
         child: Scaffold(
           appBar: _buildAnimateColoredAppBar(context),
-          floatingActionButton: _buildFAB(context),
+          floatingActionButton:
+              _bottomBarCurrentIndex == 3 ? null : _buildFAB(context),
           floatingActionButtonLocation: _bottomBarCurrentIndex == 0
               ? FloatingActionButtonLocation.centerFloat
               : FloatingActionButtonLocation.endFloat,
@@ -63,7 +64,7 @@ class _HomeStructureState extends State<HomeStructurePage> {
             return HomeUIPage();
             break;
           case 1:
-            return CloudFilePage();
+            return CloudFilesPage();
             break;
           case 2:
             return LocalFilesPage();

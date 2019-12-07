@@ -45,5 +45,11 @@
   "save": "SAVE",
   "connect_success": "CONNECT SUCCESS",
   "connect_fail": "CONNECT FAIL",
-  "confirm": "CONFIRM"
+  "confirm": "CONFIRM",
+  "shared": "Shared",
+  "create_time": "Create Time",
+  "path": "Path",
+  "length": "Length",
+  "mode": "Mode",
+  "file_type": "File Type"
 }

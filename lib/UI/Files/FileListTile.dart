@@ -9,9 +9,11 @@ class FileListTileWidget extends StatefulWidget {
     Key key,
     @required this.fileSystemEntity,
     @required this.delete,
+    @required this.onPress,
   }) : super(key: key);
   final FileSystemEntity fileSystemEntity;
   final VoidCallback delete;
+  final VoidCallback onPress;
   @override
   State<StatefulWidget> createState() => _FileListTileState();
 }
@@ -38,7 +40,7 @@ class _FileListTileState extends State<FileListTileWidget> {
         ),
       ],
       child: InkWell(
-        onTap: () {},
+        onTap: widget.onPress,
         child: ListTile(
           leading: isDirectory(widget.fileSystemEntity)
               ? Icon(Icons.folder)

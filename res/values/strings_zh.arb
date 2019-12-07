@@ -45,5 +45,11 @@
   "save": "保存",
   "connect_success": "连接成功",
   "connect_fail": "连接失败",
-  "confirm": "CONFIRM"
+  "confirm": "确定",
+  "shared": "共享",
+  "create_time": "创建时间",
+  "path": "路径",
+  "length": "大小",
+  "mode": "模式",
+  "file_type": "文件类型"
 }

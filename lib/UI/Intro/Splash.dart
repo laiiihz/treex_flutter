@@ -5,7 +5,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:treex_flutter/ColorSchemes.dart';
 import 'package:treex_flutter/Provider/AppProvider.dart';
 import 'package:treex_flutter/UI/MainHomeUI/HomeStructure.dart';
+import 'package:treex_flutter/UI/Overlay/DrawerMenus/NetworkSettings.dart';
 import 'package:treex_flutter/UI/UserLogin/UserIntro.dart';
+import 'package:treex_flutter/utils/NetUtil.dart';
 import 'package:uuid/uuid.dart';
 
 class SplashPage extends StatefulWidget {
@@ -18,34 +20,33 @@ class _SplashState extends State<SplashPage> {
   void initState() {
     super.initState();
     firstUser() async {
-      SharedPreferences sharedPreferences =
-          await SharedPreferences.getInstance();
-      final provider = Provider.of<AppProvider>(context);
-      provider.setIPAndPort(
-          '${sharedPreferences.getString('net_addr')}:${sharedPreferences.getString('net_port')}');
-      bool notFirst = sharedPreferences.getBool('not_first_login') ?? false;
-      if (!notFirst) {
-        print('gen');
-        var uuid = Uuid();
-        sharedPreferences.setBool('not_first_login', true);
-        sharedPreferences.setString('only_uuid', uuid.v4());
-      }
-      if ((sharedPreferences.getString('token') ?? '').length != 0) {
-        SharedPreferences sharedPreferences =
-            await SharedPreferences.getInstance();
-        provider.setUserName(sharedPreferences.getString('name'));
-        provider.setToken(sharedPreferences.getString('token'));
-        Navigator.of(context).push(MaterialPageRoute(
-            builder: (BuildContext context) => HomeStructurePage()));
-      } else {
-        Future.delayed(Duration(seconds: 3), () {
+      isFirstStartUp().then((value) {
+        if (value) {
+          genUUID();
+        }
+      });
+      initIpAndPort().then((_) {
+        checkServerConnection().then((value) {
           Navigator.of(context).pushReplacement(
             MaterialPageRoute(
               builder: (BuildContext context) => UserIntroPage(),
             ),
           );
+          if (!value) {
+            Navigator.of(context).push(MaterialPageRoute(
+                builder: (BuildContext context) => NetworkSettingsPage()));
+          } else {
+            isLogIn().then((value) {
+              if (value) {
+                loginOperations();
+                //TODO login operations
+                Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    builder: (BuildContext context) => HomeStructurePage()));
+              }
+            });
+          }
         });
-      }
+      });
     }
 
     firstUser();
@@ -66,5 +67,47 @@ class _SplashState extends State<SplashPage> {
         ),
       ),
     );
+  }
+
+  Future initIpAndPort() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    final provider = Provider.of<AppProvider>(context);
+    provider.setIPAndPort(
+        '${sharedPreferences.getString('net_addr') ?? '127.0.0.1'}:${sharedPreferences.getString('net_port') ?? '8080'}');
+  }
+
+  Future<bool> checkServerConnection() async {
+    final provider = Provider.of<AppProvider>(context);
+    return await CheckConnectionUtil(serverPrefix: provider.serverPrefix)
+        .check();
+  }
+
+  Future<bool> isFirstStartUp() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    bool notFirst = sharedPreferences.getBool('not_first_login') ?? false;
+    if (!notFirst) {
+      return false;
+    } else {
+      sharedPreferences.setBool('not_first_login', true);
+      return true;
+    }
+  }
+
+  genUUID() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    var uuid = Uuid();
+    sharedPreferences.setString('only_uuid', uuid.v4());
+  }
+
+  Future<bool> isLogIn() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    return (sharedPreferences.getString('token') ?? '').length != 0;
+  }
+
+  Future loginOperations() async {
+    final provider = Provider.of<AppProvider>(context);
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    provider.setUserName(sharedPreferences.getString('name'));
+    provider.setToken(sharedPreferences.getString('token'));
   }
 }

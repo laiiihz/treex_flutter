@@ -33,14 +33,18 @@ class S implements WidgetsLocalizations {
   String get create => "CREATE";
   String get create_a_account => "Create a Account";
   String get create_a_account_if_you_dont_have => "Create a Account if you don't have";
+  String get create_time => "Create Time";
   String get developer_mode => "Developer Mode";
+  String get file_type => "File Type";
   String get folder_name_cant_be_empty => "Folder name can't be empty";
   String get home => "HOME";
   String get ip_address => "IP address";
+  String get length => "Length";
   String get local_files => "LOCAL FILES";
   String get log_out => "LOG OUT";
   String get loginin_on_signup => "LOGININ ON SIGNUP";
   String get me => "Me";
+  String get mode => "Mode";
   String get network_settings => "Network Settings";
   String get new_folder => "NEW FOLDER";
   String get next => "NEXT";
@@ -50,6 +54,7 @@ class S implements WidgetsLocalizations {
   String get password => "YOUR PASSWORD";
   String get password_cant_be_empty => "PASSWORD CANT BE EMPTY";
   String get password_is_not_same => "Password is not same";
+  String get path => "Path";
   String get photos => "PHOTOS";
   String get port => "Port";
   String get reenter_your_password => "Re-enter your password";
@@ -58,6 +63,7 @@ class S implements WidgetsLocalizations {
   String get settings => "SETTINGS";
   String get share => "Share";
   String get share_folder => "Share Folder";
+  String get shared => "Shared";
   String get short_password => "PASSWORD";
   String get sign_up => "Sign Up";
   String get sign_up_sign_in => "SIGN UP/SIGN IN";
@@ -81,15 +87,9 @@ class $zh extends S {
   TextDirection get textDirection => TextDirection.ltr;
 
   @override
-  String get next => "下一步";
-  @override
   String get cancel => "取消";
   @override
   String get auto => "自动";
-  @override
-  String get create_a_account => "创建一个新账户";
-  @override
-  String get user_name => "用户名";
   @override
   String get user_agreement => "用户使用协议";
   @override
@@ -97,15 +97,9 @@ class $zh extends S {
   @override
   String get password_is_not_same => "密码不一致";
   @override
-  String get save => "保存";
-  @override
   String get network_settings => "网络设置";
   @override
   String get local_files => "本地";
-  @override
-  String get night_mode => "夜间模式";
-  @override
-  String get user_prefix => "用户:";
   @override
   String get photos => "相册";
   @override
@@ -113,13 +107,57 @@ class $zh extends S {
   @override
   String get developer_mode => "开发模式";
   @override
+  String get mode => "模式";
+  @override
   String get user_settings => "用户设置";
   @override
+  String get path => "路径";
+  @override
   String get password => "输入您的密码 ";
+  @override
+  String get file_type => "文件类型";
   @override
   String get me => "我";
   @override
   String get create => "创建";
+  @override
+  String get user_name_cant_empty => "用户名不能为空1";
+  @override
+  String get password_cant_be_empty => "密码不能为空";
+  @override
+  String get connect_success => "连接成功";
+  @override
+  String get settings => "设置";
+  @override
+  String get create_time => "创建时间";
+  @override
+  String get sign_up => "注册";
+  @override
+  String get tree => "Tree";
+  @override
+  String get set_an_avatar => "头像";
+  @override
+  String get loginin_on_signup => "登录或注册 ";
+  @override
+  String get log_out => "退出登录";
+  @override
+  String get cloud_files => "云盘";
+  @override
+  String get port => "端口号";
+  @override
+  String get next => "下一步";
+  @override
+  String get shared => "共享";
+  @override
+  String get create_a_account => "创建一个新账户";
+  @override
+  String get user_name => "用户名";
+  @override
+  String get save => "保存";
+  @override
+  String get night_mode => "夜间模式";
+  @override
+  String get user_prefix => "用户:";
   @override
   String get share => "分享";
   @override
@@ -129,23 +167,11 @@ class $zh extends S {
   @override
   String get agree_and_continue => "同意并继续";
   @override
-  String get user_name_cant_empty => "用户名不能为空1";
-  @override
-  String get password_cant_be_empty => "密码不能为空";
-  @override
   String get on => "开启";
-  @override
-  String get connect_success => "连接成功";
   @override
   String get create_a_account_if_you_dont_have => "若无账户将创建账户";
   @override
-  String get settings => "设置";
-  @override
-  String get sign_up => "注册";
-  @override
-  String get tree => "Tree";
-  @override
-  String get set_an_avatar => "头像";
+  String get length => "大小";
   @override
   String get reenter_your_password => "重新输入您的密码";
   @override
@@ -155,19 +181,11 @@ class $zh extends S {
   @override
   String get ip_address => "IP 地址";
   @override
-  String get loginin_on_signup => "登录或注册 ";
-  @override
   String get off => "关闭";
   @override
   String get home => "主页";
   @override
-  String get log_out => "退出登录";
-  @override
-  String get confirm => "CONFIRM";
-  @override
-  String get cloud_files => "云盘";
-  @override
-  String get port => "端口号";
+  String get confirm => "确定";
   @override
   String get x => "x";
   @override
