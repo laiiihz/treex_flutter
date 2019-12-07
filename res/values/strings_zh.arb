@@ -44,5 +44,6 @@
   "port": "端口号",
   "save": "保存",
   "connect_success": "连接成功",
-  "connect_fail": "连接失败"
+  "connect_fail": "连接失败",
+  "confirm": "CONFIRM"
 }

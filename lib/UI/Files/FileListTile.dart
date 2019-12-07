@@ -5,9 +5,13 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:treex_flutter/UI/Files/FilesFunctions.dart';
 
 class FileListTileWidget extends StatefulWidget {
-  FileListTileWidget({Key key, @required this.fileSystemEntity})
-      : super(key: key);
+  FileListTileWidget({
+    Key key,
+    @required this.fileSystemEntity,
+    @required this.delete,
+  }) : super(key: key);
   final FileSystemEntity fileSystemEntity;
+  final VoidCallback delete;
   @override
   State<StatefulWidget> createState() => _FileListTileState();
 }
@@ -28,7 +32,7 @@ class _FileListTileState extends State<FileListTileWidget> {
       secondaryActions: <Widget>[
         IconSlideAction(
           icon: Icons.delete,
-          onTap: () {},
+          onTap: widget.delete,
           closeOnTap: true,
           color: Colors.red,
         ),
@@ -36,7 +40,9 @@ class _FileListTileState extends State<FileListTileWidget> {
       child: InkWell(
         onTap: () {},
         child: ListTile(
-          leading: isDirectory(widget.fileSystemEntity)?Icon(Icons.folder):Icon(Icons.note),
+          leading: isDirectory(widget.fileSystemEntity)
+              ? Icon(Icons.folder)
+              : Icon(Icons.note),
           title: Text(getFileShortPath(widget.fileSystemEntity)),
           subtitle: Text(
               '${_buildSubFileLength()}${fileCreateTimeFormat(widget.fileSystemEntity)}'),

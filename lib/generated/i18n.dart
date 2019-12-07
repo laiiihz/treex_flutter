@@ -27,6 +27,7 @@ class S implements WidgetsLocalizations {
   String get auto => "AUTO";
   String get cancel => "CANCEL";
   String get cloud_files => "CLOUD FILES";
+  String get confirm => "CONFIRM";
   String get connect_fail => "CONNECT FAIL";
   String get connect_success => "CONNECT SUCCESS";
   String get create => "CREATE";
@@ -161,6 +162,8 @@ class $zh extends S {
   String get home => "主页";
   @override
   String get log_out => "退出登录";
+  @override
+  String get confirm => "CONFIRM";
   @override
   String get cloud_files => "云盘";
   @override

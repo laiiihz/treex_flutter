@@ -3,7 +3,9 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:treex_flutter/UI/Files/FileListTile.dart';
+import 'package:treex_flutter/UI/Files/FilesFunctions.dart';
 import 'package:treex_flutter/UI/Files/FilesStructure.dart';
+import 'package:treex_flutter/generated/i18n.dart';
 import 'package:treex_flutter/widget/RoundIconButton.dart';
 
 class LocalFilesPage extends StatefulWidget {
@@ -16,6 +18,8 @@ class _LocalFilesState extends State<LocalFilesPage> {
   FileSystemEntity _rootDirectory;
   FileSystemEntity _nowDirectory;
   List<FileSystemEntity> _nowDirectories;
+  int _dialogFileSize = 0;
+  int _dialogDirSize = 0;
   @override
   void initState() {
     super.initState();
@@ -28,9 +32,7 @@ class _LocalFilesState extends State<LocalFilesPage> {
     }
 
     initFiles().then((_) {
-      setState(() {
-        _nowDirectories = Directory(_nowDirectory.path).listSync();
-      });
+      updateFiles();
     });
   }
 
@@ -84,6 +86,66 @@ class _LocalFilesState extends State<LocalFilesPage> {
       itemBuilder: (BuildContext context, int index) {
         return FileListTileWidget(
           fileSystemEntity: _nowDirectories[index],
+          delete: () {
+            showGeneralDialog(
+                barrierColor: Colors.black26,
+                barrierLabel: 'loading',
+                barrierDismissible: true,
+                transitionDuration: Duration(milliseconds: 400),
+                context: context,
+                pageBuilder: (context, animation, animation2) {
+                  return Dialog(
+                    child: LinearProgressIndicator(),
+                  );
+                });
+
+            countFileSize(_nowDirectories[index]).then((value) {
+              Navigator.of(context).pop();
+              setState(() {
+                _dialogFileSize = value['file'];
+                _dialogDirSize = value['dir'];
+              });
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    title: Text(isDirectory(_nowDirectories[index])
+                        ? '删除该文件夹?'
+                        : '删除该文件?'),
+                    content: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        Text('${getFileShortPath(_nowDirectories[index])}'),
+                        Text('文件数:$_dialogFileSize'),
+                        Text('文件夹数:$_dialogDirSize'),
+                      ],
+                    ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(20)),
+                    ),
+                    actions: <Widget>[
+                      FlatButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: Text(S.of(context).cancel)),
+                      RaisedButton(
+                        color: Colors.red,
+                        textColor: Colors.white,
+                        onPressed: () {
+                          deleteFile(_nowDirectories[index]).then((_) {
+                            updateFiles();
+                          });
+                          Navigator.of(context).pop();
+                        },
+                        child: Text(S.of(context).confirm),
+                      ),
+                    ],
+                  );
+                },
+              );
+            });
+          },
         );
       },
       itemCount: _nowDirectories == null ? 0 : _nowDirectories.length,
@@ -103,5 +165,14 @@ class _LocalFilesState extends State<LocalFilesPage> {
       },
       itemCount: _nowDirectories == null ? 0 : _nowDirectories.length,
     );
+  }
+
+  updateFiles() {
+    _nowDirectories = Directory(_nowDirectory.path).listSync();
+    _nowDirectories = fileHiddenDisplay(files: _nowDirectories);
+    _nowDirectories = fileFilterA2Z(_nowDirectories);
+    setState(() {
+      _nowDirectories = fileFilterDirOrFile(_nowDirectories);
+    });
   }
 }
