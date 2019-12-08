@@ -149,31 +149,11 @@ class _UserSettingsState extends State<UserSettingsPage> {
                 IconButton(
                     icon: Icon(Icons.add),
                     onPressed: () {
-                      showMIUIDialog(
-                          context: context,
-                          dyOffset: 0.3,
-                          content: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: <Widget>[
-                              MIUIDialogTitle(),
-                              MIUIDialogTextField(),
-                              Row(
-                                children: <Widget>[
-                                  Expanded(
-                                    child: MIUIDialogButton(onPressed: () {}),
-                                  ),
-                                  SizedBox(width: 20),
-                                  Expanded(
-                                    child: MIUIDialogButton(
-                                      onPressed: () {},
-                                      colored: true,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                          label: 'test');
+                      showMIUIConfirmDialog(
+                        context: context,
+                        child: Text('test'),
+                        title: S.of(context).new_folder, confirm: () {},
+                      );
                     }),
                 SizedBox(
                   height: 1000,

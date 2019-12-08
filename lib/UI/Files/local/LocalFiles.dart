@@ -53,8 +53,8 @@ class _LocalFilesState extends State<LocalFilesPage> {
           });
         },
         icon: AnimatedCrossFade(
-          firstChild: Icon(Icons.view_list),
-          secondChild: Icon(Icons.view_module),
+          firstChild: Icon(Icons.view_list, color: Colors.white),
+          secondChild: Icon(Icons.view_module, color: Colors.white),
           crossFadeState: _showViewList
               ? CrossFadeState.showFirst
               : CrossFadeState.showSecond,
@@ -88,92 +88,97 @@ class _LocalFilesState extends State<LocalFilesPage> {
         ? Center(child: CircularProgressIndicator())
         : _nowDirectories.length == 0
             ? _buildCenterEmptyIcon(context)
-            : ListView.builder(
-                key: Key(_randomKey),
-                physics: BouncingScrollPhysics(),
-                padding: EdgeInsets.only(top: 40),
-                itemBuilder: (BuildContext context, int index) {
-                  return FileListTileWidget(
-                    onPress: () {
-                      if (isDirectory(_nowDirectories[index])) {
-                        _nowDirectory = _nowDirectories[index];
-                        setState(() {
-                          _randomKey = Random().nextDouble().toString();
-                          _dirStack.insert(0, _nowDirectories[index]);
-                        });
-                        updateFiles();
-                      } else {
-                        go2FileHelper(context, _nowDirectories[index]);
-                      }
-                    },
-                    fileSystemEntity: _nowDirectories[index],
-                    delete: () {
-                      showGeneralDialog(
-                          barrierColor: Colors.black26,
-                          barrierLabel: 'loading',
-                          barrierDismissible: true,
-                          transitionDuration: Duration(milliseconds: 400),
-                          context: context,
-                          pageBuilder: (context, animation, animation2) {
-                            return Dialog(
-                              child: LinearProgressIndicator(),
-                            );
+            : RefreshIndicator(
+                child: ListView.builder(
+                  key: Key(_randomKey),
+                  physics: BouncingScrollPhysics(),
+                  padding: EdgeInsets.only(top: 40),
+                  itemBuilder: (BuildContext context, int index) {
+                    return FileListTileWidget(
+                      onPress: () {
+                        if (isDirectory(_nowDirectories[index])) {
+                          _nowDirectory = _nowDirectories[index];
+                          setState(() {
+                            _randomKey = Random().nextDouble().toString();
+                            _dirStack.insert(0, _nowDirectories[index]);
                           });
+                          updateFiles();
+                        } else {
+                          go2FileHelper(context, _nowDirectories[index]);
+                        }
+                      },
+                      fileSystemEntity: _nowDirectories[index],
+                      delete: () {
+                        showGeneralDialog(
+                            barrierColor: Colors.black26,
+                            barrierLabel: 'loading',
+                            barrierDismissible: true,
+                            transitionDuration: Duration(milliseconds: 400),
+                            context: context,
+                            pageBuilder: (context, animation, animation2) {
+                              return Dialog(
+                                child: LinearProgressIndicator(),
+                              );
+                            });
 
-                      countFileSize(_nowDirectories[index]).then((value) {
-                        Navigator.of(context).pop();
-                        setState(() {
-                          _dialogFileSize = value['file'];
-                          _dialogDirSize = value['dir'];
-                        });
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return AlertDialog(
-                              title: Text(isDirectory(_nowDirectories[index])
-                                  ? '删除该文件夹?'
-                                  : '删除该文件?'),
-                              content: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: <Widget>[
-                                  Text(
-                                      '${getFileShortPath(_nowDirectories[index])}'),
-                                  Text('文件数:$_dialogFileSize'),
-                                  Text('文件夹数:$_dialogDirSize'),
-                                ],
-                              ),
-                              shape: RoundedRectangleBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(20)),
-                              ),
-                              actions: <Widget>[
-                                FlatButton(
+                        countFileSize(_nowDirectories[index]).then((value) {
+                          Navigator.of(context).pop();
+                          setState(() {
+                            _dialogFileSize = value['file'];
+                            _dialogDirSize = value['dir'];
+                          });
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: Text(isDirectory(_nowDirectories[index])
+                                    ? '删除该文件夹?'
+                                    : '删除该文件?'),
+                                content: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: <Widget>[
+                                    Text(
+                                        '${getFileShortPath(_nowDirectories[index])}'),
+                                    Text('文件数:$_dialogFileSize'),
+                                    Text('文件夹数:$_dialogDirSize'),
+                                  ],
+                                ),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(20)),
+                                ),
+                                actions: <Widget>[
+                                  FlatButton(
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                      child: Text(S.of(context).cancel)),
+                                  RaisedButton(
+                                    color: Colors.red,
+                                    textColor: Colors.white,
                                     onPressed: () {
+                                      deleteFile(_nowDirectories[index])
+                                          .then((_) {
+                                        updateFiles();
+                                      });
                                       Navigator.of(context).pop();
                                     },
-                                    child: Text(S.of(context).cancel)),
-                                RaisedButton(
-                                  color: Colors.red,
-                                  textColor: Colors.white,
-                                  onPressed: () {
-                                    deleteFile(_nowDirectories[index])
-                                        .then((_) {
-                                      updateFiles();
-                                    });
-                                    Navigator.of(context).pop();
-                                  },
-                                  child: Text(S.of(context).confirm),
-                                ),
-                              ],
-                            );
-                          },
-                        );
-                      });
-                    },
-                  );
-                },
-                itemCount: _nowDirectories == null ? 0 : _nowDirectories.length,
-              );
+                                    child: Text(S.of(context).confirm),
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                        });
+                      },
+                    );
+                  },
+                  itemCount:
+                      _nowDirectories == null ? 0 : _nowDirectories.length,
+                ),
+                onRefresh: () async {
+                  await updateFiles();
+                });
   }
 
   Widget _buildGrid(BuildContext context) {

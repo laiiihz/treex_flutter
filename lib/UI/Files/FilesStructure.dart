@@ -31,30 +31,29 @@ class _FilesStructureState extends State<FilesStructurePage> {
           decoration: BoxDecoration(
             color: MediaQuery.of(context).platformBrightness == Brightness.dark
                 ? Color(0xff333333)
-                : yellowBackgroundDark,
+                : Color(0xff0069c0),
             boxShadow: [
               BoxShadow(
                 color:
                     MediaQuery.of(context).platformBrightness == Brightness.dark
-                        ? Colors.white30
+                        ? Colors.white12
                         : Colors.black38,
                 offset: Offset(0, 5),
                 blurRadius: 10,
               )
             ],
-            borderRadius: BorderRadius.only(
-              bottomLeft: Radius.circular(20),
-              bottomRight: Radius.circular(20),
-            ),
           ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              widget.prefix,
-              Expanded(child: widget.pathList),
-              widget.suffix,
-            ],
+          child: DefaultTextStyle(
+            style: TextStyle(color: Colors.white),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                widget.prefix,
+                Expanded(child: widget.pathList),
+                widget.suffix,
+              ],
+            ),
           ),
         ),
       ],

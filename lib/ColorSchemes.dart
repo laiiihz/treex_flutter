@@ -28,13 +28,14 @@ Color getTealBackgroundDark(BuildContext context) {
 }
 
 var defaultTheme = ThemeData(
+  primaryColor: Colors.blueAccent,
   floatingActionButtonTheme: FloatingActionButtonThemeData(
     backgroundColor: limePrimary,
     splashColor: limeDark,
     foregroundColor: Colors.black,
   ),
   appBarTheme: AppBarTheme(
-    color: tealPrimary,
+    color: Colors.blueAccent,
   ),
   buttonTheme: ButtonThemeData(
     shape: StadiumBorder(),

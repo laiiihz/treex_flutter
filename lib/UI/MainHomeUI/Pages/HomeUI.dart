@@ -14,14 +14,6 @@ class _HomeUIState extends State<HomeUIPage> {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        Container(
-          height: 150,
-          child: FlareActor(
-            'assets/treex-brand.flr',
-            fit: BoxFit.fitHeight,
-            animation: 'brand',
-          ),
-        ),
         Expanded(
           child: GridView(
             physics: BouncingScrollPhysics(),

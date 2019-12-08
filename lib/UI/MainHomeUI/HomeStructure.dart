@@ -163,43 +163,31 @@ class _HomeStructureState extends State<HomeStructurePage> {
   }
 
   Widget _buildAnimateColoredAppBar(BuildContext context) {
-    return PreferredSize(
-      child: AnimatedContainer(
-        decoration: BoxDecoration(
-          color: MediaQuery.of(context).platformBrightness == Brightness.dark
-              ? Color(0xff333333)
-              : Colors.blue,
-        ),
-        child: AppBar(
-          leading: Builder(
-            builder: (BuildContext context) {
-              return IconButton(
-                icon: Icon(Icons.search),
-                onPressed: () {
-                  showSearch(context: context, delegate: SearchPage());
-                },
-              );
+    return AppBar(
+      elevation: _bottomBarCurrentIndex == 3 ? 0 : null,
+      leading: Builder(
+        builder: (BuildContext context) {
+          return IconButton(
+            icon: Icon(Icons.search),
+            onPressed: () {
+              showSearch(context: context, delegate: SearchPage());
             },
-          ),
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-          title: AnimatedSwitcher(
-            duration: Duration(milliseconds: 500),
-            child: _textTile,
-            switchInCurve: Curves.easeIn,
-            switchOutCurve: Curves.easeOut,
-            transitionBuilder: (child, animation) {
-              return FadeTransition(
-                opacity: animation,
-                child: child,
-              );
-            },
-          ),
-          centerTitle: true,
-        ),
-        duration: Duration(milliseconds: 500),
+          );
+        },
       ),
-      preferredSize: Size.fromHeight(60),
+      title: AnimatedSwitcher(
+        duration: Duration(milliseconds: 500),
+        child: _textTile,
+        switchInCurve: Curves.easeIn,
+        switchOutCurve: Curves.easeOut,
+        transitionBuilder: (child, animation) {
+          return FadeTransition(
+            opacity: animation,
+            child: child,
+          );
+        },
+      ),
+      centerTitle: true,
     );
   }
 

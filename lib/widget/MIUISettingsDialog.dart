@@ -1,4 +1,7 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'package:treex_flutter/generated/i18n.dart';
 
 showMIUIDialog({
   @required BuildContext context,
@@ -58,14 +61,78 @@ showMIUIDialog({
       });
 }
 
+showMIUIConfirmDialog({
+  @required BuildContext context,
+  @required Widget child,
+  @required String title,
+  @required VoidCallback confirm,
+}) {
+  showMIUIDialog(
+      context: context,
+      dyOffset: 0.4,
+      content: MIUIConfirmContent(
+        child: child,
+        title: title,
+        confirm: confirm,
+      ),
+      label: '${Random().nextDouble()}');
+}
+
+class MIUIConfirmContent extends StatelessWidget {
+  MIUIConfirmContent({
+    Key key,
+    @required this.child,
+    @required this.title,
+    @required this.confirm,
+  }) : super(key: key);
+  final Widget child;
+  final String title;
+  final VoidCallback confirm;
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: <Widget>[
+        MIUIDialogTitle(this.title),
+        this.child,
+        SizedBox(
+          height: 20,
+        ),
+        Row(
+          children: <Widget>[
+            Expanded(
+              child: MIUIDialogButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text(S.of(context).cancel),
+              ),
+            ),
+            SizedBox(width: 25),
+            Expanded(
+              child: MIUIDialogButton(
+                onPressed: this.confirm,
+                colored: true,
+                child: Text(S.of(context).confirm),
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+}
+
 class MIUIDialogButton extends StatelessWidget {
   MIUIDialogButton({
     Key key,
     @required this.onPressed,
+    @required this.child,
     this.colored = false,
   }) : super(key: key);
   final VoidCallback onPressed;
   final bool colored;
+  final Widget child;
   @override
   Widget build(BuildContext context) {
     return MaterialButton(
@@ -94,12 +161,18 @@ class MIUIDialogButton extends StatelessWidget {
                     ? Colors.white
                     : Colors.black,
           ),
-          child: Text('确定')),
+          child: this.child),
     );
   }
 }
 
 class MIUIDialogTitle extends StatelessWidget {
+  MIUIDialogTitle(
+    this.title, {
+    Key key,
+  })  : assert(title != null),
+        super(key: key);
+  final String title;
   @override
   Widget build(BuildContext context) {
     return Align(

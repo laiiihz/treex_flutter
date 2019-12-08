@@ -14,7 +14,10 @@ class _CloudFilesState extends State<CloudFilesPage> {
     return FilesStructurePage(
         prefix: RoundIconButtonWidget(
           onPress: () {},
-          icon: Text(S.of(context).shared),
+          icon: Text(
+            S.of(context).shared,
+            style: TextStyle(color: Colors.white),
+          ),
         ),
         pathList: Container(),
         suffix: Container(),
