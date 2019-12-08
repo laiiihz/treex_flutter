@@ -95,12 +95,71 @@ class _UserSettingsState extends State<UserSettingsPage> {
                   builder: (BuildContext context) {
                     return InkWell(
                       onTap: () {
-                        Scaffold.of(context)
-                            .showBottomSheet((BuildContext context) {
-                          return Card(
-                            child: TextField(),
-                          );
-                        });
+                        showGeneralDialog(
+                          barrierDismissible: true,
+                          barrierLabel: 'userName',
+                          barrierColor: Colors.black45,
+                          transitionDuration: Duration(milliseconds: 200),
+                          pageBuilder:
+                              (context, animation, secondaryAnimation) {
+                            return Align(
+                              alignment: Alignment.bottomCenter,
+                              child: Material(
+                                color: Colors.transparent,
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: <Widget>[
+                                    Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.only(
+                                          topLeft: Radius.circular(20),
+                                          topRight: Radius.circular(20),
+                                        ),
+                                        color: MediaQuery.of(context)
+                                                    .platformBrightness ==
+                                                Brightness.dark
+                                            ? Color(0xff333333)
+                                            : Color(0xffdddddd),
+                                      ),
+                                      child: Column(
+                                        children: <Widget>[
+                                          SizedBox(height: 20),
+                                          Text(
+                                            '修改用户名',
+                                            style: TextStyle(fontSize: 30),
+                                          ),
+                                          SizedBox(height: 20),
+                                          TextField(),
+                                          ButtonBar(
+                                            children: <Widget>[
+                                              FlatButton(
+                                                onPressed: () {},
+                                                child:
+                                                    Text(S.of(context).cancel),
+                                              ),
+                                              RaisedButton(
+                                                onPressed: () {},
+                                                child:
+                                                    Text(S.of(context).confirm),
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    AnimatedContainer(
+                                      duration: Duration(milliseconds: 200),
+                                      height: MediaQuery.of(context)
+                                          .viewInsets
+                                          .bottom,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            );
+                          },
+                          context: context,
+                        );
                       },
                       child: ListTile(
                         leading: Icon(Icons.details),
