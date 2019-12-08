@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:treex_flutter/UI/Files/FilesFunctions.dart';
 import 'package:treex_flutter/generated/i18n.dart';
 import 'package:treex_flutter/widget/RoundIconButton.dart';
@@ -53,7 +54,8 @@ class _SingleFileHelperState extends State<SingleFileHelperPage> {
                 children: <Widget>[
                   SizedBox(height: 100),
                   Icon(
-                    Icons.folder,
+                    iconStringMap[getFileSuffix(widget.fileSystemEntity)] ??
+                        FontAwesomeIcons.solidFile,
                     size: 40,
                   ),
                   SizedBox(height: 20),
@@ -103,6 +105,8 @@ class _SingleFileHelperState extends State<SingleFileHelperPage> {
                     leading: Icon(Icons.category),
                     subtitle: Text(widget.fileSystemEntity.path),
                   ),
+                  _buildFilePreview(
+                      context, getFileSuffix(widget.fileSystemEntity)),
                   SizedBox(height: 200),
                 ],
               ),
@@ -159,7 +163,7 @@ class _SingleFileHelperState extends State<SingleFileHelperPage> {
                                         child: Text(S.of(context).cancel)),
                                     RaisedButton(
                                       color: Colors.red,
-                                      onPressed:widget.delete,
+                                      onPressed: widget.delete,
                                       child: Text(S.of(context).confirm),
                                     ),
                                   ],
@@ -176,5 +180,30 @@ class _SingleFileHelperState extends State<SingleFileHelperPage> {
             ),
           ],
         ));
+  }
+
+  Widget _buildFilePreview(BuildContext context, String fileType) {
+    switch (fileType) {
+      case 'jpg':
+      case 'webp':
+      case 'png':
+        return Padding(
+          padding: EdgeInsets.all(10),
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+            ),
+            height: MediaQuery.of(context).size.width,
+            child: Image.file(
+              widget.fileSystemEntity,
+              fit: BoxFit.cover,
+            ),
+          ),
+        );
+      default:
+        return SizedBox(
+          height: 50,
+        );
+    }
   }
 }

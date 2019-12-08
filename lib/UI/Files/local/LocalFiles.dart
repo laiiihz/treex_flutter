@@ -3,6 +3,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:treex_flutter/UI/Files/FileGridTile.dart';
 import 'package:treex_flutter/UI/Files/FileListTile.dart';
 import 'package:treex_flutter/UI/Files/FilesFunctions.dart';
 import 'package:treex_flutter/UI/Files/FilesStructure.dart';
@@ -96,17 +97,7 @@ class _LocalFilesState extends State<LocalFilesPage> {
                         });
                         updateFiles();
                       } else {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (BuildContext context) =>
-                                SingleFileHelperPage(
-                                  fileSystemEntity: _nowDirectories[index],
-                                  delete: () {
-                                    Navigator.of(context).pop();
-                                    Navigator.of(context).pop();
-                                    _nowDirectories[index].deleteSync();
-                                    updateFiles();
-                                  },
-                                )));
+                        go2FileHelper(context, _nowDirectories[index]);
                       }
                     },
                     fileSystemEntity: _nowDirectories[index],
@@ -181,13 +172,25 @@ class _LocalFilesState extends State<LocalFilesPage> {
 
   Widget _buildGrid(BuildContext context) {
     return GridView.builder(
+      key: Key('$_randomKey grid'),
       physics: BouncingScrollPhysics(),
       padding: EdgeInsets.only(top: 40),
       gridDelegate:
           SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
       itemBuilder: (BuildContext context, int index) {
-        return Card(
-          child: Text('test'),
+        return FileGridTileWidget(
+          fileSystemEntity: _nowDirectories[index],
+          onPressed: () {
+            if (isDirectory(_nowDirectories[index])) {
+              _nowDirectory = _nowDirectories[index];
+              setState(() {
+                _randomKey = Random().nextDouble().toString();
+              });
+              updateFiles();
+            } else {
+              go2FileHelper(context, _nowDirectories[index]);
+            }
+          },
         );
       },
       itemCount: _nowDirectories == null ? 0 : _nowDirectories.length,
@@ -215,5 +218,21 @@ class _LocalFilesState extends State<LocalFilesPage> {
     setState(() {
       _nowDirectories = fileFilterDirOrFile(_nowDirectories);
     });
+  }
+
+  go2FileHelper(BuildContext context, FileSystemEntity file) {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (BuildContext context) => SingleFileHelperPage(
+          fileSystemEntity: file,
+          delete: () {
+            Navigator.of(context).pop();
+            Navigator.of(context).pop();
+            file.deleteSync();
+            updateFiles();
+          },
+        ),
+      ),
+    );
   }
 }

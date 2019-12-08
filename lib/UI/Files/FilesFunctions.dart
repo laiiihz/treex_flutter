@@ -1,5 +1,7 @@
 import 'dart:io';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 
 String getFileShortPath(FileSystemEntity fileSystemEntity) {
@@ -171,3 +173,11 @@ _deleteFileInside(FileSystemEntity fileSystemEntity) async {
     fileSystemEntity.deleteSync();
   }
 }
+
+final Map<String, IconData> iconStringMap = {
+  '':FontAwesomeIcons.solidFile,
+  'jpg': FontAwesomeIcons.solidFileImage,
+  'png': FontAwesomeIcons.solidFileImage,
+  'webp': FontAwesomeIcons.solidFileImage,
+  'mp4': FontAwesomeIcons.solidFileVideo,
+};
