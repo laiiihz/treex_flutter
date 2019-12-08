@@ -1,7 +1,11 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:outline_material_icons/outline_material_icons.dart';
+import 'package:provider/provider.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:treex_flutter/ColorSchemes.dart';
+import 'package:treex_flutter/Provider/AppProvider.dart';
 import 'package:treex_flutter/UI/AddTools/Tools.dart';
 import 'package:treex_flutter/UI/Files/cloud/CloudFiles.dart';
 import 'package:treex_flutter/UI/Files/local/LocalFiles.dart';
@@ -9,6 +13,7 @@ import 'package:treex_flutter/UI/MainHomeUI/Pages/Account/Account.dart';
 import 'package:treex_flutter/UI/MainHomeUI/Pages/HomeUI.dart';
 import 'package:treex_flutter/UI/MainHomeUI/SearchPage.dart';
 import 'package:treex_flutter/generated/i18n.dart';
+import 'package:treex_flutter/widget/MIUISettingsDialog.dart';
 
 class HomeStructurePage extends StatefulWidget {
   @override
@@ -19,6 +24,7 @@ class _HomeStructureState extends State<HomeStructurePage> {
   ScreenshotController _screenshotController = ScreenshotController();
   PageController _pageController = PageController(initialPage: 0);
   int _bottomBarCurrentIndex = 0;
+  TextEditingController _newFolderTextController = TextEditingController();
 
   Color _appBarColor = tealBackgroundDark;
 
@@ -42,8 +48,7 @@ class _HomeStructureState extends State<HomeStructurePage> {
         },
         child: Scaffold(
           appBar: _buildAnimateColoredAppBar(context),
-          floatingActionButton:
-              _bottomBarCurrentIndex == 3 ? null : _buildFAB(context),
+          floatingActionButton: _buildFAB(context),
           floatingActionButtonLocation: _bottomBarCurrentIndex == 0
               ? FloatingActionButtonLocation.centerFloat
               : FloatingActionButtonLocation.endFloat,
@@ -142,22 +147,45 @@ class _HomeStructureState extends State<HomeStructurePage> {
   }
 
   Widget _buildFAB(BuildContext context) {
+    final provider = Provider.of<AppProvider>(context);
     return FloatingActionButton(
       heroTag: 'add_menu',
       child: Icon(Icons.add),
       onPressed: () {
-        _screenshotController.capture().then((image) {
-          Navigator.of(context).push(
-            PageRouteBuilder(pageBuilder: (context, animation, animation2) {
-              return FadeTransition(
-                opacity: animation,
-                child: ToolsPage(
-                  image: image,
-                ),
+        switch (_bottomBarCurrentIndex) {
+          case 0:
+            _screenshotController.capture().then((image) {
+              Navigator.of(context).push(
+                PageRouteBuilder(pageBuilder: (context, animation, animation2) {
+                  return FadeTransition(
+                    opacity: animation,
+                    child: ToolsPage(
+                      image: image,
+                    ),
+                  );
+                }),
               );
-            }),
-          );
-        });
+            });
+            break;
+          case 1:
+            break;
+          case 2:
+            _newFolderTextController.text = '';
+            showMIUIConfirmDialog(
+              context: context,
+              child: MIUIDialogTextField(
+                textEditingController: _newFolderTextController,
+              ),
+              title: S.of(context).new_folder,
+              confirm: () {
+                FileSystemEntity file = provider.nowDirectory;
+                Directory('${file.path}/${_newFolderTextController.text}/')
+                    .createSync();
+                Navigator.of(context).pop();
+              },
+            );
+            break;
+        }
       },
     );
   }

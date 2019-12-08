@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
 class AppProvider extends ChangeNotifier {
@@ -20,6 +22,13 @@ class AppProvider extends ChangeNotifier {
   get serverPrefix => _serverPrefix;
   setIPAndPort(String prefix) {
     _serverPrefix = prefix;
+    notifyListeners();
+  }
+
+  FileSystemEntity _nowDirectory = Directory('/');
+  get nowDirectory => _nowDirectory;
+  setNowDirectory(FileSystemEntity fileSystemEntity) {
+    _nowDirectory = fileSystemEntity;
     notifyListeners();
   }
 }

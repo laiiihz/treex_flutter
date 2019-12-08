@@ -152,7 +152,8 @@ class _UserSettingsState extends State<UserSettingsPage> {
                       showMIUIConfirmDialog(
                         context: context,
                         child: Text('test'),
-                        title: S.of(context).new_folder, confirm: () {},
+                        title: S.of(context).new_folder,
+                        confirm: () {},
                       );
                     }),
                 SizedBox(

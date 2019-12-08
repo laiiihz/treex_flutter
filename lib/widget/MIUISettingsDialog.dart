@@ -195,6 +195,11 @@ class MIUIDialogTitle extends StatelessWidget {
 }
 
 class MIUIDialogTextField extends StatelessWidget {
+  MIUIDialogTextField({
+    Key key,
+    @required this.textEditingController,
+  }) : super(key: key);
+  final TextEditingController textEditingController;
   final borderDecoration = OutlineInputBorder(
     borderSide: BorderSide(color: Color(0xff0196FF), width: 2),
     borderRadius: BorderRadius.circular(16),
@@ -215,8 +220,9 @@ class MIUIDialogTextField extends StatelessWidget {
               fontSize: 18),
         ),
         Padding(
-          padding: EdgeInsets.only(top: 10, bottom: 25),
+          padding: EdgeInsets.only(top: 10, bottom: 10),
           child: TextField(
+            controller: this.textEditingController,
             decoration: InputDecoration(
               filled: true,
               fillColor:

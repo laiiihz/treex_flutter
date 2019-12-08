@@ -3,6 +3,8 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:provider/provider.dart';
+import 'package:treex_flutter/Provider/AppProvider.dart';
 import 'package:treex_flutter/UI/Files/FileGridTile.dart';
 import 'package:treex_flutter/UI/Files/FileListTile.dart';
 import 'package:treex_flutter/UI/Files/FilesFunctions.dart';
@@ -224,6 +226,8 @@ class _LocalFilesState extends State<LocalFilesPage> {
   }
 
   updateFiles() {
+    final provider = Provider.of<AppProvider>(context);
+    provider.setNowDirectory(_nowDirectory);
     _nowDirectories = Directory(_nowDirectory.path).listSync();
     _nowDirectories = fileHiddenDisplay(files: _nowDirectories);
     _nowDirectories = fileFilterA2Z(_nowDirectories);
