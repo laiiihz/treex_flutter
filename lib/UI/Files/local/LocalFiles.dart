@@ -21,6 +21,7 @@ class _LocalFilesState extends State<LocalFilesPage> {
   FileSystemEntity _rootDirectory;
   FileSystemEntity _nowDirectory;
   List<FileSystemEntity> _nowDirectories;
+  List<FileSystemEntity> _dirStack = [];
   int _dialogFileSize = 0;
   int _dialogDirSize = 0;
   String _randomKey = 'RANDOMKEY';
@@ -32,6 +33,7 @@ class _LocalFilesState extends State<LocalFilesPage> {
       setState(() {
         _rootDirectory = fileSystemEntity.parent.parent.parent.parent;
         _nowDirectory = fileSystemEntity.parent.parent.parent.parent;
+        _dirStack.insert(0, _nowDirectory);
       });
     }
 
@@ -59,18 +61,21 @@ class _LocalFilesState extends State<LocalFilesPage> {
           duration: Duration(milliseconds: 400),
         ),
       ),
-      pathList: ListView.builder(
-        physics: BouncingScrollPhysics(),
-        scrollDirection: Axis.horizontal,
-        itemBuilder: (BuildContext context, int index) {
-          return Container(
-            height: 40,
-            child: Center(
-              child: Text('test'),
+      pathList: _dirStack == null
+          ? LinearProgressIndicator()
+          : ListView.builder(
+              physics: BouncingScrollPhysics(),
+              scrollDirection: Axis.horizontal,
+              itemBuilder: (BuildContext context, int index) {
+                return Container(
+                  height: 40,
+                  child: Center(
+                    child: Text(getFileShortPath(_dirStack[index])),
+                  ),
+                );
+              },
+              itemCount: _dirStack.length,
             ),
-          );
-        },
-      ),
       child: AnimatedSwitcher(
         child: _showViewList ? _buildList(context) : _buildGrid(context),
         duration: Duration(milliseconds: 400),
@@ -94,6 +99,7 @@ class _LocalFilesState extends State<LocalFilesPage> {
                         _nowDirectory = _nowDirectories[index];
                         setState(() {
                           _randomKey = Random().nextDouble().toString();
+                          _dirStack.insert(0, _nowDirectories[index]);
                         });
                         updateFiles();
                       } else {
@@ -186,6 +192,7 @@ class _LocalFilesState extends State<LocalFilesPage> {
               setState(() {
                 _randomKey = Random().nextDouble().toString();
               });
+
               updateFiles();
             } else {
               go2FileHelper(context, _nowDirectories[index]);

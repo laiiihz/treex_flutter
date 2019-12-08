@@ -51,5 +51,8 @@
   "path": "Path",
   "length": "Length",
   "mode": "Mode",
-  "file_type": "File Type"
+  "file_type": "File Type",
+  "licences": "licences",
+  "licenses": "licenses",
+  "phone_number": "Phone Number"
 }

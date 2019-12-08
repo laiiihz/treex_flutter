@@ -51,5 +51,8 @@
   "path": "路径",
   "length": "大小",
   "mode": "模式",
-  "file_type": "文件类型"
+  "file_type": "文件类型",
+  "licences": "licences",
+  "licenses": "licenses",
+  "phone_number": "Phone Number"
 }

@@ -1,4 +1,6 @@
+import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:treex_flutter/generated/i18n.dart';
 
 class AboutPage extends StatefulWidget {
@@ -16,7 +18,23 @@ class _AboutState extends State<AboutPage> {
       body: Column(
         children: <Widget>[
           Expanded(
-            child: Text('test'),
+            child: ListView(
+              children: <Widget>[
+                InkWell(
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (BuildContext context) => LicensePage(),
+                      ),
+                    );
+                  },
+                  child: ListTile(
+                    leading: Icon(FontAwesomeIcons.code),
+                    title: Text(S.of(context).licenses),
+                  ),
+                ),
+              ],
+            ),
           ),
           Center(
             child: Text('©Honz Inc.'),

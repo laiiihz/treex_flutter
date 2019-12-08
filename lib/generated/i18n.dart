@@ -40,6 +40,8 @@ class S implements WidgetsLocalizations {
   String get home => "HOME";
   String get ip_address => "IP address";
   String get length => "Length";
+  String get licences => "licences";
+  String get licenses => "licenses";
   String get local_files => "LOCAL FILES";
   String get log_out => "LOG OUT";
   String get loginin_on_signup => "LOGININ ON SIGNUP";
@@ -55,6 +57,7 @@ class S implements WidgetsLocalizations {
   String get password_cant_be_empty => "PASSWORD CANT BE EMPTY";
   String get password_is_not_same => "Password is not same";
   String get path => "Path";
+  String get phone_number => "Phone Number";
   String get photos => "PHOTOS";
   String get port => "Port";
   String get reenter_your_password => "Re-enter your password";
@@ -145,6 +148,8 @@ class $zh extends S {
   @override
   String get port => "端口号";
   @override
+  String get phone_number => "Phone Number";
+  @override
   String get next => "下一步";
   @override
   String get shared => "共享";
@@ -167,6 +172,8 @@ class $zh extends S {
   @override
   String get agree_and_continue => "同意并继续";
   @override
+  String get licences => "licences";
+  @override
   String get on => "开启";
   @override
   String get create_a_account_if_you_dont_have => "若无账户将创建账户";
@@ -186,6 +193,8 @@ class $zh extends S {
   String get home => "主页";
   @override
   String get confirm => "确定";
+  @override
+  String get licenses => "licenses";
   @override
   String get x => "x";
   @override
