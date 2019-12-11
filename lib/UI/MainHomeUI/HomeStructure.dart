@@ -46,7 +46,8 @@ class _HomeStructureState extends State<HomeStructurePage> {
         },
         child: Scaffold(
           appBar: _buildAnimateColoredAppBar(context),
-          floatingActionButton: _buildFAB(context),
+          floatingActionButton:
+              _bottomBarCurrentIndex == 3 ? null : _buildFAB(context),
           floatingActionButtonLocation: _bottomBarCurrentIndex == 0
               ? FloatingActionButtonLocation.centerFloat
               : FloatingActionButtonLocation.endFloat,
