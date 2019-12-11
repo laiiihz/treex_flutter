@@ -110,7 +110,8 @@ class _LocalFilesState extends State<LocalFilesPage> {
             : RefreshIndicator(
                 child: ListView.builder(
                   key: Key('$_randomKey list'),
-                  physics: BouncingScrollPhysics(),
+                  physics: AlwaysScrollableScrollPhysics(
+                      parent: BouncingScrollPhysics()),
                   padding: EdgeInsets.only(top: 40),
                   itemBuilder: (BuildContext context, int index) {
                     return FileListTileWidget(
@@ -133,59 +134,10 @@ class _LocalFilesState extends State<LocalFilesPage> {
                       },
                       fileSystemEntity: _nowDirectories[index],
                       delete: () {
-                        if (isDirectory(_nowDirectories[index])) {
-                          showGeneralDialog(
-                            barrierColor: Colors.black26,
-                            barrierLabel: 'loading',
-                            barrierDismissible: true,
-                            transitionDuration: Duration(milliseconds: 400),
-                            context: context,
-                            pageBuilder: (context, animation, animation2) {
-                              return Dialog(
-                                child: LinearProgressIndicator(),
-                              );
-                            },
-                          );
-
-                          countFileSize(_nowDirectories[index]).then((value) {
-                            Navigator.of(context).pop();
-                            setState(() {
-                              _dialogFileSize = value['file'];
-                              _dialogDirSize = value['dir'];
-                            });
-                            showMIUIConfirmDialog(
-                                context: context,
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: <Widget>[
-                                    Text(
-                                        '${getFileShortPath(_nowDirectories[index])}'),
-                                    Text('文件数:$_dialogFileSize'),
-                                    Text('文件夹数:$_dialogDirSize'),
-                                  ],
-                                ),
-                                title: '删除该文件夹?',
-                                confirm: () {
-                                  deleteFile(_nowDirectories[index]).then((_) {
-                                    updateFiles();
-                                  });
-                                  Navigator.of(context).pop();
-                                });
-                          });
-                        } else {
-                          showMIUIConfirmDialog(
-                            context: context,
-                            child:
-                                Text(getFileShortPath(_nowDirectories[index])),
-                            title: '删除该文件?',
-                            confirm: () {
-                              deleteFile(_nowDirectories[index]).then((_) {
-                                updateFiles();
-                                Navigator.of(context).pop();
-                              });
-                            },
-                          );
-                        }
+                        onDelete(
+                          fileSystemEntity: _nowDirectories[index],
+                          context: context,
+                        );
                       },
                     );
                   },
@@ -206,7 +158,7 @@ class _LocalFilesState extends State<LocalFilesPage> {
   Widget _buildGrid(BuildContext context) {
     return GridView.builder(
       key: Key('$_randomKey grid'),
-      physics: BouncingScrollPhysics(),
+      physics: AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
       padding: EdgeInsets.only(top: 40),
       gridDelegate:
           SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
@@ -225,6 +177,11 @@ class _LocalFilesState extends State<LocalFilesPage> {
               go2FileHelper(context, _nowDirectories[index]);
             }
           },
+          delete: () {
+            onDelete(
+                fileSystemEntity: _nowDirectories[index], context: context);
+          },
+          upload: () {},
         );
       },
       itemCount: _nowDirectories == null ? 0 : _nowDirectories.length,
@@ -270,5 +227,62 @@ class _LocalFilesState extends State<LocalFilesPage> {
         ),
       ),
     );
+  }
+
+  void onDelete({
+    @required FileSystemEntity fileSystemEntity,
+    @required BuildContext context,
+  }) {
+    if (isDirectory(fileSystemEntity)) {
+      showGeneralDialog(
+        barrierColor: Colors.black26,
+        barrierLabel: 'loading',
+        barrierDismissible: true,
+        transitionDuration: Duration(milliseconds: 400),
+        context: context,
+        pageBuilder: (context, animation, animation2) {
+          return Dialog(
+            child: LinearProgressIndicator(),
+          );
+        },
+      );
+
+      countFileSize(fileSystemEntity).then((value) {
+        Navigator.of(context).pop();
+        setState(() {
+          _dialogFileSize = value['file'];
+          _dialogDirSize = value['dir'];
+        });
+        showMIUIConfirmDialog(
+            context: context,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Text('${getFileShortPath(fileSystemEntity)}'),
+                Text('文件数:$_dialogFileSize'),
+                Text('文件夹数:$_dialogDirSize'),
+              ],
+            ),
+            title: '删除该文件夹?',
+            confirm: () {
+              deleteFile(fileSystemEntity).then((_) {
+                updateFiles();
+              });
+              Navigator.of(context).pop();
+            });
+      });
+    } else {
+      showMIUIConfirmDialog(
+        context: context,
+        child: Text(getFileShortPath(fileSystemEntity)),
+        title: '删除该文件?',
+        confirm: () {
+          deleteFile(fileSystemEntity).then((_) {
+            updateFiles();
+            Navigator.of(context).pop();
+          });
+        },
+      );
+    }
   }
 }
