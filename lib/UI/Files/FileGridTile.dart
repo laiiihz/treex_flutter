@@ -77,6 +77,7 @@ class _FileGridTileState extends State<FileGridTileWidget> {
                   ? Icon(
                       FontAwesomeIcons.solidFolder,
                       size: 40,
+                color: Colors.grey,
                     )
                   : Icon(
                       iconStringMap[getFileSuffix(widget.fileSystemEntity)] ??

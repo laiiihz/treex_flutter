@@ -98,11 +98,7 @@ class _NetworkSettingsState extends State<NetworkSettingsPage> {
                           setState(() {
                             _isLoading = true;
                           });
-                          CheckConnectionUtil(
-                                  serverPrefix:
-                                      '${_ipAddrController.text}:${_portController.text}')
-                              .check()
-                              .then((value) {
+                          checkConnectionBuild().then((value) {
                             setState(() {
                               _isLoading = false;
                             });
@@ -125,22 +121,78 @@ class _NetworkSettingsState extends State<NetworkSettingsPage> {
                         },
                       );
                     }),
-                    RaisedButton(
-                      onPressed: () {
-                        saveToShared() async {
-                          SharedPreferences shared =
-                              await SharedPreferences.getInstance();
-                          shared.setString('net_addr', _ipAddrController.text);
-                          shared.setString('net_port', _portController.text);
-                        }
+                    Builder(builder: (BuildContext context) {
+                      return RaisedButton.icon(
+                        onPressed: _isLoading
+                            ? null
+                            : () {
+                                saveToShared() async {
+                                  SharedPreferences shared =
+                                      await SharedPreferences.getInstance();
+                                  shared.setString(
+                                      'net_addr', _ipAddrController.text);
+                                  shared.setString(
+                                      'net_port', _portController.text);
+                                }
 
-                        saveToShared().then((_) {
-                          provider.setIPAndPort(
-                              '${_ipAddrController.text}:${_portController.text}');
-                        });
-                      },
-                      child: Text(S.of(context).save),
-                    ),
+                                setState(() {
+                                  _isLoading = true;
+                                });
+                                checkConnectionBuild().then((value) {
+                                  if (value) {
+                                    saveToShared().then((_) {
+                                      setState(() {
+                                        _isLoading = false;
+                                      });
+                                      provider.setIPAndPort(
+                                          '${_ipAddrController.text}:${_portController.text}');
+                                      Scaffold.of(context).showSnackBar(
+                                        SnackBar(
+                                          content: Text('保存成功'),
+                                          backgroundColor: Colors.green,
+                                        ),
+                                      );
+                                    });
+                                  } else {
+                                    showMIUIConfirmDialog(
+                                      context: context,
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: <Widget>[
+                                          Text(_ipAddrController.text),
+                                          Text(_portController.text),
+                                        ],
+                                      ),
+                                      title: '连接失败，是否继续保存?',
+                                      cancel: () {
+                                        setState(() {
+                                          _isLoading = false;
+                                        });
+                                      },
+                                      confirm: () {
+                                        saveToShared().then((_) {
+                                          setState(() {
+                                            _isLoading = false;
+                                          });
+                                          provider.setIPAndPort(
+                                              '${_ipAddrController.text}:${_portController.text}');
+                                          Scaffold.of(context).showSnackBar(
+                                            SnackBar(
+                                              content: Text('保存成功'),
+                                              backgroundColor: Colors.green,
+                                            ),
+                                          );
+                                          Navigator.of(context).pop();
+                                        });
+                                      },
+                                    );
+                                  }
+                                });
+                              },
+                        label: Text(S.of(context).save),
+                        icon: Icon(Icons.done),
+                      );
+                    }),
                   ],
                 ),
               ],
@@ -149,5 +201,11 @@ class _NetworkSettingsState extends State<NetworkSettingsPage> {
         ],
       ),
     );
+  }
+
+  Future<bool> checkConnectionBuild() async {
+    return CheckConnectionUtil(
+            serverPrefix: '${_ipAddrController.text}:${_portController.text}')
+        .check();
   }
 }

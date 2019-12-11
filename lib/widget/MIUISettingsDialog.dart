@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:dio/dio.dart' as prefix0;
 import 'package:flutter/material.dart';
 import 'package:treex_flutter/generated/i18n.dart';
 
@@ -66,6 +67,7 @@ showMIUIConfirmDialog({
   @required Widget child,
   @required String title,
   @required VoidCallback confirm,
+  VoidCallback cancel,
 }) {
   showMIUIDialog(
       context: context,
@@ -74,6 +76,7 @@ showMIUIConfirmDialog({
         child: child,
         title: title,
         confirm: confirm,
+        cancel: cancel,
       ),
       label: '${Random().nextDouble()}');
 }
@@ -84,10 +87,12 @@ class MIUIConfirmContent extends StatelessWidget {
     @required this.child,
     @required this.title,
     @required this.confirm,
+    this.cancel,
   }) : super(key: key);
   final Widget child;
   final String title;
   final VoidCallback confirm;
+  final VoidCallback cancel;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -104,6 +109,7 @@ class MIUIConfirmContent extends StatelessWidget {
               child: MIUIDialogButton(
                 onPressed: () {
                   Navigator.of(context).pop();
+                  if (this.cancel != null) this.cancel();
                 },
                 child: Text(S.of(context).cancel),
               ),

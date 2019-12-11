@@ -49,10 +49,14 @@ class _SingleFileHelperState extends State<SingleFileHelperPage> {
           children: <Widget>[
             Expanded(
               child: ListView(
-                physics: BouncingScrollPhysics(),
+                padding: EdgeInsets.only(
+                  top: 100,
+                  bottom: 50,
+                ),
+                physics: AlwaysScrollableScrollPhysics(
+                    parent: BouncingScrollPhysics()),
                 controller: _listScroller,
                 children: <Widget>[
-                  SizedBox(height: 100),
                   Icon(
                     iconStringMap[getFileSuffix(widget.fileSystemEntity)] ??
                         FontAwesomeIcons.solidFile,
@@ -107,7 +111,6 @@ class _SingleFileHelperState extends State<SingleFileHelperPage> {
                   ),
                   _buildFilePreview(
                       context, getFileSuffix(widget.fileSystemEntity)),
-                  SizedBox(height: 200),
                 ],
               ),
             ),
@@ -171,6 +174,11 @@ class _SingleFileHelperState extends State<SingleFileHelperPage> {
             ),
           ),
         );
+      case 'log':
+      case 'txt':
+        var temp = (widget.fileSystemEntity as File).readAsStringSync();
+        return Text(temp);
+        break;
       default:
         return SizedBox(
           height: 50,

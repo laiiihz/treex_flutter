@@ -1,4 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:treex_flutter/Provider/AppProvider.dart';
+import 'package:treex_flutter/UI/Files/FilesFunctions.dart';
+import 'package:treex_flutter/generated/i18n.dart';
 
 class SearchPage extends SearchDelegate<String> {
   @override
@@ -30,15 +36,51 @@ class SearchPage extends SearchDelegate<String> {
 
   @override
   Widget buildSuggestions(BuildContext context) {
+    final provider = Provider.of<AppProvider>(context);
+    List<FileSystemEntity> list =
+        Directory(provider.nowDirectory.path).listSync();
+    List<FileSystemEntity> display = [];
+    for (var i in list) {
+      if (getFileShortPath(i).contains(query)) display.add(i);
+    }
+
     return CustomScrollView(
       physics: AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
       slivers: <Widget>[
-        SliverList(delegate: SliverChildListDelegate([Text('test')])),
-        SliverList(delegate: SliverChildListDelegate([Text('test')])),
-        SliverList(delegate: SliverChildListDelegate([Text('test')])),
+        SliverToBoxAdapter(
+          child: ListTile(
+            title: Text(
+              S.of(context).local_files,
+              style: TextStyle(fontSize: 25),
+            ),
+            trailing: Text(display.length.toString()),
+          ),
+        ),
+        SliverList(
+          delegate: SliverChildBuilderDelegate(
+            (BuildContext context, int index) {
+              return ListTile(
+                title: Text(getFileShortPath(display[index])),
+              );
+            },
+            childCount: display.length < 10 ? display.length : 10,
+          ),
+        ),
+        SliverToBoxAdapter(
+          child: Text(
+            S.of(context).cloud_files,
+            style: TextStyle(fontSize: 25),
+          ),
+        ),
+        SliverList(delegate: SliverChildListDelegate([Text('')])),
+        SliverToBoxAdapter(
+          child: Text(
+            S.of(context).share_folder,
+            style: TextStyle(fontSize: 25),
+          ),
+        ),
+        SliverList(delegate: SliverChildListDelegate([Text('')])),
       ],
     );
   }
 }
-
-

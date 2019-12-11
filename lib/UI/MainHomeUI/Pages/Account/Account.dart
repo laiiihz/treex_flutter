@@ -35,6 +35,9 @@ class _AccountState extends State<AccountPage> {
               AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
           children: <Widget>[
             Card(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
               child: InkWell(
                 onTap: () {
                   Navigator.of(context).push(
@@ -87,6 +90,9 @@ class _AccountState extends State<AccountPage> {
               ),
             ),
             Card(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
               child: Padding(
                 padding: EdgeInsets.only(
                   top: 20,

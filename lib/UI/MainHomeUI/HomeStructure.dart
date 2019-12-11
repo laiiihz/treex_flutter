@@ -166,6 +166,11 @@ class _HomeStructureState extends State<HomeStructurePage> {
             });
             break;
           case 1:
+            showMIUIDialog(
+                context: context,
+                dyOffset: 0.3,
+                content: Text('test'),
+                label: 'test');
             break;
           case 2:
             _newFolderTextController.text = '';

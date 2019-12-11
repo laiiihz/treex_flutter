@@ -147,7 +147,7 @@ class _LocalFilesState extends State<LocalFilesPage> {
                 onRefresh: () async {
                   await updateFiles();
 
-                  await Future.delayed(Duration(milliseconds: 1000), () {
+                  await Future.delayed(Duration(milliseconds: 500), () {
                     setState(() {
                       _randomKey = Random().nextDouble().toString();
                     });

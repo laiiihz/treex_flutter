@@ -35,7 +35,10 @@ class _UserIntroState extends State<UserIntroPage>
             label: Text(S.of(context).sign_up_sign_in),
           ),
           MaterialButton(
-            child: Icon(Icons.settings),
+            child: Icon(
+              Icons.settings,
+              color: Colors.white,
+            ),
             onPressed: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
