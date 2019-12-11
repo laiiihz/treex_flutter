@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 import 'package:treex_flutter/Provider/AppProvider.dart';
 import 'package:treex_flutter/UI/UserLogin/User2SignUpSetPassword.dart';
 import 'package:treex_flutter/generated/i18n.dart';
-import 'package:treex_flutter/widget/BackgroundPage.dart';
 
 class User2SignUpPage extends StatefulWidget {
   User2SignUpPage({

@@ -83,7 +83,7 @@ class CreateANewUserUtil {
                 'api/newuser?'
                 'name=${this.name}&'
                 'password=${genPasswordHMAC(rawPassword: this.password, mixed: this.name)}')
-        .post();
+        .put();
   }
 }
 

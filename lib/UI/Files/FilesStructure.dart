@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:treex_flutter/ColorSchemes.dart';
 
 class FilesStructurePage extends StatefulWidget {
   FilesStructurePage({

@@ -180,14 +180,14 @@ class MIUIDialogTitle extends StatelessWidget {
       child: Padding(
         padding: EdgeInsets.only(bottom: 20),
         child: Text(
-          '新建文件夹',
+          this.title,
           style: TextStyle(
-              color:
-                  MediaQuery.of(context).platformBrightness == Brightness.dark
-                      ? Colors.white
-                      : Colors.black,
-              fontSize: 18,
-              fontWeight: FontWeight.w700),
+            color: MediaQuery.of(context).platformBrightness == Brightness.dark
+                ? Colors.white
+                : Colors.black,
+            fontSize: 18,
+            fontWeight: FontWeight.w700,
+          ),
         ),
       ),
     );

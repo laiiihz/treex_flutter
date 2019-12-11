@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-
-import 'Provider/AppProvider.dart';
 
 const blueBackgroundDark = Color(0xff1976d2);
 const yellowBackgroundDark = Color(0xfffbc02d);

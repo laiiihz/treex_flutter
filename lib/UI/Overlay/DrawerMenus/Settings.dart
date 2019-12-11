@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:treex_flutter/Provider/AppProvider.dart';
-import 'package:treex_flutter/UI/Overlay/DrawerMenus/NetworkSettings.dart';
 import 'package:treex_flutter/generated/i18n.dart';
 
 class SettingsPage extends StatefulWidget {

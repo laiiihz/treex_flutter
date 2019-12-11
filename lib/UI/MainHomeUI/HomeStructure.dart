@@ -26,8 +26,6 @@ class _HomeStructureState extends State<HomeStructurePage> {
   int _bottomBarCurrentIndex = 0;
   TextEditingController _newFolderTextController = TextEditingController();
 
-  Color _appBarColor = tealBackgroundDark;
-
   Widget _textTile;
 
   @override
@@ -123,7 +121,6 @@ class _HomeStructureState extends State<HomeStructurePage> {
             break;
           case 3:
             setState(() {
-              _appBarColor = Colors.blue;
               _textTile = Text(S.of(context).me, key: Key('Me'));
             });
         }

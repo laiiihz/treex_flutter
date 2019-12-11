@@ -19,6 +19,5 @@ class RoundIconButtonWidget extends StatelessWidget {
         ),
       ),
     );
-    ;
   }
 }

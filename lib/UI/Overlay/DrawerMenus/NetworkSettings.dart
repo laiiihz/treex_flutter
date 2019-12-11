@@ -4,6 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:treex_flutter/Provider/AppProvider.dart';
 import 'package:treex_flutter/generated/i18n.dart';
 import 'package:treex_flutter/utils/NetUtil.dart';
+import 'package:treex_flutter/widget/MIUISettingsDialog.dart';
 
 class NetworkSettingsPage extends StatefulWidget {
   @override
@@ -80,55 +81,50 @@ class _NetworkSettingsState extends State<NetworkSettingsPage> {
                 ),
                 ButtonBar(
                   children: <Widget>[
-                    Stack(
-                      children: <Widget>[
-                        Builder(builder: (BuildContext context) {
-                          return IconButton(
-                            icon: AnimatedCrossFade(
-                              firstChild: Icon(Icons.flash_on),
-                              secondChild: Padding(
-                                padding: EdgeInsets.all(5),
-                                child: CircularProgressIndicator(),
-                              ),
-                              crossFadeState: _isLoading
-                                  ? CrossFadeState.showSecond
-                                  : CrossFadeState.showFirst,
-                              duration: Duration(milliseconds: 300),
-                            ),
-                            onPressed: () {
-                              setState(() {
-                                _isLoading = true;
-                              });
-                              CheckConnectionUtil(
-                                      serverPrefix:
-                                          '${_ipAddrController.text}:${_portController.text}')
-                                  .check()
-                                  .then((value) {
-                                setState(() {
-                                  _isLoading = false;
-                                });
-                                if (value) {
-                                  Scaffold.of(context).showSnackBar(
-                                    SnackBar(
-                                      content:
-                                          Text(S.of(context).connect_success),
-                                      backgroundColor: Colors.green,
-                                    ),
-                                  );
-                                } else {
-                                  Scaffold.of(context).showSnackBar(
-                                    SnackBar(
-                                      content: Text(S.of(context).connect_fail),
-                                      backgroundColor: Colors.red,
-                                    ),
-                                  );
-                                }
-                              });
-                            },
-                          );
-                        }),
-                      ],
-                    ),
+                    Builder(builder: (BuildContext context) {
+                      return IconButton(
+                        icon: AnimatedCrossFade(
+                          firstChild: Icon(Icons.flash_on),
+                          secondChild: Padding(
+                            padding: EdgeInsets.all(5),
+                            child: CircularProgressIndicator(),
+                          ),
+                          crossFadeState: _isLoading
+                              ? CrossFadeState.showSecond
+                              : CrossFadeState.showFirst,
+                          duration: Duration(milliseconds: 300),
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            _isLoading = true;
+                          });
+                          CheckConnectionUtil(
+                                  serverPrefix:
+                                      '${_ipAddrController.text}:${_portController.text}')
+                              .check()
+                              .then((value) {
+                            setState(() {
+                              _isLoading = false;
+                            });
+                            if (value) {
+                              Scaffold.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(S.of(context).connect_success),
+                                  backgroundColor: Colors.green,
+                                ),
+                              );
+                            } else {
+                              Scaffold.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(S.of(context).connect_fail),
+                                  backgroundColor: Colors.red,
+                                ),
+                              );
+                            }
+                          });
+                        },
+                      );
+                    }),
                     RaisedButton(
                       onPressed: () {
                         saveToShared() async {

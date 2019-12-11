@@ -11,6 +11,7 @@ import 'package:treex_flutter/UI/Files/FilesFunctions.dart';
 import 'package:treex_flutter/UI/Files/FilesStructure.dart';
 import 'package:treex_flutter/UI/Files/helper/SingleFileHelper.dart';
 import 'package:treex_flutter/generated/i18n.dart';
+import 'package:treex_flutter/widget/MIUISettingsDialog.dart';
 import 'package:treex_flutter/widget/RoundIconButton.dart';
 
 class LocalFilesPage extends StatefulWidget {
@@ -111,7 +112,8 @@ class _LocalFilesState extends State<LocalFilesPage> {
                       },
                       fileSystemEntity: _nowDirectories[index],
                       delete: () {
-                        showGeneralDialog(
+                        if (isDirectory(_nowDirectories[index])) {
+                          showGeneralDialog(
                             barrierColor: Colors.black26,
                             barrierLabel: 'loading',
                             barrierDismissible: true,
@@ -121,22 +123,18 @@ class _LocalFilesState extends State<LocalFilesPage> {
                               return Dialog(
                                 child: LinearProgressIndicator(),
                               );
-                            });
+                            },
+                          );
 
-                        countFileSize(_nowDirectories[index]).then((value) {
-                          Navigator.of(context).pop();
-                          setState(() {
-                            _dialogFileSize = value['file'];
-                            _dialogDirSize = value['dir'];
-                          });
-                          showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return AlertDialog(
-                                title: Text(isDirectory(_nowDirectories[index])
-                                    ? '删除该文件夹?'
-                                    : '删除该文件?'),
-                                content: Column(
+                          countFileSize(_nowDirectories[index]).then((value) {
+                            Navigator.of(context).pop();
+                            setState(() {
+                              _dialogFileSize = value['file'];
+                              _dialogDirSize = value['dir'];
+                            });
+                            showMIUIConfirmDialog(
+                                context: context,
+                                child: Column(
                                   mainAxisSize: MainAxisSize.min,
                                   children: <Widget>[
                                     Text(
@@ -145,33 +143,27 @@ class _LocalFilesState extends State<LocalFilesPage> {
                                     Text('文件夹数:$_dialogDirSize'),
                                   ],
                                 ),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(20)),
-                                ),
-                                actions: <Widget>[
-                                  FlatButton(
-                                      onPressed: () {
-                                        Navigator.of(context).pop();
-                                      },
-                                      child: Text(S.of(context).cancel)),
-                                  RaisedButton(
-                                    color: Colors.red,
-                                    textColor: Colors.white,
-                                    onPressed: () {
-                                      deleteFile(_nowDirectories[index])
-                                          .then((_) {
-                                        updateFiles();
-                                      });
-                                      Navigator.of(context).pop();
-                                    },
-                                    child: Text(S.of(context).confirm),
-                                  ),
-                                ],
-                              );
+                                title: '删除该文件夹?',
+                                confirm: () {
+                                  deleteFile(_nowDirectories[index]).then((_) {
+                                    updateFiles();
+                                  });
+                                  Navigator.of(context).pop();
+                                });
+                          });
+                        } else {
+                          showMIUIConfirmDialog(
+                            context: context,
+                            child:
+                                Text(getFileShortPath(_nowDirectories[index])),
+                            title: '删除该文件?',
+                            confirm: () {
+                              deleteFile(_nowDirectories[index]);
+                              updateFiles();
+                              Navigator.of(context).pop();
                             },
                           );
-                        });
+                        }
                       },
                     );
                   },

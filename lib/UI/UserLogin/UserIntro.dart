@@ -1,12 +1,9 @@
 import 'dart:ui';
 
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:treex_flutter/UI/Overlay/DrawerMenus/NetworkSettings.dart';
 import 'package:treex_flutter/UI/UserLogin/UserNameIntro.dart';
 import 'package:treex_flutter/generated/i18n.dart';
-import 'package:treex_flutter/utils/NetUtil.dart';
-import 'package:treex_flutter/utils/PasswordGen.dart';
 import 'package:treex_flutter/widget/BackgroundPage.dart';
 
 class UserIntroPage extends StatefulWidget {

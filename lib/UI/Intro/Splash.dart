@@ -1,5 +1,6 @@
 import 'package:flare_flutter/flare_actor.dart';
 import 'package:flutter/material.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:treex_flutter/ColorSchemes.dart';
@@ -19,6 +20,7 @@ class _SplashState extends State<SplashPage> {
   @override
   void initState() {
     super.initState();
+    checkPermission();
     firstUser() async {
       isFirstStartUp().then((value) {
         if (value) {
@@ -109,5 +111,10 @@ class _SplashState extends State<SplashPage> {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     provider.setUserName(sharedPreferences.getString('name'));
     provider.setToken(sharedPreferences.getString('token'));
+  }
+
+  Future checkPermission() async {
+    Map<PermissionGroup, PermissionStatus> permissions =
+        await PermissionHandler().requestPermissions([PermissionGroup.storage]);
   }
 }

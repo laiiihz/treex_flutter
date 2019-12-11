@@ -11,8 +11,6 @@ class _DeveloperState extends State<DeveloperPage> {
   String _token = '';
   DeviceInfoPlugin _deviceInfoPlugin = DeviceInfoPlugin();
   AndroidDeviceInfo _androidDeviceInfo;
-  String _board = '';
-  String _brand = '';
   String _deviceInfos = '';
 
   @override

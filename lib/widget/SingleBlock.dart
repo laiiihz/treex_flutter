@@ -1,7 +1,5 @@
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:treex_flutter/Provider/AppProvider.dart';
 
 class SingleBlockWidget extends StatefulWidget {
   SingleBlockWidget({
@@ -30,7 +28,6 @@ class SingleBlockWidget extends StatefulWidget {
 class _SingleBlockState extends State<SingleBlockWidget> {
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<AppProvider>(context);
     return Padding(
       padding: EdgeInsets.all(10),
       child: Container(
