@@ -5,7 +5,7 @@ class PaintAccountTop extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     Paint _paint = Paint()
-      ..color = Colors.blue
+      ..color = Colors.blueAccent
       ..isAntiAlias = true
       ..strokeWidth = 10.0
       ..strokeCap = StrokeCap.round

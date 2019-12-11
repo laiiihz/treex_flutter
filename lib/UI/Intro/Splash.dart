@@ -20,7 +20,9 @@ class _SplashState extends State<SplashPage> {
   @override
   void initState() {
     super.initState();
-    checkPermission();
+    checkPermission().then((_) {
+      print('permission check');
+    });
     firstUser() async {
       isFirstStartUp().then((value) {
         if (value) {
@@ -114,7 +116,6 @@ class _SplashState extends State<SplashPage> {
   }
 
   Future checkPermission() async {
-    Map<PermissionGroup, PermissionStatus> permissions =
-        await PermissionHandler().requestPermissions([PermissionGroup.storage]);
+    await PermissionHandler().requestPermissions([PermissionGroup.storage]);
   }
 }

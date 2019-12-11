@@ -15,7 +15,8 @@ class _HomeUIState extends State<HomeUIPage> {
       children: <Widget>[
         Expanded(
           child: GridView(
-            physics: BouncingScrollPhysics(),
+            physics:
+                AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
             padding: EdgeInsets.all(10),
             gridDelegate:
                 SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),

@@ -28,6 +28,7 @@ class _LocalFilesState extends State<LocalFilesPage> {
   int _dialogFileSize = 0;
   int _dialogDirSize = 0;
   String _randomKey = 'RANDOMKEY';
+  ScrollController _pathListController = ScrollController();
   @override
   void initState() {
     super.initState();
@@ -67,14 +68,29 @@ class _LocalFilesState extends State<LocalFilesPage> {
       pathList: _dirStack == null
           ? LinearProgressIndicator()
           : ListView.builder(
-              physics: BouncingScrollPhysics(),
+              controller: _pathListController,
+              physics: AlwaysScrollableScrollPhysics(
+                  parent: BouncingScrollPhysics()),
               scrollDirection: Axis.horizontal,
               itemBuilder: (BuildContext context, int index) {
+                if (index == 0) {
+                  return Container(
+                    height: 40,
+                    child: Center(
+                      child: Text(getFileShortPath(_dirStack[index])),
+                    ),
+                  );
+                }
                 return Container(
                   height: 40,
                   child: Center(
-                    child: Text(getFileShortPath(_dirStack[index])),
-                  ),
+                      child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      Text('•'),
+                      Text(getFileShortPath(_dirStack[index])),
+                    ],
+                  )),
                 );
               },
               itemCount: _dirStack.length,
@@ -93,12 +109,17 @@ class _LocalFilesState extends State<LocalFilesPage> {
             ? _buildCenterEmptyIcon(context)
             : RefreshIndicator(
                 child: ListView.builder(
-                  key: Key(_randomKey),
+                  key: Key('$_randomKey list'),
                   physics: BouncingScrollPhysics(),
                   padding: EdgeInsets.only(top: 40),
                   itemBuilder: (BuildContext context, int index) {
                     return FileListTileWidget(
                       onPress: () {
+                        _pathListController.animateTo(
+                          -30,
+                          duration: Duration(milliseconds: 400),
+                          curve: Curves.easeInCubic,
+                        );
                         if (isDirectory(_nowDirectories[index])) {
                           _nowDirectory = _nowDirectories[index];
                           setState(() {
@@ -158,9 +179,10 @@ class _LocalFilesState extends State<LocalFilesPage> {
                                 Text(getFileShortPath(_nowDirectories[index])),
                             title: '删除该文件?',
                             confirm: () {
-                              deleteFile(_nowDirectories[index]);
-                              updateFiles();
-                              Navigator.of(context).pop();
+                              deleteFile(_nowDirectories[index]).then((_) {
+                                updateFiles();
+                                Navigator.of(context).pop();
+                              });
                             },
                           );
                         }
@@ -172,6 +194,12 @@ class _LocalFilesState extends State<LocalFilesPage> {
                 ),
                 onRefresh: () async {
                   await updateFiles();
+
+                  await Future.delayed(Duration(milliseconds: 1000), () {
+                    setState(() {
+                      _randomKey = Random().nextDouble().toString();
+                    });
+                  });
                 });
   }
 

@@ -5,6 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:treex_flutter/UI/Files/FilesFunctions.dart';
 import 'package:treex_flutter/generated/i18n.dart';
+import 'package:treex_flutter/widget/MIUISettingsDialog.dart';
 import 'package:treex_flutter/widget/RoundIconButton.dart';
 
 class SingleFileHelperPage extends StatefulWidget {
@@ -137,40 +138,11 @@ class _SingleFileHelperState extends State<SingleFileHelperPage> {
                   RoundIconButtonWidget(
                     icon: Icon(Icons.delete),
                     onPress: () {
-                      showModalBottomSheet(
+                      showMIUIConfirmDialog(
                         context: context,
-                        builder: (BuildContext context) {
-                          return Material(
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(20),
-                              topRight: Radius.circular(20),
-                            ),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: <Widget>[
-                                SizedBox(height: 20),
-                                Text(
-                                  '确认删除文件?',
-                                  style: TextStyle(fontSize: 30),
-                                ),
-                                ButtonBar(
-                                  children: <Widget>[
-                                    FlatButton(
-                                        onPressed: () {
-                                          Navigator.of(context).pop();
-                                        },
-                                        child: Text(S.of(context).cancel)),
-                                    RaisedButton(
-                                      color: Colors.red,
-                                      onPressed: widget.delete,
-                                      child: Text(S.of(context).confirm),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          );
-                        },
+                        child: Text(getFileShortPath(widget.fileSystemEntity)),
+                        title: '确认删除该文件?',
+                        confirm: widget.delete,
                       );
                     },
                   ),

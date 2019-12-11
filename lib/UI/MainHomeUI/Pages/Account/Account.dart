@@ -30,154 +30,142 @@ class _AccountState extends State<AccountPage> {
                 size: Size(MediaQuery.of(context).size.width, 400),
               ),
         ListView(
-          physics: BouncingScrollPhysics(),
+          padding: EdgeInsets.only(top: 60, left: 20, right: 20),
+          physics:
+              AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
           children: <Widget>[
-            SizedBox(
-              height: 60,
-            ),
-            Padding(
-              padding: EdgeInsets.all(20),
-              child: Card(
-                child: InkWell(
-                  onTap: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                          builder: (BuildContext context) =>
-                              UserSettingsPage()),
-                    );
-                  },
-                  child: Padding(
-                    padding: EdgeInsets.all(20),
-                    child: Row(
-                      children: <Widget>[
-                        CircleAvatar(
-                          minRadius: 30,
-                        ),
-                        Expanded(
-                          child: Padding(
-                            padding: EdgeInsets.only(left: 20),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Text(
-                                  provider.userName,
-                                  style: TextStyle(
-                                    fontSize: 30,
-                                  ),
+            Card(
+              child: InkWell(
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                        builder: (BuildContext context) => UserSettingsPage()),
+                  );
+                },
+                child: Padding(
+                  padding: EdgeInsets.all(20),
+                  child: Row(
+                    children: <Widget>[
+                      CircleAvatar(
+                        minRadius: 30,
+                      ),
+                      Expanded(
+                        child: Padding(
+                          padding: EdgeInsets.only(left: 20),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: <Widget>[
+                              Text(
+                                provider.userName,
+                                style: TextStyle(
+                                  fontSize: 30,
                                 ),
-                                SizedBox(
-                                  height: 10,
-                                ),
-                                LinearProgressIndicator(
-                                  value: 0.4,
-                                ),
-                                SizedBox(
-                                  height: 10,
-                                ),
-                                Row(
-                                  children: <Widget>[
-                                    Spacer(),
-                                    Text('${'233M/466M'}'),
-                                  ],
-                                ),
-                              ],
-                            ),
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              LinearProgressIndicator(
+                                value: 0.4,
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Row(
+                                children: <Widget>[
+                                  Spacer(),
+                                  Text('${'233M/466M'}'),
+                                ],
+                              ),
+                            ],
                           ),
                         ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.all(20),
-              child: Card(
-                child: Padding(
-                  padding: EdgeInsets.only(
-                    top: 20,
-                    bottom: 20,
-                  ),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      InkWell(
-                        child: ListTile(
-                          leading: Icon(Icons.sentiment_satisfied),
-                          title: Text(S.of(context).about),
-                        ),
-                        onTap: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (BuildContext context) => AboutPage(),
-                            ),
-                          );
-                        },
-                      ),
-                      InkWell(
-                        child: ListTile(
-                          leading: Icon(Icons.share),
-                          title: Text(S.of(context).share),
-                        ),
-                        onTap: () {
-                          Share.share('https://baidu.com');
-                        },
-                      ),
-
-                      //TEST ONLY
-                      InkWell(
-                        child: ListTile(
-                          leading: Icon(Icons.developer_mode),
-                          title: Text(S.of(context).developer_mode),
-                        ),
-                        onTap: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (BuildContext context) =>
-                                  DeveloperPage(),
-                            ),
-                          );
-                        },
-                      ),
-                      InkWell(
-                        onTap: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                                builder: (BuildContext context) =>
-                                    NetworkSettingsPage()),
-                          );
-                        },
-                        child: ListTile(
-                          leading: Icon(Icons.language),
-                          title: Text(S.of(context).network_settings),
-                        ),
-                      ),
-                      MaterialButton(
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                          deleteTokenFromShared() async {
-                            SharedPreferences shared =
-                                await SharedPreferences.getInstance();
-                            DeleteTokenUtil(
-                                    token: provider.token,
-                                    serverPrefix: '${provider.serverPrefix}')
-                                .delete();
-                            shared.setString('token', '');
-                          }
-
-                          deleteTokenFromShared();
-                        },
-                        child: Text(S.of(context).log_out),
-                        color: Colors.red,
                       ),
                     ],
                   ),
                 ),
               ),
             ),
-            SizedBox(
-              height: 150,
+            Card(
+              child: Padding(
+                padding: EdgeInsets.only(
+                  top: 20,
+                  bottom: 20,
+                ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    InkWell(
+                      child: ListTile(
+                        leading: Icon(Icons.sentiment_satisfied),
+                        title: Text(S.of(context).about),
+                      ),
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (BuildContext context) => AboutPage(),
+                          ),
+                        );
+                      },
+                    ),
+                    InkWell(
+                      child: ListTile(
+                        leading: Icon(Icons.share),
+                        title: Text(S.of(context).share),
+                      ),
+                      onTap: () {
+                        Share.share('https://baidu.com');
+                      },
+                    ),
+
+                    //TEST ONLY
+                    InkWell(
+                      child: ListTile(
+                        leading: Icon(Icons.developer_mode),
+                        title: Text(S.of(context).developer_mode),
+                      ),
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (BuildContext context) => DeveloperPage(),
+                          ),
+                        );
+                      },
+                    ),
+                    InkWell(
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                              builder: (BuildContext context) =>
+                                  NetworkSettingsPage()),
+                        );
+                      },
+                      child: ListTile(
+                        leading: Icon(Icons.language),
+                        title: Text(S.of(context).network_settings),
+                      ),
+                    ),
+                    MaterialButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                        deleteTokenFromShared() async {
+                          SharedPreferences shared =
+                              await SharedPreferences.getInstance();
+                          DeleteTokenUtil(
+                                  token: provider.token,
+                                  serverPrefix: '${provider.serverPrefix}')
+                              .delete();
+                          shared.setString('token', '');
+                        }
+
+                        deleteTokenFromShared();
+                      },
+                      child: Text(S.of(context).log_out),
+                      color: Colors.red,
+                    ),
+                  ],
+                ),
+              ),
             ),
           ],
         )
