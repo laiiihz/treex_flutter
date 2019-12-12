@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 
 class FilesStructurePage extends StatefulWidget {
@@ -25,33 +27,29 @@ class _FilesStructureState extends State<FilesStructurePage> {
     return Stack(
       children: <Widget>[
         widget.child,
-        Container(
-          height: 40,
-          decoration: BoxDecoration(
-            color: MediaQuery.of(context).platformBrightness == Brightness.dark
-                ? Color(0xff333333)
-                : Color(0xff0069c0),
-            boxShadow: [
-              BoxShadow(
+        ClipRect(
+          child: BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+            child: Container(
+              height: 40,
+              decoration: BoxDecoration(
                 color:
                     MediaQuery.of(context).platformBrightness == Brightness.dark
-                        ? Colors.white12
-                        : Colors.black38,
-                offset: Offset(0, 5),
-                blurRadius: 10,
-              )
-            ],
-          ),
-          child: DefaultTextStyle(
-            style: TextStyle(color: Colors.white),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                widget.prefix,
-                Expanded(child: widget.pathList),
-                widget.suffix,
-              ],
+                        ? Color(0xaa333333)
+                        : Color(0xaa0069c0),
+              ),
+              child: DefaultTextStyle(
+                style: TextStyle(color: Colors.white),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    widget.prefix,
+                    Expanded(child: widget.pathList),
+                    widget.suffix,
+                  ],
+                ),
+              ),
             ),
           ),
         ),

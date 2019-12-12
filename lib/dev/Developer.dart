@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:treex_flutter/UI/AddTools/QrGenerate.dart';
+import 'package:treex_flutter/widget/MIUISettingsDialog.dart';
 
 class DeveloperPage extends StatefulWidget {
   @override
@@ -60,14 +61,39 @@ class _DeveloperState extends State<DeveloperPage> {
       body: ListView(
         physics: AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
         children: <Widget>[
-          IconButton(
+          RaisedButton.icon(
             icon: Icon(FontAwesomeIcons.qrcode),
+            label: Text('QRCODE'),
             onPressed: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
                     builder: (BuildContext context) => QrGeneratePage()),
               );
             },
+          ),
+          RaisedButton(
+            onPressed: () {
+              showMIUIDialog(
+                context: context,
+                dyOffset: 0.9,
+                label: 'test',
+                content: Container(
+                  height: 700,
+                  child: MaterialButton(onPressed: () {
+                    showMIUIDialog(
+                      context: context,
+                      dyOffset: 0.9,
+                      label: 'test',
+                      content: Container(
+                        height: 600,
+                        child: MaterialButton(onPressed: () {}),
+                      ),
+                    );
+                  }),
+                ),
+              );
+            },
+            child: Text('TEST MULTI DIALOG'),
           ),
           Card(
             child: Text(_token),

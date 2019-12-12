@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:treex_flutter/generated/i18n.dart';
+import 'package:treex_flutter/widget/MIUISettingsDialog.dart';
 
 class AboutPage extends StatefulWidget {
   @override
@@ -22,10 +23,15 @@ class _AboutState extends State<AboutPage> {
               children: <Widget>[
                 InkWell(
                   onTap: () {
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (BuildContext context) => LicensePage(),
+                    showMIUIDialog(
+                      context: context,
+                      noPadding: true,
+                      content: Container(
+                        height: MediaQuery.of(context).size.height - 100,
+                        child: LicensePage(),
                       ),
+                      label: 'un',
+                      dyOffset: 0.9,
                     );
                   },
                   child: ListTile(

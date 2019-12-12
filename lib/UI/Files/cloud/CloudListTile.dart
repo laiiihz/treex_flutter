@@ -51,7 +51,7 @@ class _CloudListTileState extends State<CloudListTileWidget> {
           leading:
               widget.cloudFile['isDir'] ? Icon(Icons.folder) : Icon(Icons.note),
           title: Text(widget.cloudFile['name']),
-          subtitle: Text('${widget.cloudFile['length']}|$_date'),
+          subtitle: Text('${widget.cloudFile['isDir']?widget.cloudFile['subLength']:widget.cloudFile['length']}|$_date'),
         ),
       ),
     );

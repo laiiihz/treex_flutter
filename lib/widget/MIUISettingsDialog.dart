@@ -11,6 +11,7 @@ showMIUIDialog({
   @required String label,
   bool dismissible = true,
   bool haveTextField = false,
+  bool noPadding = false,
   Color color = Colors.white,
 }) {
   showGeneralDialog(
@@ -32,7 +33,7 @@ showMIUIDialog({
               topRight: Radius.circular(20),
             ),
             child: Container(
-              padding: EdgeInsets.all(25),
+              padding: noPadding ? null : EdgeInsets.all(25),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(20),
