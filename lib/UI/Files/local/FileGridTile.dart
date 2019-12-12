@@ -50,6 +50,10 @@ class _FileGridTileState extends State<FileGridTileWidget> {
                 value: 'upload',
               ),
               PopupMenuItem(
+                child: Text('共享'),
+                value: 'share',
+              ),
+              PopupMenuItem(
                 child: Text(
                   '删除',
                   style: TextStyle(color: Colors.red),
@@ -64,6 +68,8 @@ class _FileGridTileState extends State<FileGridTileWidget> {
                 break;
               case 'upload':
                 widget.upload();
+                break;
+              case 'share':
                 break;
             }
           });

@@ -10,10 +10,12 @@ class FileListTileWidget extends StatefulWidget {
     @required this.fileSystemEntity,
     @required this.delete,
     @required this.onPress,
+    @required this.rename,
   }) : super(key: key);
   final FileSystemEntity fileSystemEntity;
   final VoidCallback delete;
   final VoidCallback onPress;
+  final VoidCallback rename;
   @override
   State<StatefulWidget> createState() => _FileListTileState();
 }
@@ -23,15 +25,25 @@ class _FileListTileState extends State<FileListTileWidget> {
   Widget build(BuildContext context) {
     return Slidable(
       actionPane: SlidableDrawerActionPane(),
-      actionExtentRatio: 0.2,
+      actionExtentRatio: 0.15,
       closeOnScroll: true,
       actions: <Widget>[
         IconSlideAction(
           icon: Icons.cloud_upload,
           color: Colors.green,
         ),
+        IconSlideAction(
+          icon: Icons.share,
+          color: Colors.green,
+        ),
       ],
       secondaryActions: <Widget>[
+        IconSlideAction(
+          icon: Icons.edit,
+          color: Colors.grey,
+          onTap: widget.rename,
+          closeOnTap: true,
+        ),
         IconSlideAction(
           icon: Icons.delete,
           onTap: widget.delete,
