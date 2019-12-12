@@ -1,6 +1,8 @@
 import 'package:device_info/device_info.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:treex_flutter/UI/AddTools/QrGenerate.dart';
 
 class DeveloperPage extends StatefulWidget {
   @override
@@ -55,8 +57,18 @@ class _DeveloperState extends State<DeveloperPage> {
       appBar: AppBar(
         title: Text('Dev'),
       ),
-      body: Column(
+      body: ListView(
+        physics: AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
         children: <Widget>[
+          IconButton(
+            icon: Icon(FontAwesomeIcons.qrcode),
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                    builder: (BuildContext context) => QrGeneratePage()),
+              );
+            },
+          ),
           Card(
             child: Text(_token),
           ),

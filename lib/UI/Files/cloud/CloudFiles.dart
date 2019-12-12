@@ -56,10 +56,11 @@ class _CloudFilesState extends State<CloudFilesPage> {
             cloudFile: _displayFiles[index],
             delete: () {
               showMIUIConfirmDialog(
-                  context: context,
-                  child: Text(''),
-                  title: '删除该文件?',
-                  confirm: () {});
+                context: context,
+                child: Text(''),
+                title: '删除该文件?',
+                confirm: () {},
+              );
             },
           );
         },
