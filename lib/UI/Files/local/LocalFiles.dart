@@ -5,11 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:treex_flutter/Provider/AppProvider.dart';
-import 'package:treex_flutter/UI/Files/FileGridTile.dart';
-import 'package:treex_flutter/UI/Files/FileListTile.dart';
+import 'package:treex_flutter/UI/Files/local/FileGridTile.dart';
 import 'package:treex_flutter/UI/Files/FilesFunctions.dart';
 import 'package:treex_flutter/UI/Files/FilesStructure.dart';
 import 'package:treex_flutter/UI/Files/helper/SingleFileHelper.dart';
+import 'package:treex_flutter/UI/Files/local/FileListTile.dart';
 import 'package:treex_flutter/generated/i18n.dart';
 import 'package:treex_flutter/widget/MIUISettingsDialog.dart';
 import 'package:treex_flutter/widget/RoundIconButton.dart';
@@ -29,6 +29,7 @@ class _LocalFilesState extends State<LocalFilesPage> {
   int _dialogDirSize = 0;
   String _randomKey = 'RANDOMKEY';
   ScrollController _pathListController = ScrollController();
+  TextEditingController _renameTextEditor = TextEditingController();
   @override
   void initState() {
     super.initState();
@@ -137,6 +138,25 @@ class _LocalFilesState extends State<LocalFilesPage> {
                         onDelete(
                           fileSystemEntity: _nowDirectories[index],
                           context: context,
+                        );
+                      },
+                      rename: () {
+                        _renameTextEditor.text =
+                            getFileShortPath(_nowDirectories[index]);
+                        showMIUIConfirmDialog(
+                          context: context,
+                          child: MIUIDialogTextField(
+                            textEditingController: _renameTextEditor,
+                            title: getFileShortPath(
+                              _nowDirectories[index],
+                            ),
+                          ),
+                          title: '重命名该文件',
+                          confirm: () {
+                            _nowDirectories[index]
+                                .renameSync('/storage/emulated/0/123');
+                            updateFiles();
+                          },
                         );
                       },
                     );

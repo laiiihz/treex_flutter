@@ -204,8 +204,10 @@ class MIUIDialogTextField extends StatelessWidget {
   MIUIDialogTextField({
     Key key,
     @required this.textEditingController,
+    @required this.title,
   }) : super(key: key);
   final TextEditingController textEditingController;
+  final String title;
   final borderDecoration = OutlineInputBorder(
     borderSide: BorderSide(color: Color(0xff0196FF), width: 2),
     borderRadius: BorderRadius.circular(16),
@@ -217,7 +219,7 @@ class MIUIDialogTextField extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Text(
-          '请输入文件夹名称',
+          this.title,
           style: TextStyle(
               color:
                   MediaQuery.of(context).platformBrightness == Brightness.dark

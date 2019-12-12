@@ -6,6 +6,7 @@ import 'package:treex_flutter/Provider/AppProvider.dart';
 import 'package:treex_flutter/UI/Overlay/DrawerMenus/About.dart';
 import 'package:treex_flutter/UI/Overlay/DrawerMenus/NetworkSettings.dart';
 import 'package:treex_flutter/UI/Overlay/DrawerMenus/UserSettings.dart';
+import 'package:treex_flutter/UI/UserLogin/UserIntro.dart';
 import 'package:treex_flutter/canvas/PaintAccount.dart';
 import 'package:treex_flutter/dev/Developer.dart';
 import 'package:treex_flutter/generated/i18n.dart';
@@ -39,6 +40,7 @@ class _AccountState extends State<AccountPage> {
                 borderRadius: BorderRadius.circular(10),
               ),
               child: InkWell(
+                borderRadius: BorderRadius.circular(10),
                 onTap: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(
@@ -153,7 +155,11 @@ class _AccountState extends State<AccountPage> {
                     ),
                     MaterialButton(
                       onPressed: () {
-                        Navigator.of(context).pop();
+                        Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(
+                              builder: (BuildContext context) =>
+                                  UserIntroPage()),
+                        );
                         deleteTokenFromShared() async {
                           SharedPreferences shared =
                               await SharedPreferences.getInstance();

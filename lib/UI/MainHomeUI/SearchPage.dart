@@ -7,6 +7,7 @@ import 'package:treex_flutter/UI/Files/FilesFunctions.dart';
 import 'package:treex_flutter/generated/i18n.dart';
 
 class SearchPage extends SearchDelegate<String> {
+
   @override
   List<Widget> buildActions(BuildContext context) {
     return [];
@@ -53,30 +54,57 @@ class SearchPage extends SearchDelegate<String> {
               S.of(context).local_files,
               style: TextStyle(fontSize: 25),
             ),
-            trailing: Text(display.length.toString()),
+            trailing: Card(
+              child: Padding(
+                padding: EdgeInsets.all(5),
+                child: Text(display.length.toString()),
+              ),
+            ),
           ),
         ),
-        SliverList(
-          delegate: SliverChildBuilderDelegate(
-            (BuildContext context, int index) {
-              return ListTile(
-                title: Text(getFileShortPath(display[index])),
-              );
-            },
-            childCount: display.length < 10 ? display.length : 10,
-          ),
-        ),
+        display.length == 0
+            ? SliverToBoxAdapter(
+                child: ListTile(
+                  title: Text('没有搜索结果'),
+                ),
+              )
+            : SliverList(
+                delegate: SliverChildBuilderDelegate(
+                  (BuildContext context, int index) {
+                    return ListTile(
+                      title: Text(getFileShortPath(display[index])),
+                    );
+                  },
+                  childCount: display.length < 10 ? display.length : 10,
+                ),
+              ),
         SliverToBoxAdapter(
-          child: Text(
-            S.of(context).cloud_files,
-            style: TextStyle(fontSize: 25),
+          child: ListTile(
+            title: Text(
+              S.of(context).cloud_files,
+              style: TextStyle(fontSize: 25),
+            ),
+            trailing: Card(
+              child: Padding(
+                padding: EdgeInsets.all(5),
+                child: Text('0'),
+              ),
+            ),
           ),
         ),
         SliverList(delegate: SliverChildListDelegate([Text('')])),
         SliverToBoxAdapter(
-          child: Text(
-            S.of(context).share_folder,
-            style: TextStyle(fontSize: 25),
+          child: ListTile(
+            title: Text(
+              S.of(context).share_folder,
+              style: TextStyle(fontSize: 25),
+            ),
+            trailing: Card(
+              child: Padding(
+                padding: EdgeInsets.all(5),
+                child: Text('0'),
+              ),
+            ),
           ),
         ),
         SliverList(delegate: SliverChildListDelegate([Text('')])),

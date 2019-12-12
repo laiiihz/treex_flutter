@@ -175,7 +175,7 @@ _deleteFileInside(FileSystemEntity fileSystemEntity) async {
 }
 
 final Map<String, IconData> iconStringMap = {
-  '':FontAwesomeIcons.solidFile,
+  '': FontAwesomeIcons.solidFile,
   'jpg': FontAwesomeIcons.solidFileImage,
   'png': FontAwesomeIcons.solidFileImage,
   'webp': FontAwesomeIcons.solidFileImage,

@@ -177,6 +177,7 @@ class _HomeStructureState extends State<HomeStructurePage> {
             showMIUIConfirmDialog(
               context: context,
               child: MIUIDialogTextField(
+                title:'请输入文件夹名称',
                 textEditingController: _newFolderTextController,
               ),
               title: S.of(context).new_folder,

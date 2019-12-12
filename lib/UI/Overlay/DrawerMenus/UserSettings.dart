@@ -37,7 +37,7 @@ class _UserSettingsState extends State<UserSettingsPage> {
     final provider = Provider.of<AppProvider>(context);
     return Scaffold(
       body: CustomScrollView(
-        physics: BouncingScrollPhysics(),
+        physics: AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
         slivers: <Widget>[
           SliverAppBar(
             pinned: true,
@@ -56,44 +56,42 @@ class _UserSettingsState extends State<UserSettingsPage> {
               [
                 InkWell(
                   onTap: () {
-                    showModalBottomSheet(
+                    showMIUIDialog(
                         context: context,
-                        builder: (BuildContext context) {
-                          return Container(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                IconButton(
-                                  icon: Icon(Icons.camera),
-                                  onPressed: () {
-                                    ImagePicker.pickImage(
-                                            source: ImageSource.camera)
-                                        .then((avatar) {
-                                      setState(() {
-                                        _fileAvatar = avatar;
-                                      });
-                                    });
-                                  },
-                                  iconSize: 50,
-                                ),
-                                IconButton(
-                                  icon: Icon(Icons.insert_photo),
-                                  onPressed: () {
-                                    ImagePicker.pickImage(
-                                            source: ImageSource.gallery)
-                                        .then((avatar) {
-                                      setState(() {
-                                        _fileAvatar = avatar;
-                                      });
-                                      print(_fileAvatar.length());
-                                    });
-                                  },
-                                  iconSize: 50,
-                                ),
-                              ],
+                        dyOffset: 0.3,
+                        content: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            IconButton(
+                              icon: Icon(Icons.camera),
+                              onPressed: () {
+                                ImagePicker.pickImage(
+                                        source: ImageSource.camera)
+                                    .then((avatar) {
+                                  setState(() {
+                                    _fileAvatar = avatar;
+                                  });
+                                });
+                              },
+                              iconSize: 50,
                             ),
-                          );
-                        });
+                            IconButton(
+                              icon: Icon(Icons.insert_photo),
+                              onPressed: () {
+                                ImagePicker.pickImage(
+                                        source: ImageSource.gallery)
+                                    .then((avatar) {
+                                  setState(() {
+                                    _fileAvatar = avatar;
+                                  });
+                                  print(_fileAvatar.length());
+                                });
+                              },
+                              iconSize: 50,
+                            ),
+                          ],
+                        ),
+                        label: 'choose');
                   },
                   child: ListTile(
                     leading: Icon(Icons.person),
@@ -112,12 +110,16 @@ class _UserSettingsState extends State<UserSettingsPage> {
                 ),
                 InkWell(
                   onTap: () {
-                    showTextFiledDialog(
+                    showMIUIConfirmDialog(
                       context: context,
-                      name: 'userName',
+                      child: MIUIDialogTextField(
+                        textEditingController: _userNameEditor,
+                        title: '请输入用户名',
+                      ),
                       title: '设置用户名',
-                      confirm: () {},
-                      textEditingController: _userNameEditor,
+                      confirm: () {
+                        //TODO set userName
+                      },
                     );
                   },
                   child: ListTile(
@@ -130,12 +132,12 @@ class _UserSettingsState extends State<UserSettingsPage> {
                 ),
                 InkWell(
                   onTap: () {
-                    showTextFiledDialog(
+                    showMIUIConfirmDialog(
                       context: context,
-                      name: 'phoneNumber',
+                      child: MIUIDialogTextField(
+                          textEditingController: _phoneEditor, title: '请输入手机号'),
                       title: '设置手机号',
                       confirm: () {},
-                      textEditingController: _phoneEditor,
                     );
                   },
                   child: ListTile(
@@ -145,19 +147,6 @@ class _UserSettingsState extends State<UserSettingsPage> {
                       '', //TODO phone number
                     ),
                   ),
-                ),
-                IconButton(
-                    icon: Icon(Icons.add),
-                    onPressed: () {
-                      showMIUIConfirmDialog(
-                        context: context,
-                        child: Text('test'),
-                        title: S.of(context).new_folder,
-                        confirm: () {},
-                      );
-                    }),
-                SizedBox(
-                  height: 1000,
                 ),
               ],
             ),

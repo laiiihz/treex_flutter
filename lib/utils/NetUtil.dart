@@ -112,3 +112,21 @@ class CheckConnectionUtil {
     }
   }
 }
+
+class CheckAuth {
+  String serverPrefix;
+  String token;
+  CheckAuth({@required this.serverPrefix, @required this.token});
+  Future<bool> check() async {
+    Dio dio = Dio(BaseOptions(
+      baseUrl: 'http://10.27.16.66:8080',
+      headers: {
+        "authorization":
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoidGVzdCIsImV4cCI6MTU3NjE3MDMwOSwiaWF0IjoxNTc2MTUyMzA5fQ.nbyYQ5sBg9FvRwXEs045TCFJQbG8vxsHtGxYZQRVkHA"
+      },
+    ));
+    Response response = await dio.get('/api/intro/auth');
+    print(response.data);
+    return true;
+  }
+}
