@@ -145,7 +145,7 @@ class _NetworkSettingsState extends State<NetworkSettingsPage> {
                                         _isLoading = false;
                                       });
                                       provider.setIPAndPort(
-                                          '${_ipAddrController.text}:${_portController.text}');
+                                          'http://${_ipAddrController.text}:${_portController.text}');
                                       Scaffold.of(context).showSnackBar(
                                         SnackBar(
                                           content: Text('保存成功'),
@@ -175,7 +175,7 @@ class _NetworkSettingsState extends State<NetworkSettingsPage> {
                                             _isLoading = false;
                                           });
                                           provider.setIPAndPort(
-                                              '${_ipAddrController.text}:${_portController.text}');
+                                              'http://${_ipAddrController.text}:${_portController.text}');
                                           Scaffold.of(context).showSnackBar(
                                             SnackBar(
                                               content: Text('保存成功'),

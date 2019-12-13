@@ -35,6 +35,9 @@ class _CloudListTileState extends State<CloudListTileWidget> {
       closeOnScroll: true,
       actions: <Widget>[
         IconSlideAction(
+          icon: Icons.get_app,
+        ),
+        IconSlideAction(
           icon: Icons.share,
         ),
       ],

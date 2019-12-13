@@ -1,6 +1,4 @@
 import 'dart:math';
-
-import 'package:dio/dio.dart' as prefix0;
 import 'package:flutter/material.dart';
 import 'package:treex_flutter/generated/i18n.dart';
 

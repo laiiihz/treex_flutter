@@ -6,7 +6,6 @@ import 'package:treex_flutter/UI/Files/cloud/CloudListTile.dart';
 import 'package:treex_flutter/UI/Files/cloud/ShareFiles.dart';
 import 'package:treex_flutter/generated/i18n.dart';
 import 'package:treex_flutter/utils/AuthNetUtils.dart';
-import 'package:treex_flutter/utils/NetUtil.dart';
 import 'package:treex_flutter/widget/MIUISettingsDialog.dart';
 import 'package:treex_flutter/widget/RoundIconButton.dart';
 
@@ -22,6 +21,7 @@ class _CloudFilesState extends State<CloudFilesPage> {
     super.initState();
     Future.delayed(Duration.zero, () {
       final provider = Provider.of<AppProvider>(context);
+      provider.setCloudPath('.');
       test(provider.token).then((value) {
         setState(() {
           _displayFiles = value;

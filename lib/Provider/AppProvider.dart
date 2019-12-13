@@ -31,4 +31,11 @@ class AppProvider extends ChangeNotifier {
     _nowDirectory = fileSystemEntity;
     notifyListeners();
   }
+
+  String _cloudPath= '.';
+  get cloudPath => _cloudPath;
+  setCloudPath(String path){
+    _cloudPath = path;
+    notifyListeners();
+  }
 }

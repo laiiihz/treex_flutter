@@ -13,6 +13,7 @@ import 'package:treex_flutter/UI/MainHomeUI/Pages/Account/Account.dart';
 import 'package:treex_flutter/UI/MainHomeUI/Pages/HomeUI.dart';
 import 'package:treex_flutter/UI/MainHomeUI/SearchPage.dart';
 import 'package:treex_flutter/generated/i18n.dart';
+import 'package:treex_flutter/utils/AuthNetUtils.dart';
 import 'package:treex_flutter/widget/MIUISettingsDialog.dart';
 
 class HomeStructurePage extends StatefulWidget {
@@ -25,6 +26,7 @@ class _HomeStructureState extends State<HomeStructurePage> {
   PageController _pageController = PageController(initialPage: 0);
   int _bottomBarCurrentIndex = 0;
   TextEditingController _newFolderTextController = TextEditingController();
+  TextEditingController _cloudNewFolderTextController = TextEditingController();
 
   Widget _textTile;
 
@@ -166,18 +168,29 @@ class _HomeStructureState extends State<HomeStructurePage> {
             });
             break;
           case 1:
-            showMIUIDialog(
-                context: context,
-                dyOffset: 0.3,
-                content: Text('test'),
-                label: 'test');
+            _cloudNewFolderTextController.clear();
+            showMIUIConfirmDialog(
+              context: context,
+              child: MIUIDialogTextField(
+                  textEditingController: _cloudNewFolderTextController,
+                  title: '请输入文件夹名称'),
+              title: '新建文件夹',
+              confirm: () {
+                NewFolderCloud(
+                  baseUrl: provider.serverPrefix,
+                  token: provider.token,
+                  path: provider.cloudPath,
+                ).create(_cloudNewFolderTextController.text);
+                Navigator.of(context).pop();
+              },
+            );
             break;
           case 2:
             _newFolderTextController.text = '';
             showMIUIConfirmDialog(
               context: context,
               child: MIUIDialogTextField(
-                title:'请输入文件夹名称',
+                title: '请输入文件夹名称',
                 textEditingController: _newFolderTextController,
               ),
               title: S.of(context).new_folder,

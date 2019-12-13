@@ -28,6 +28,17 @@ class AuthUtil {
       return {'status': 999999, 'message': e.toString()};
     }
   }
+
+  Future<dynamic> put({@required String path}) async {
+    try {
+      _response = await _dio.put(path);
+      return _response.data;
+    } catch (e) {
+      print(e);
+      print('wwww');
+      return {'status': 999999, 'message': e.toString()};
+    }
+  }
 }
 
 class GetFileList {
@@ -40,5 +51,23 @@ class GetFileList {
     dynamic temp = await AuthUtil(baseUrl: this.baseUrl, token: this.token)
         .get(path: this.path);
     return temp['file'];
+  }
+}
+
+class NewFolderCloud {
+  String path;
+  String baseUrl;
+  String token;
+  NewFolderCloud({
+    @required this.path,
+    @required this.baseUrl,
+    @required this.token,
+  });
+  Future<bool> create(String folder) async {
+    dynamic temp = await AuthUtil(
+      token: this.token,
+      baseUrl: this.baseUrl,
+    ).put(path: '/api/intro/newFolder?folder=$folder&path=${this.path}');
+    return temp['status'] == 200;
   }
 }
