@@ -49,58 +49,72 @@ class _LocalFilesState extends State<LocalFilesPage> {
 
   @override
   Widget build(BuildContext context) {
-    return FilesStructurePage(
-      prefix: SizedBox(width: 10),
-      suffix: RoundIconButtonWidget(
-        onPress: () {
-          setState(() {
-            _showViewList = !_showViewList;
-          });
-        },
-        icon: AnimatedCrossFade(
-          firstChild: Icon(Icons.view_list, color: Colors.white),
-          secondChild: Icon(Icons.view_module, color: Colors.white),
-          crossFadeState: _showViewList
-              ? CrossFadeState.showFirst
-              : CrossFadeState.showSecond,
-          duration: Duration(milliseconds: 400),
-        ),
-      ),
-      pathList: _dirStack == null
-          ? LinearProgressIndicator()
-          : ListView.builder(
-              controller: _pathListController,
-              physics: AlwaysScrollableScrollPhysics(
-                  parent: BouncingScrollPhysics()),
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (BuildContext context, int index) {
-                if (index == 0) {
-                  return Container(
-                    height: 40,
-                    child: Center(
-                      child: Text(getFileShortPath(_dirStack[index])),
-                    ),
-                  );
-                }
-                return Container(
-                  height: 40,
-                  child: Center(
-                      child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      Text('•'),
-                      Text(getFileShortPath(_dirStack[index])),
-                    ],
-                  )),
-                );
-              },
-              itemCount: _dirStack.length,
+    return WillPopScope(
+        child: FilesStructurePage(
+          prefix: SizedBox(width: 10),
+          suffix: RoundIconButtonWidget(
+            onPress: () {
+              setState(() {
+                _showViewList = !_showViewList;
+              });
+            },
+            icon: AnimatedCrossFade(
+              firstChild: Icon(Icons.view_list, color: Colors.white),
+              secondChild: Icon(Icons.view_module, color: Colors.white),
+              crossFadeState: _showViewList
+                  ? CrossFadeState.showFirst
+                  : CrossFadeState.showSecond,
+              duration: Duration(milliseconds: 400),
             ),
-      child: AnimatedSwitcher(
-        child: _showViewList ? _buildList(context) : _buildGrid(context),
-        duration: Duration(milliseconds: 400),
-      ),
-    );
+          ),
+          pathList: _dirStack == null
+              ? LinearProgressIndicator()
+              : ListView.builder(
+                  controller: _pathListController,
+                  physics: AlwaysScrollableScrollPhysics(
+                      parent: BouncingScrollPhysics()),
+                  scrollDirection: Axis.horizontal,
+                  itemBuilder: (BuildContext context, int index) {
+                    if (index == 0) {
+                      return Container(
+                        height: 40,
+                        child: Center(
+                          child: Text(getFileShortPath(_dirStack[index])),
+                        ),
+                      );
+                    }
+                    return Container(
+                      height: 40,
+                      child: Center(
+                          child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: <Widget>[
+                          Text('•'),
+                          Text(getFileShortPath(_dirStack[index])),
+                        ],
+                      )),
+                    );
+                  },
+                  itemCount: _dirStack.length,
+                ),
+          child: AnimatedSwitcher(
+            child: _showViewList ? _buildList(context) : _buildGrid(context),
+            duration: Duration(milliseconds: 400),
+          ),
+        ),
+        onWillPop: () async {
+          _nowDirectory = _nowDirectory.parent;
+          _nowDirectories = (_nowDirectory as Directory).listSync();
+          _dirStack.removeAt(0);
+          _pathListController.animateTo(
+            -30,
+            duration: Duration(milliseconds: 400),
+            curve: Curves.easeInCubic,
+          );
+          updateFiles();
+          print('pop');
+          return false;
+        });
   }
 
   Widget _buildList(BuildContext context) {

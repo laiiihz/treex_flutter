@@ -46,7 +46,7 @@ class LoginUtil {
   });
   Future<Object> getToken() async {
     return await NetUtil(
-      path: 'http://${this.serverPrefix}/api/login?'
+      path: '${this.serverPrefix}/api/login?'
           'name=${this.userName}&'
           'password=${genPasswordHMAC(rawPassword: this.password, mixed: this.userName)}',
     ).get();
@@ -62,7 +62,7 @@ class UserExistUtil {
   });
   Future<Object> check() async {
     return await NetUtil(
-            path: 'http://${this.serverPrefix}/api/existuser?'
+            path: '${this.serverPrefix}/api/existuser?'
                 'name=${this.name}')
         .get();
   }
@@ -92,8 +92,7 @@ class DeleteTokenUtil {
   String serverPrefix;
   DeleteTokenUtil({@required this.token, @required this.serverPrefix});
   Future<dynamic> delete() async {
-    return await NetUtil(
-            path: 'http://${this.serverPrefix}/api/delete/${this.token}')
+    return await NetUtil(path: '${this.serverPrefix}/api/delete/${this.token}')
         .delete();
   }
 }
@@ -110,23 +109,5 @@ class CheckConnectionUtil {
     } else {
       return false;
     }
-  }
-}
-
-class CheckAuth {
-  String serverPrefix;
-  String token;
-  CheckAuth({@required this.serverPrefix, @required this.token});
-  Future<bool> check() async {
-    Dio dio = Dio(BaseOptions(
-      baseUrl: 'http://10.27.16.66:8080',
-      headers: {
-        "authorization":
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoidGVzdCIsImV4cCI6MTU3NjE3MDMwOSwiaWF0IjoxNTc2MTUyMzA5fQ.nbyYQ5sBg9FvRwXEs045TCFJQbG8vxsHtGxYZQRVkHA"
-      },
-    ));
-    Response response = await dio.get('/api/intro/auth');
-    print(response.data);
-    return true;
   }
 }

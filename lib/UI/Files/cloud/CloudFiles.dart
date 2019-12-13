@@ -32,6 +32,7 @@ class _CloudFilesState extends State<CloudFilesPage> {
 
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<AppProvider>(context);
     return FilesStructurePage(
       prefix: RoundIconButtonWidget(
         onPress: () {
@@ -59,19 +60,31 @@ class _CloudFilesState extends State<CloudFilesPage> {
                 context: context,
                 child: Text(''),
                 title: '删除该文件?',
-                confirm: () {},
+                confirm: () {
+                  DeleteFile(
+                          baseUrl: provider.serverPrefix,
+                          token: provider.token,
+                          path: provider.cloudPath)
+                      .delete('${_displayFiles[index]['name']}');
+                  Navigator.of(context).pop();
+                  test(provider.token).then((value) {
+                    setState(() {
+                      _displayFiles = value;
+                    });
+                  });
+                },
               );
             },
           );
         },
-        itemCount: _displayFiles.length,
+        itemCount: _displayFiles == null ? 0 : _displayFiles.length,
       ),
     );
   }
 
   Future<dynamic> test(String token) async {
     return await GetFileList(
-      path: '/api/intro/root?path=.',
+      path: '/api/intro/files?path=.',
       baseUrl: 'http://10.27.16.66:8080',
       token: token,
     ).get();

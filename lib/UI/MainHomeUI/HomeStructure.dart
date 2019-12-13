@@ -42,20 +42,15 @@ class _HomeStructureState extends State<HomeStructurePage> {
   Widget build(BuildContext context) {
     return Screenshot(
       controller: _screenshotController,
-      child: WillPopScope(
-        onWillPop: () async {
-          return false;
-        },
-        child: Scaffold(
-          appBar: _buildAnimateColoredAppBar(context),
-          floatingActionButton:
-              _bottomBarCurrentIndex == 3 ? null : _buildFAB(context),
-          floatingActionButtonLocation: _bottomBarCurrentIndex == 0
-              ? FloatingActionButtonLocation.centerFloat
-              : FloatingActionButtonLocation.endFloat,
-          bottomNavigationBar: _buildBottomNavBar(context),
-          body: _buildPages(context),
-        ),
+      child:Scaffold(
+        appBar: _buildAnimateColoredAppBar(context),
+        floatingActionButton:
+        _bottomBarCurrentIndex == 3 ? null : _buildFAB(context),
+        floatingActionButtonLocation: _bottomBarCurrentIndex == 0
+            ? FloatingActionButtonLocation.centerFloat
+            : FloatingActionButtonLocation.endFloat,
+        bottomNavigationBar: _buildBottomNavBar(context),
+        body: _buildPages(context),
       ),
     );
   }

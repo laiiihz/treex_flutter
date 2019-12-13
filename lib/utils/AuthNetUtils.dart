@@ -28,14 +28,21 @@ class AuthUtil {
       return {'status': 999999, 'message': e.toString()};
     }
   }
+  Future<dynamic> delete({@required String path}) async {
+    try {
+      _response = await _dio.delete(path);
+      return _response.data;
+    } catch (e) {
+      print(e);
+      return {'status': 999999, 'message': e.toString()};
+    }
+  }
 
   Future<dynamic> put({@required String path}) async {
     try {
       _response = await _dio.put(path);
       return _response.data;
     } catch (e) {
-      print(e);
-      print('wwww');
       return {'status': 999999, 'message': e.toString()};
     }
   }
@@ -68,6 +75,24 @@ class NewFolderCloud {
       token: this.token,
       baseUrl: this.baseUrl,
     ).put(path: '/api/intro/newFolder?folder=$folder&path=${this.path}');
+    return temp['status'] == 200;
+  }
+}
+
+class DeleteFile {
+  String baseUrl;
+  String token;
+  String path;
+  DeleteFile({
+    @required this.baseUrl,
+    @required this.token,
+    @required this.path,
+  });
+  Future<bool> delete(String fileName) async {
+    dynamic temp = await AuthUtil(
+      token: this.token,
+      baseUrl: this.baseUrl,
+    ).delete(path: '/api/intro/deleteFile?path=${this.path}/$fileName');
     return temp['status'] == 200;
   }
 }
