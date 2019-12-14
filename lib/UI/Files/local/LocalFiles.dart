@@ -55,6 +55,7 @@ class _LocalFilesState extends State<LocalFilesPage> {
           suffix: RoundIconButtonWidget(
             onPress: () {
               setState(() {
+                _randomKey = Random().nextDouble().toString();
                 _showViewList = !_showViewList;
               });
             },
@@ -98,7 +99,24 @@ class _LocalFilesState extends State<LocalFilesPage> {
                   itemCount: _dirStack.length,
                 ),
           child: AnimatedSwitcher(
-            child: _showViewList ? _buildList(context) : _buildGrid(context),
+            child: _nowDirectories == null
+                ? Center(child: CircularProgressIndicator())
+                : _nowDirectories.length == 0
+                    ? _buildCenterEmptyIcon(context)
+                    : RefreshIndicator(
+                        child: _showViewList
+                            ? _buildList(context)
+                            : _buildGrid(context),
+                        key: Key('$_randomKey list'),
+                        onRefresh: () async {
+                          await updateFiles();
+
+                          await Future.delayed(Duration(milliseconds: 500), () {
+                            setState(() {
+                              _randomKey = Random().nextDouble().toString();
+                            });
+                          });
+                        }),
             duration: Duration(milliseconds: 400),
           ),
         ),
@@ -118,82 +136,62 @@ class _LocalFilesState extends State<LocalFilesPage> {
   }
 
   Widget _buildList(BuildContext context) {
-    return _nowDirectories == null
-        ? Center(child: CircularProgressIndicator())
-        : _nowDirectories.length == 0
-            ? _buildCenterEmptyIcon(context)
-            : RefreshIndicator(
-                child: ListView.builder(
-                  key: Key('$_randomKey list'),
-                  physics: AlwaysScrollableScrollPhysics(
-                      parent: BouncingScrollPhysics()),
-                  padding: EdgeInsets.only(top: 40),
-                  itemBuilder: (BuildContext context, int index) {
-                    return FileListTileWidget(
-                      onPress: () {
-                        _pathListController.animateTo(
-                          -30,
-                          duration: Duration(milliseconds: 400),
-                          curve: Curves.easeInCubic,
-                        );
-                        if (isDirectory(_nowDirectories[index])) {
-                          _nowDirectory = _nowDirectories[index];
-                          setState(() {
-                            _randomKey = Random().nextDouble().toString();
-                            _dirStack.insert(0, _nowDirectories[index]);
-                          });
-                          updateFiles();
-                        } else {
-                          go2FileHelper(context, _nowDirectories[index]);
-                        }
-                      },
-                      fileSystemEntity: _nowDirectories[index],
-                      delete: () {
-                        onDelete(
-                          fileSystemEntity: _nowDirectories[index],
-                          context: context,
-                        );
-                      },
-                      rename: () {
-                        _renameTextEditor.text =
-                            getFileShortPath(_nowDirectories[index]);
-                        showMIUIConfirmDialog(
-                          context: context,
-                          child: MIUIDialogTextField(
-                            textEditingController: _renameTextEditor,
-                            title: getFileShortPath(
-                              _nowDirectories[index],
-                            ),
-                          ),
-                          title: '重命名该文件',
-                          confirm: () {
-                            _nowDirectories[index]
-                                .renameSync('/storage/emulated/0/123');
-                            updateFiles();
-                          },
-                          cancelString: S.of(context).cancel,
-                          confirmString: S.of(context).confirm,
-                        );
-                      },
-                    );
-                  },
-                  itemCount:
-                      _nowDirectories == null ? 0 : _nowDirectories.length,
+    return ListView.builder(
+      physics: AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
+      padding: EdgeInsets.only(top: 40),
+      itemBuilder: (BuildContext context, int index) {
+        return FileListTileWidget(
+          onPress: () {
+            _pathListController.animateTo(
+              -30,
+              duration: Duration(milliseconds: 400),
+              curve: Curves.easeInCubic,
+            );
+            if (isDirectory(_nowDirectories[index])) {
+              _nowDirectory = _nowDirectories[index];
+              setState(() {
+                _randomKey = Random().nextDouble().toString();
+                _dirStack.insert(0, _nowDirectories[index]);
+              });
+              updateFiles();
+            } else {
+              go2FileHelper(context, _nowDirectories[index]);
+            }
+          },
+          fileSystemEntity: _nowDirectories[index],
+          delete: () {
+            onDelete(
+              fileSystemEntity: _nowDirectories[index],
+              context: context,
+            );
+          },
+          rename: () {
+            _renameTextEditor.text = getFileShortPath(_nowDirectories[index]);
+            showMIUIConfirmDialog(
+              context: context,
+              child: MIUIDialogTextField(
+                textEditingController: _renameTextEditor,
+                title: getFileShortPath(
+                  _nowDirectories[index],
                 ),
-                onRefresh: () async {
-                  await updateFiles();
-
-                  await Future.delayed(Duration(milliseconds: 500), () {
-                    setState(() {
-                      _randomKey = Random().nextDouble().toString();
-                    });
-                  });
-                });
+              ),
+              title: '重命名该文件',
+              confirm: () {
+                _nowDirectories[index].renameSync('/storage/emulated/0/123');
+                updateFiles();
+              },
+              cancelString: S.of(context).cancel,
+              confirmString: S.of(context).confirm,
+            );
+          },
+        );
+      },
+      itemCount: _nowDirectories == null ? 0 : _nowDirectories.length,
+    );
   }
 
   Widget _buildGrid(BuildContext context) {
     return GridView.builder(
-      key: Key('$_randomKey grid'),
       physics: AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
       padding: EdgeInsets.only(top: 40),
       gridDelegate:
@@ -202,6 +200,12 @@ class _LocalFilesState extends State<LocalFilesPage> {
         return FileGridTileWidget(
           fileSystemEntity: _nowDirectories[index],
           onPressed: () {
+            _dirStack.insert(0, _nowDirectories[index]);
+            _pathListController.animateTo(
+              -30,
+              duration: Duration(milliseconds: 400),
+              curve: Curves.easeInCubic,
+            );
             if (isDirectory(_nowDirectories[index])) {
               _nowDirectory = _nowDirectories[index];
               setState(() {

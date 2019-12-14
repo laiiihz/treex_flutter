@@ -36,7 +36,7 @@ class _FilesStructureState extends State<FilesStructurePage> {
                 color:
                     MediaQuery.of(context).platformBrightness == Brightness.dark
                         ? Color(0xaa333333)
-                        : Color(0xaa0069c0),
+                        : Color(0xaa448AFF),
               ),
               child: DefaultTextStyle(
                 style: TextStyle(color: Colors.white),
