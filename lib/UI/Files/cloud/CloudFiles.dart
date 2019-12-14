@@ -22,7 +22,7 @@ class _CloudFilesState extends State<CloudFilesPage> {
     Future.delayed(Duration.zero, () {
       final provider = Provider.of<AppProvider>(context);
       provider.setCloudPath('.');
-      getFiles('.').then((value) {
+      test(provider.token).then((value) {
         setState(() {
           _displayFiles = value;
         });
@@ -67,7 +67,7 @@ class _CloudFilesState extends State<CloudFilesPage> {
                           path: provider.cloudPath)
                       .delete('${_displayFiles[index]['name']}');
                   Navigator.of(context).pop();
-                  getFiles('.').then((value) {
+                  test(provider.token).then((value) {
                     setState(() {
                       _displayFiles = value;
                     });
@@ -84,10 +84,11 @@ class _CloudFilesState extends State<CloudFilesPage> {
     );
   }
 
-  Future<dynamic> getFiles(String path) async {
-    final provider = Provider.of<AppProvider>(context);
+  Future<dynamic> test(String token) async {
     return await GetFileList(
-            baseUrl: provider.serverPrefix, token: provider.token)
-        .get(path);
+      path: '/api/intro/files?path=.',
+      baseUrl: 'http://10.27.16.66:8080',
+      token: token,
+    ).get();
   }
 }

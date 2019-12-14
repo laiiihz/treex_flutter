@@ -61,10 +61,6 @@ class UserExistUtil {
     @required this.serverPrefix,
   });
   Future<dynamic> check() async {
-    print(await (NetUtil(
-            path: '${this.serverPrefix}/api/existuser?'
-                'name=${this.name}')
-        .get() as dynamic));
     return await NetUtil(
             path: '${this.serverPrefix}/api/existuser?'
                 'name=${this.name}')

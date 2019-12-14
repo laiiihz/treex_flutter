@@ -219,18 +219,7 @@ class _HomeStructureState extends State<HomeStructurePage> {
           );
         },
       ),
-      title: AnimatedSwitcher(
-        duration: Duration(milliseconds: 500),
-        child: _textTile,
-        switchInCurve: Curves.easeIn,
-        switchOutCurve: Curves.easeOut,
-        transitionBuilder: (child, animation) {
-          return FadeTransition(
-            opacity: animation,
-            child: child,
-          );
-        },
-      ),
+      title: _textTile,
       centerTitle: true,
     );
   }
