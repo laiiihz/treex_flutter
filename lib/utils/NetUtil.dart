@@ -10,7 +10,7 @@ class NetUtil {
     _dio = Dio();
     _dio.options.connectTimeout = 1500;
   }
-  Future<Object> get() async {
+  Future<dynamic> get() async {
     try {
       _response = await _dio.get(path);
       return _response.data;
@@ -19,7 +19,7 @@ class NetUtil {
     }
   }
 
-  Future<Object> post() async {
+  Future<dynamic> post() async {
     _response = await _dio.post(path);
     return _response.data;
   }
@@ -60,7 +60,11 @@ class UserExistUtil {
     @required this.name,
     @required this.serverPrefix,
   });
-  Future<Object> check() async {
+  Future<dynamic> check() async {
+    print(await (NetUtil(
+            path: '${this.serverPrefix}/api/existuser?'
+                'name=${this.name}')
+        .get() as dynamic));
     return await NetUtil(
             path: '${this.serverPrefix}/api/existuser?'
                 'name=${this.name}')
@@ -104,6 +108,7 @@ class CheckConnectionUtil {
     int status = ((await NetUtil(
             path: 'http://${this.serverPrefix}/api/check-connection')
         .get()) as dynamic)['status'];
+
     if (status == 200) {
       return true;
     } else {
