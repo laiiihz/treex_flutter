@@ -2,10 +2,10 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_miui/flutter_miui.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:treex_flutter/UI/Files/FilesFunctions.dart';
 import 'package:treex_flutter/generated/i18n.dart';
-import 'package:treex_flutter/widget/MIUISettingsDialog.dart';
 import 'package:treex_flutter/widget/RoundIconButton.dart';
 
 class SingleFileHelperPage extends StatefulWidget {
@@ -145,7 +145,7 @@ class _SingleFileHelperState extends State<SingleFileHelperPage> {
                         context: context,
                         child: Text(getFileShortPath(widget.fileSystemEntity)),
                         title: '确认删除该文件?',
-                        confirm: widget.delete,
+                        confirm: widget.delete, confirmString: S.of(context).confirm, cancelString: S.of(context).cancel,
                       );
                     },
                   ),

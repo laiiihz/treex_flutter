@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_miui/flutter_miui.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:treex_flutter/Provider/AppProvider.dart';
 import 'package:treex_flutter/generated/i18n.dart';
 import 'package:treex_flutter/utils/NetUtil.dart';
-import 'package:treex_flutter/widget/MIUISettingsDialog.dart';
 
 class NetworkSettingsPage extends StatefulWidget {
   @override
@@ -156,6 +156,8 @@ class _NetworkSettingsState extends State<NetworkSettingsPage> {
                                   } else {
                                     showMIUIConfirmDialog(
                                       context: context,
+                                      cancelString: S.of(context).cancel,
+                                      confirmString: S.of(context).confirm,
                                       child: Column(
                                         mainAxisSize: MainAxisSize.min,
                                         children: <Widget>[

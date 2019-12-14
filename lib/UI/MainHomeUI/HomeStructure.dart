@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_miui/flutter_miui.dart';
 import 'package:outline_material_icons/outline_material_icons.dart';
 import 'package:provider/provider.dart';
 import 'package:screenshot/screenshot.dart';
@@ -14,7 +15,6 @@ import 'package:treex_flutter/UI/MainHomeUI/Pages/HomeUI.dart';
 import 'package:treex_flutter/UI/MainHomeUI/SearchPage.dart';
 import 'package:treex_flutter/generated/i18n.dart';
 import 'package:treex_flutter/utils/AuthNetUtils.dart';
-import 'package:treex_flutter/widget/MIUISettingsDialog.dart';
 
 class HomeStructurePage extends StatefulWidget {
   @override
@@ -42,10 +42,10 @@ class _HomeStructureState extends State<HomeStructurePage> {
   Widget build(BuildContext context) {
     return Screenshot(
       controller: _screenshotController,
-      child:Scaffold(
+      child: Scaffold(
         appBar: _buildAnimateColoredAppBar(context),
         floatingActionButton:
-        _bottomBarCurrentIndex == 3 ? null : _buildFAB(context),
+            _bottomBarCurrentIndex == 3 ? null : _buildFAB(context),
         floatingActionButtonLocation: _bottomBarCurrentIndex == 0
             ? FloatingActionButtonLocation.centerFloat
             : FloatingActionButtonLocation.endFloat,
@@ -165,6 +165,8 @@ class _HomeStructureState extends State<HomeStructurePage> {
           case 1:
             _cloudNewFolderTextController.clear();
             showMIUIConfirmDialog(
+              cancelString: S.of(context).cancel,
+              confirmString: S.of(context).confirm,
               context: context,
               child: MIUIDialogTextField(
                   textEditingController: _cloudNewFolderTextController,
@@ -184,6 +186,8 @@ class _HomeStructureState extends State<HomeStructurePage> {
             _newFolderTextController.text = '';
             showMIUIConfirmDialog(
               context: context,
+              cancelString: S.of(context).cancel,
+              confirmString: S.of(context).confirm,
               child: MIUIDialogTextField(
                 title: '请输入文件夹名称',
                 textEditingController: _newFolderTextController,

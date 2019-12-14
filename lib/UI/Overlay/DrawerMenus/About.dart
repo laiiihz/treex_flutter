@@ -1,8 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_miui/flutter_miui.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:treex_flutter/generated/i18n.dart';
-import 'package:treex_flutter/widget/MIUISettingsDialog.dart';
 
 class AboutPage extends StatefulWidget {
   @override

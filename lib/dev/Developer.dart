@@ -1,9 +1,10 @@
 import 'package:device_info/device_info.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_miui/flutter_miui.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:treex_flutter/UI/AddTools/QrGenerate.dart';
-import 'package:treex_flutter/widget/MIUISettingsDialog.dart';
+
 
 class DeveloperPage extends StatefulWidget {
   @override

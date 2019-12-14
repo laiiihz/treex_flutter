@@ -1,11 +1,11 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_miui/flutter_miui.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:treex_flutter/Provider/AppProvider.dart';
 import 'package:treex_flutter/generated/i18n.dart';
-import 'package:treex_flutter/widget/MIUISettingsDialog.dart';
 
 class UserSettingsPage extends StatefulWidget {
   @override
@@ -112,6 +112,8 @@ class _UserSettingsState extends State<UserSettingsPage> {
                   onTap: () {
                     showMIUIConfirmDialog(
                       context: context,
+                      cancelString: S.of(context).cancel,
+                      confirmString: S.of(context).confirm,
                       child: MIUIDialogTextField(
                         textEditingController: _userNameEditor,
                         title: '请输入用户名',
@@ -134,6 +136,8 @@ class _UserSettingsState extends State<UserSettingsPage> {
                   onTap: () {
                     showMIUIConfirmDialog(
                       context: context,
+                      cancelString: S.of(context).cancel,
+                      confirmString: S.of(context).confirm,
                       child: MIUIDialogTextField(
                           textEditingController: _phoneEditor, title: '请输入手机号'),
                       title: '设置手机号',

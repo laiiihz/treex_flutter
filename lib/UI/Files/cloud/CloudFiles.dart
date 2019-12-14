@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_miui/flutter_miui.dart';
 import 'package:provider/provider.dart';
 import 'package:treex_flutter/Provider/AppProvider.dart';
 import 'package:treex_flutter/UI/Files/FilesStructure.dart';
@@ -6,7 +7,6 @@ import 'package:treex_flutter/UI/Files/cloud/CloudListTile.dart';
 import 'package:treex_flutter/UI/Files/cloud/ShareFiles.dart';
 import 'package:treex_flutter/generated/i18n.dart';
 import 'package:treex_flutter/utils/AuthNetUtils.dart';
-import 'package:treex_flutter/widget/MIUISettingsDialog.dart';
 import 'package:treex_flutter/widget/RoundIconButton.dart';
 
 class CloudFilesPage extends StatefulWidget {
@@ -73,6 +73,8 @@ class _CloudFilesState extends State<CloudFilesPage> {
                     });
                   });
                 },
+                confirmString: S.of(context).confirm,
+                cancelString: S.of(context).cancel,
               );
             },
           );

@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_miui/flutter_miui.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:treex_flutter/Provider/AppProvider.dart';
@@ -11,7 +12,6 @@ import 'package:treex_flutter/UI/Files/FilesStructure.dart';
 import 'package:treex_flutter/UI/Files/helper/SingleFileHelper.dart';
 import 'package:treex_flutter/UI/Files/local/FileListTile.dart';
 import 'package:treex_flutter/generated/i18n.dart';
-import 'package:treex_flutter/widget/MIUISettingsDialog.dart';
 import 'package:treex_flutter/widget/RoundIconButton.dart';
 
 class LocalFilesPage extends StatefulWidget {
@@ -171,6 +171,8 @@ class _LocalFilesState extends State<LocalFilesPage> {
                                 .renameSync('/storage/emulated/0/123');
                             updateFiles();
                           },
+                          cancelString: S.of(context).cancel,
+                          confirmString: S.of(context).confirm,
                         );
                       },
                     );
@@ -289,6 +291,8 @@ class _LocalFilesState extends State<LocalFilesPage> {
         });
         showMIUIConfirmDialog(
             context: context,
+            cancelString: S.of(context).cancel,
+            confirmString: S.of(context).confirm,
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
@@ -309,6 +313,8 @@ class _LocalFilesState extends State<LocalFilesPage> {
       showMIUIConfirmDialog(
         context: context,
         child: Text(getFileShortPath(fileSystemEntity)),
+        cancelString: S.of(context).cancel,
+        confirmString: S.of(context).confirm,
         title: '删除该文件?',
         confirm: () {
           deleteFile(fileSystemEntity).then((_) {
