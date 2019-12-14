@@ -28,6 +28,7 @@ class AuthUtil {
       return {'status': 999999, 'message': e.toString()};
     }
   }
+
   Future<dynamic> delete({@required String path}) async {
     try {
       _response = await _dio.delete(path);
@@ -49,14 +50,12 @@ class AuthUtil {
 }
 
 class GetFileList {
-  String path;
   String baseUrl;
   String token;
-  GetFileList(
-      {@required this.path, @required this.baseUrl, @required this.token});
-  Future<List<dynamic>> get() async {
+  GetFileList({@required this.baseUrl, @required this.token});
+  Future<List<dynamic>> get(String path) async {
     dynamic temp = await AuthUtil(baseUrl: this.baseUrl, token: this.token)
-        .get(path: this.path);
+        .get(path: '/api/intro/files?path=$path');
     return temp['file'];
   }
 }
