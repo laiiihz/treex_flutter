@@ -1,8 +1,11 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_miui/flutter_miui.dart';
 import 'package:provider/provider.dart';
 import 'package:treex_flutter/Provider/AppProvider.dart';
 import 'package:treex_flutter/UI/Files/FilesStructure.dart';
+import 'package:treex_flutter/UI/Files/cloud/CloudGridTile.dart';
 import 'package:treex_flutter/UI/Files/cloud/CloudListTile.dart';
 import 'package:treex_flutter/UI/Files/cloud/ShareFiles.dart';
 import 'package:treex_flutter/generated/i18n.dart';
@@ -15,24 +18,23 @@ class CloudFilesPage extends StatefulWidget {
 }
 
 class _CloudFilesState extends State<CloudFilesPage> {
-  List<dynamic> _displayFiles = [];
+  List<dynamic> _displayFiles;
+  bool _showViewList = true;
+  String _randomKey = '@';
   @override
   void initState() {
     super.initState();
     Future.delayed(Duration.zero, () {
       final provider = Provider.of<AppProvider>(context);
       provider.setCloudPath('.');
-      test(provider.token).then((value) {
-        setState(() {
-          _displayFiles = value;
-        });
+      getFileList('.').then((value) {
+        setState(() => _displayFiles = value);
       });
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<AppProvider>(context);
     return FilesStructurePage(
       prefix: RoundIconButtonWidget(
         onPress: () {
@@ -48,47 +50,110 @@ class _CloudFilesState extends State<CloudFilesPage> {
         ),
       ),
       pathList: Container(),
-      suffix: Container(),
-      child: ListView.builder(
-        padding: EdgeInsets.only(top: 40),
-        physics: AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
-        itemBuilder: (BuildContext context, int index) {
-          return CloudListTileWidget(
-            cloudFile: _displayFiles[index],
-            delete: () {
-              showMIUIConfirmDialog(
-                context: context,
-                child: Text(''),
-                title: '删除该文件?',
-                confirm: () {
-                  DeleteFile(
-                          baseUrl: provider.serverPrefix,
-                          token: provider.token,
-                          path: provider.cloudPath)
-                      .delete('${_displayFiles[index]['name']}');
-                  Navigator.of(context).pop();
-                  test(provider.token).then((value) {
-                    setState(() {
-                      _displayFiles = value;
-                    });
-                  });
-                },
-                confirmString: S.of(context).confirm,
-                cancelString: S.of(context).cancel,
-              );
-            },
-          );
+      suffix: RoundIconButtonWidget(
+        onPress: () {
+          setState(() => _showViewList = !_showViewList);
+          setState(() => _randomKey = Random().nextDouble().toString());
         },
-        itemCount: _displayFiles == null ? 0 : _displayFiles.length,
+        icon: AnimatedCrossFade(
+          firstChild: Icon(Icons.view_list, color: Colors.white),
+          secondChild: Icon(Icons.view_module, color: Colors.white),
+          crossFadeState: _showViewList
+              ? CrossFadeState.showFirst
+              : CrossFadeState.showSecond,
+          duration: Duration(milliseconds: 400),
+        ),
+      ),
+      child: AnimatedSwitcher(
+        duration: Duration(
+          milliseconds: 500,
+        ),
+        child: RefreshIndicator(
+          child: _showViewList ? _buildList(context) : _buildGrid(context),
+          key: Key(_randomKey),
+          onRefresh: () async {
+            List<dynamic> result = await getFileList('.');
+            setState(() => _displayFiles = result);
+            setState(() => _randomKey = Random().nextDouble().toString());
+            return true;
+          },
+        ),
       ),
     );
   }
 
-  Future<dynamic> test(String token) async {
+  Widget _buildList(BuildContext context) {
+    final provider = Provider.of<AppProvider>(context);
+    return (_displayFiles == null)
+        ? _buildLoading(context)
+        : _displayFiles.length == 0
+            ? _buildEmpty(context)
+            : ListView.builder(
+                padding: EdgeInsets.only(top: 40),
+                physics: AlwaysScrollableScrollPhysics(
+                    parent: BouncingScrollPhysics()),
+                itemBuilder: (BuildContext context, int index) {
+                  return CloudListTileWidget(
+                    cloudFile: _displayFiles[index],
+                    delete: () {
+                      showMIUIConfirmDialog(
+                        context: context,
+                        child: Text(''),
+                        title: '删除该文件?',
+                        confirm: () {
+                          DeleteFile(
+                                  baseUrl: provider.serverPrefix,
+                                  token: provider.token,
+                                  path: provider.cloudPath)
+                              .delete('${_displayFiles[index]['name']}');
+                          Navigator.of(context).pop();
+                          getFileList('.').then((value) {
+                            setState(() {
+                              _displayFiles = value;
+                            });
+                          });
+                        },
+                        confirmString: S.of(context).confirm,
+                        cancelString: S.of(context).cancel,
+                      );
+                    },
+                  );
+                },
+                itemCount: _displayFiles.length,
+              );
+  }
+
+  Widget _buildGrid(BuildContext context) {
+    return GridView.builder(
+      physics: AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
+      padding: EdgeInsets.only(top: 40),
+      gridDelegate:
+          SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
+      itemBuilder: (BuildContext context, int index) {
+        return CloudGridTileWidget();
+      },
+    );
+  }
+
+  Widget _buildLoading(BuildContext context) {
+    return Center(
+      child: CircularProgressIndicator(),
+    );
+  }
+
+  Widget _buildEmpty(BuildContext context) {
+    return Center(
+      child: Icon(
+        Icons.inbox,
+        size: 40,
+      ),
+    );
+  }
+
+  Future<List<dynamic>> getFileList(String path) async {
+    final provider = Provider.of<AppProvider>(context);
     return await GetFileList(
-      path: '/api/intro/files?path=.',
-      baseUrl: 'http://10.27.16.66:8080',
-      token: token,
-    ).get();
+            baseUrl: provider.serverPrefix, token: provider.token)
+        .get(path);
   }
 }

@@ -59,7 +59,7 @@ class _FileListTileState extends State<FileListTileWidget> {
               : Icon(Icons.note),
           title: Text(getFileShortPath(widget.fileSystemEntity)),
           subtitle: Text(
-              '${_buildSubFileLength()}${fileCreateTimeFormat(widget.fileSystemEntity)}'),
+              '${_buildSubFileLength()}\t|\t${fileCreateTimeFormat(widget.fileSystemEntity)}'),
         ),
       ),
     );
@@ -69,11 +69,11 @@ class _FileListTileState extends State<FileListTileWidget> {
     if (isDirectory(widget.fileSystemEntity)) {
       int temp = getSubFileLength(widget.fileSystemEntity);
       if (temp == 0)
-        return '';
+        return '0';
       else {
-        return '$temp\t|\t';
+        return '$temp';
       }
     } else
-      return '';
+      return getLengthString(widget.fileSystemEntity.statSync().size);
   }
 }

@@ -181,3 +181,15 @@ final Map<String, IconData> iconStringMap = {
   'webp': FontAwesomeIcons.solidFileImage,
   'mp4': FontAwesomeIcons.solidFileVideo,
 };
+
+String getLengthString(int length) {
+  if (length < 1024) {
+    return '${length}B';
+  } else if (length < (1024 * 1024)) {
+    return '${(length / 1024).toStringAsFixed(2)}KB';
+  } else if (length < (1024 * 1024 * 1024)) {
+    return '${(length / 1024 / 1024).toStringAsFixed(2)}MB';
+  } else {
+    return '${(length / 1024 / 1024 / 1024).toStringAsFixed(2)}GB';
+  }
+}
