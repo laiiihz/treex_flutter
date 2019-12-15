@@ -29,6 +29,8 @@ class _UserSettingsState extends State<UserSettingsPage> {
     Future.delayed(Duration.zero, () {
       final provider = Provider.of<AppProvider>(context);
       _userNameEditor.text = provider.userName;
+      _phoneEditor.text = provider.phone;
+      _emailEditor.text = provider.email;
     });
   }
 

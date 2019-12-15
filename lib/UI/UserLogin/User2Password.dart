@@ -62,6 +62,9 @@ class _User2PasswordState extends State<User2PasswordPage> {
                       SharedPreferences shared =
                           await SharedPreferences.getInstance();
                       shared.setString('token', json['token']);
+                      print(json['user']['phone']);
+                      provider.setEmail(json['user']['email']);
+                      provider.setPhone(json['user']['phone']);
                       provider.setToken(json['token']);
                       return true;
                     }

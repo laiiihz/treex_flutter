@@ -200,18 +200,17 @@ class _LocalFilesState extends State<LocalFilesPage> {
         return FileGridTileWidget(
           fileSystemEntity: _nowDirectories[index],
           onPressed: () {
-            _dirStack.insert(0, _nowDirectories[index]);
-            _pathListController.animateTo(
-              -30,
-              duration: Duration(milliseconds: 400),
-              curve: Curves.easeInCubic,
-            );
             if (isDirectory(_nowDirectories[index])) {
               _nowDirectory = _nowDirectories[index];
               setState(() {
                 _randomKey = Random().nextDouble().toString();
               });
-
+              _dirStack.insert(0, _nowDirectories[index]);
+              _pathListController.animateTo(
+                -30,
+                duration: Duration(milliseconds: 400),
+                curve: Curves.easeInCubic,
+              );
               updateFiles();
             } else {
               go2FileHelper(context, _nowDirectories[index]);

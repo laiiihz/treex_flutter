@@ -8,6 +8,10 @@ class CloudGridTileWidget extends StatefulWidget {
 class _CloudGridTileState extends State<CloudGridTileWidget> {
   @override
   Widget build(BuildContext context) {
-    return Card();
+    return Card(
+      child: InkWell(
+        onTap: () {},
+      ),
+    );
   }
 }

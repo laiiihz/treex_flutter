@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:intl/intl.dart';
+import 'package:treex_flutter/UI/Files/FilesFunctions.dart';
 
 class CloudListTileWidget extends StatefulWidget {
   CloudListTileWidget({
@@ -54,9 +55,18 @@ class _CloudListTileState extends State<CloudListTileWidget> {
           leading:
               widget.cloudFile['isDir'] ? Icon(Icons.folder) : Icon(Icons.note),
           title: Text(widget.cloudFile['name']),
-          subtitle: Text('${widget.cloudFile['isDir']?widget.cloudFile['subLength']:widget.cloudFile['length']}|$_date'),
+          subtitle: Text('${_buildSizePrefix(context)}|$_date'),
         ),
       ),
     );
+  }
+
+  String _buildSizePrefix(BuildContext context) {
+    bool isDir = widget.cloudFile['isDir'];
+    if (isDir) {
+      return '${widget.cloudFile['subLength']}';
+    } else {
+      return '${getLengthString(widget.cloudFile['length'])}';
+    }
   }
 }

@@ -1,10 +1,13 @@
+import 'dart:io';
+
 import 'package:device_info/device_info.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_miui/flutter_miui.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:treex_flutter/UI/AddTools/QrGenerate.dart';
-
 
 class DeveloperPage extends StatefulWidget {
   @override
@@ -16,6 +19,8 @@ class _DeveloperState extends State<DeveloperPage> {
   DeviceInfoPlugin _deviceInfoPlugin = DeviceInfoPlugin();
   AndroidDeviceInfo _androidDeviceInfo;
   String _deviceInfos = '';
+  File _image;
+  double _progress;
 
   @override
   void initState() {
@@ -95,6 +100,38 @@ class _DeveloperState extends State<DeveloperPage> {
               );
             },
             child: Text('TEST MULTI DIALOG'),
+          ),
+          LinearProgressIndicator(
+            value: _progress == null ? null : _progress,
+          ),
+          RaisedButton(
+            onPressed: () {
+              ImagePicker.pickImage(source: ImageSource.gallery).then((pic) {
+                setState(() {
+                  _image = pic;
+                });
+                Dio dio = new Dio();
+                Future<FormData> setData() async {
+                  return FormData.fromMap({
+                    'image': await MultipartFile.fromFile(pic.path,
+                        filename: '1.jpg'),
+                  });
+                }
+
+                setData().then((data) {
+                  dio.post('http://10.27.16.66:8080/upload', data: data,
+                      onSendProgress: (sent, all) {
+                    setState(() {
+                      print('$sent $all');
+                      _progress = (sent / all);
+                    });
+                  }).then((response) {
+                    print(response);
+                  });
+                });
+              });
+            },
+            child: Text('test upload'),
           ),
           Card(
             child: Text(_token),

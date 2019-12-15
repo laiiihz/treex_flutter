@@ -132,6 +132,7 @@ class _CloudFilesState extends State<CloudFilesPage> {
       itemBuilder: (BuildContext context, int index) {
         return CloudGridTileWidget();
       },
+      itemCount: _displayFiles.length,
     );
   }
 

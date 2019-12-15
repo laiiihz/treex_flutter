@@ -32,10 +32,24 @@ class AppProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  String _cloudPath= '.';
+  String _cloudPath = '.';
   get cloudPath => _cloudPath;
-  setCloudPath(String path){
+  setCloudPath(String path) {
     _cloudPath = path;
+    notifyListeners();
+  }
+
+  String _phone = '';
+  String _email = '';
+  get phone => _phone;
+  get email => _email;
+  setPhone(String number) {
+    _phone = number;
+    notifyListeners();
+  }
+
+  setEmail(String mail) {
+    _email = mail;
     notifyListeners();
   }
 }
