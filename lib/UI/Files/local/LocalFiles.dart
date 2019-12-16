@@ -3,6 +3,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_miui/flutter_miui.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:treex_flutter/Provider/AppProvider.dart';
@@ -104,18 +105,14 @@ class _LocalFilesState extends State<LocalFilesPage> {
                 : _nowDirectories.length == 0
                     ? _buildCenterEmptyIcon(context)
                     : RefreshIndicator(
-                        child: _showViewList
-                            ? _buildList(context)
-                            : _buildGrid(context),
+                        child: AnimationLimiter(
+                          child: _showViewList
+                              ? _buildList(context)
+                              : _buildGrid(context),
+                        ),
                         key: Key('$_randomKey list'),
                         onRefresh: () async {
                           await updateFiles();
-
-                          await Future.delayed(Duration(milliseconds: 500), () {
-                            setState(() {
-                              _randomKey = Random().nextDouble().toString();
-                            });
-                          });
                         }),
             duration: Duration(milliseconds: 400),
           ),
@@ -150,7 +147,6 @@ class _LocalFilesState extends State<LocalFilesPage> {
             if (isDirectory(_nowDirectories[index])) {
               _nowDirectory = _nowDirectories[index];
               setState(() {
-                _randomKey = Random().nextDouble().toString();
                 _dirStack.insert(0, _nowDirectories[index]);
               });
               updateFiles();
@@ -184,6 +180,7 @@ class _LocalFilesState extends State<LocalFilesPage> {
               confirmString: S.of(context).confirm,
             );
           },
+          index: index,
         );
       },
       itemCount: _nowDirectories == null ? 0 : _nowDirectories.length,
@@ -221,6 +218,7 @@ class _LocalFilesState extends State<LocalFilesPage> {
                 fileSystemEntity: _nowDirectories[index], context: context);
           },
           upload: () {},
+          index: index,
         );
       },
       itemCount: _nowDirectories == null ? 0 : _nowDirectories.length,
@@ -249,6 +247,7 @@ class _LocalFilesState extends State<LocalFilesPage> {
     _nowDirectories = fileFilterA2Z(_nowDirectories);
     setState(() {
       _nowDirectories = fileFilterDirOrFile(_nowDirectories);
+      _randomKey = Random().nextDouble().toString();
     });
   }
 

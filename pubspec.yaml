@@ -44,6 +44,7 @@ dependencies:
   permission_handler: ^4.0.0
   qr_flutter: ^3.1.0 #QR gen
   flutter_miui: ^0.0.2
+  flutter_staggered_animations: ^0.1.2
 
 dev_dependencies:
   flutter_test:

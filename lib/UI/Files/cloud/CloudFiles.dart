@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_miui/flutter_miui.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:provider/provider.dart';
 import 'package:treex_flutter/Provider/AppProvider.dart';
 import 'package:treex_flutter/UI/Files/FilesStructure.dart';
@@ -69,7 +70,9 @@ class _CloudFilesState extends State<CloudFilesPage> {
           milliseconds: 500,
         ),
         child: RefreshIndicator(
-          child: _showViewList ? _buildList(context) : _buildGrid(context),
+          child: AnimationLimiter(
+            child: _showViewList ? _buildList(context) : _buildGrid(context),
+          ),
           key: Key(_randomKey),
           onRefresh: () async {
             List<dynamic> result = await getFileList('.');
@@ -117,6 +120,7 @@ class _CloudFilesState extends State<CloudFilesPage> {
                         cancelString: S.of(context).cancel,
                       );
                     },
+                    index: index,
                   );
                 },
                 itemCount: _displayFiles.length,
@@ -130,7 +134,9 @@ class _CloudFilesState extends State<CloudFilesPage> {
       gridDelegate:
           SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
       itemBuilder: (BuildContext context, int index) {
-        return CloudGridTileWidget();
+        return CloudGridTileWidget(
+          index: index,
+        );
       },
       itemCount: _displayFiles.length,
     );
