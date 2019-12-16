@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_miui/flutter_miui.dart';
 import 'package:outline_material_icons/outline_material_icons.dart';
 import 'package:provider/provider.dart';
-import 'package:screenshot/screenshot.dart';
-import 'package:treex_flutter/ColorSchemes.dart';
 import 'package:treex_flutter/Provider/AppProvider.dart';
 import 'package:treex_flutter/UI/AddTools/Tools.dart';
 import 'package:treex_flutter/UI/Files/cloud/CloudFiles.dart';
@@ -15,6 +13,7 @@ import 'package:treex_flutter/UI/MainHomeUI/Pages/HomeUI.dart';
 import 'package:treex_flutter/UI/MainHomeUI/SearchPage.dart';
 import 'package:treex_flutter/generated/i18n.dart';
 import 'package:treex_flutter/utils/AuthNetUtils.dart';
+import 'package:treex_flutter/widget/TransparentPageRoute.dart';
 
 class HomeStructurePage extends StatefulWidget {
   @override
@@ -22,7 +21,6 @@ class HomeStructurePage extends StatefulWidget {
 }
 
 class _HomeStructureState extends State<HomeStructurePage> {
-  ScreenshotController _screenshotController = ScreenshotController();
   PageController _pageController = PageController(initialPage: 0);
   int _bottomBarCurrentIndex = 0;
   TextEditingController _newFolderTextController = TextEditingController();
@@ -40,18 +38,15 @@ class _HomeStructureState extends State<HomeStructurePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Screenshot(
-      controller: _screenshotController,
-      child: Scaffold(
-        appBar: _buildAnimateColoredAppBar(context),
-        floatingActionButton:
-            _bottomBarCurrentIndex == 3 ? null : _buildFAB(context),
-        floatingActionButtonLocation: _bottomBarCurrentIndex == 0
-            ? FloatingActionButtonLocation.centerFloat
-            : FloatingActionButtonLocation.endFloat,
-        bottomNavigationBar: _buildBottomNavBar(context),
-        body: _buildPages(context),
-      ),
+    return Scaffold(
+      appBar: _buildAnimateColoredAppBar(context),
+      floatingActionButton:
+      _bottomBarCurrentIndex == 3 ? null : _buildFAB(context),
+      floatingActionButtonLocation: _bottomBarCurrentIndex == 0
+          ? FloatingActionButtonLocation.centerFloat
+          : FloatingActionButtonLocation.endFloat,
+      bottomNavigationBar: _buildBottomNavBar(context),
+      body: _buildPages(context),
     );
   }
 
@@ -149,18 +144,10 @@ class _HomeStructureState extends State<HomeStructurePage> {
       onPressed: () {
         switch (_bottomBarCurrentIndex) {
           case 0:
-            _screenshotController.capture().then((image) {
-              Navigator.of(context).push(
-                PageRouteBuilder(pageBuilder: (context, animation, animation2) {
-                  return FadeTransition(
-                    opacity: animation,
-                    child: ToolsPage(
-                      image: image,
-                    ),
-                  );
-                }),
-              );
-            });
+            Navigator.of(context).push(
+              TransparentPageRoute(
+                  builder: (BuildContext context) => ToolsPage()),
+            );
             break;
           case 1:
             _cloudNewFolderTextController.clear();

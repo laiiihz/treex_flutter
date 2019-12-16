@@ -8,6 +8,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:treex_flutter/UI/AddTools/QrGenerate.dart';
+import 'package:treex_flutter/widget/TransparentPageRoute.dart';
 
 class DeveloperPage extends StatefulWidget {
   @override
@@ -64,8 +65,20 @@ class _DeveloperState extends State<DeveloperPage> {
       appBar: AppBar(
         title: Text('Dev'),
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.of(context).push(
+            TransparentPageRoute(
+                builder: (BuildContext context) =>
+                    RaisedButton(onPressed: () {})),
+          );
+        },
+        child: Icon(Icons.developer_mode),
+      ),
       body: ListView(
-        physics: AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
+        physics: AlwaysScrollableScrollPhysics(
+          parent: BouncingScrollPhysics(),
+        ),
         children: <Widget>[
           RaisedButton.icon(
             icon: Icon(FontAwesomeIcons.qrcode),
