@@ -5,8 +5,10 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_miui/flutter_miui.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:treex_flutter/UI/Files/FilesFunctions.dart';
+import 'package:treex_flutter/UI/Files/helper/PhotoHelper.dart';
 import 'package:treex_flutter/generated/i18n.dart';
 import 'package:treex_flutter/widget/RoundIconButton.dart';
+import 'package:video_player/video_player.dart';
 
 class SingleFileHelperPage extends StatefulWidget {
   SingleFileHelperPage({
@@ -22,6 +24,7 @@ class SingleFileHelperPage extends StatefulWidget {
 
 class _SingleFileHelperState extends State<SingleFileHelperPage> {
   ScrollController _listScroller = ScrollController();
+  VideoPlayerController _playerController;
   double _titleOpacityValue = 0;
   @override
   void initState() {
@@ -33,6 +36,21 @@ class _SingleFileHelperState extends State<SingleFileHelperPage> {
         });
       }
     });
+    if (getFileSuffix(widget.fileSystemEntity) == 'mp4') {
+      _playerController =
+          VideoPlayerController.file(File(widget.fileSystemEntity.path))
+            ..initialize()
+            ..addListener(() {});
+    }
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _listScroller.dispose();
+    if (_playerController != null) {
+      _playerController.dispose();
+    }
   }
 
   @override
@@ -145,7 +163,9 @@ class _SingleFileHelperState extends State<SingleFileHelperPage> {
                         context: context,
                         child: Text(getFileShortPath(widget.fileSystemEntity)),
                         title: '确认删除该文件?',
-                        confirm: widget.delete, confirmString: S.of(context).confirm, cancelString: S.of(context).cancel,
+                        confirm: widget.delete,
+                        confirmString: S.of(context).confirm,
+                        cancelString: S.of(context).cancel,
                       );
                     },
                   ),
@@ -163,21 +183,53 @@ class _SingleFileHelperState extends State<SingleFileHelperPage> {
       case 'png':
         return Padding(
           padding: EdgeInsets.all(10),
-          child: Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
+          child: Hero(
+            child: Material(
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                height: MediaQuery.of(context).size.width,
+                child: InkWell(
+                  child: Ink.image(
+                    image: FileImage(widget.fileSystemEntity),
+                    fit: BoxFit.cover,
+                  ),
+                  onTap: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (BuildContext context) =>
+                            PhotoHelperPage(file: widget.fileSystemEntity),
+                      ),
+                    );
+                  },
+                ),
+              ),
             ),
-            height: MediaQuery.of(context).size.width,
-            child: Image.file(
-              widget.fileSystemEntity,
-              fit: BoxFit.cover,
-            ),
+            tag: 'img',
           ),
         );
       case 'log':
       case 'txt':
         var temp = (widget.fileSystemEntity as File).readAsStringSync();
         return Text(temp);
+        break;
+      case 'mp4':
+        return _playerController.value.initialized
+            ? Column(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  AspectRatio(
+                    aspectRatio: _playerController.value.aspectRatio,
+                    child: VideoPlayer(_playerController),
+                  ),
+                  RaisedButton(onPressed: () {
+                    _playerController.play();
+                  }),
+                ],
+              )
+            : Container();
+
         break;
       default:
         return SizedBox(

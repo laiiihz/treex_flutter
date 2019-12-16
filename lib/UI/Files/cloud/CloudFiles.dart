@@ -76,8 +76,8 @@ class _CloudFilesState extends State<CloudFilesPage> {
           key: Key(_randomKey),
           onRefresh: () async {
             List<dynamic> result = await getFileList('.');
-            setState(() => _displayFiles = result);
             setState(() => _randomKey = Random().nextDouble().toString());
+            setState(() => _displayFiles = result);
             return true;
           },
         ),
