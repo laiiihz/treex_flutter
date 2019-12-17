@@ -64,9 +64,12 @@ class _TransparentPageRouteViewState extends State<TransparentPageRouteViewPage>
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(r * 2),
                   child: BackdropFilter(
-                    filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+                    filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
                     child: Material(
-                      color: Colors.transparent,
+                      color: MediaQuery.of(context).platformBrightness ==
+                              Brightness.dark
+                          ? Colors.black26
+                          : Colors.white24,
                     ),
                   ),
                 ),
@@ -93,7 +96,7 @@ class _TransparentPageRouteViewState extends State<TransparentPageRouteViewPage>
 
   Future<bool> willPopFunc() async {
     _backdropAnimationController.fling(velocity: -1.0);
-    await Future.delayed(Duration(milliseconds: 500), () {
+    await Future.delayed(Duration(milliseconds: 800), () {
       Navigator.of(context).pop();
     });
     return true;
@@ -107,13 +110,14 @@ class _TransparentPageRouteViewState extends State<TransparentPageRouteViewPage>
             2;
     _backdropAnimationController = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: 500),
+      duration: Duration(milliseconds: 800),
     );
     CurvedAnimation curvedAnimation = CurvedAnimation(
         parent: _backdropAnimationController, curve: Curves.easeInOutCubic);
     CurvedAnimation curvedAnimationContent = CurvedAnimation(
         parent: _backdropAnimationController, curve: Curves.bounceOut);
-    _contentAnimation = Tween(begin: -100.0, end: 100.0).animate(curvedAnimationContent);
+    _contentAnimation =
+        Tween(begin: -150.0, end: 100.0).animate(curvedAnimationContent);
     _backdropAnimation = Tween(begin: 0.0, end: r * 2).animate(curvedAnimation)
       ..addListener(() {
         setState(() {

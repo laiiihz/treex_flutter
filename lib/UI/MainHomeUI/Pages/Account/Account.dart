@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:share/share.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:treex_flutter/Provider/AppProvider.dart';
+import 'package:treex_flutter/UI/Files/FilesFunctions.dart';
 import 'package:treex_flutter/UI/Overlay/DrawerMenus/About.dart';
 import 'package:treex_flutter/UI/Overlay/DrawerMenus/NetworkSettings.dart';
 import 'package:treex_flutter/UI/Overlay/DrawerMenus/UserSettings.dart';
@@ -10,6 +11,7 @@ import 'package:treex_flutter/UI/UserLogin/UserIntro.dart';
 import 'package:treex_flutter/canvas/PaintAccount.dart';
 import 'package:treex_flutter/dev/Developer.dart';
 import 'package:treex_flutter/generated/i18n.dart';
+import 'package:treex_flutter/utils/AuthNetUtils.dart';
 import 'package:treex_flutter/utils/NetUtil.dart';
 
 class AccountPage extends StatefulWidget {
@@ -18,6 +20,26 @@ class AccountPage extends StatefulWidget {
 }
 
 class _AccountState extends State<AccountPage> {
+  int _spaceUsed = 0;
+  int _spaceFree = 0;
+  double _progress;
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(Duration.zero, () {
+      final provider = Provider.of<AppProvider>(context);
+      GetSpace(baseUrl: provider.serverPrefix, token: provider.token)
+          .get()
+          .then((list) {
+        setState(() {
+          _spaceUsed = list[0];
+          _spaceFree = list[1];
+          _progress = _spaceUsed / _spaceFree;
+        });
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<AppProvider>(context);
@@ -71,7 +93,7 @@ class _AccountState extends State<AccountPage> {
                                 height: 10,
                               ),
                               LinearProgressIndicator(
-                                value: 0.4,
+                                value: _progress,
                               ),
                               SizedBox(
                                 height: 10,
@@ -79,7 +101,8 @@ class _AccountState extends State<AccountPage> {
                               Row(
                                 children: <Widget>[
                                   Spacer(),
-                                  Text('${'233M/466M'}'),
+                                  Text(
+                                      '${getLengthString(_spaceUsed)}/${getLengthString(_spaceFree)}'),
                                 ],
                               ),
                             ],

@@ -56,10 +56,10 @@ class GetFileList {
     @required this.baseUrl,
     @required this.token,
   });
-  Future<List<dynamic>> get(String path) async {
+  Future<dynamic> get(String path) async {
     dynamic temp = await AuthUtil(baseUrl: this.baseUrl, token: this.token)
         .get(path: '/api/intro/files?path=$path');
-    return temp['file'];
+    return temp;
   }
 }
 
@@ -96,5 +96,20 @@ class DeleteFile {
       baseUrl: this.baseUrl,
     ).delete(path: '/api/intro/deleteFile?path=${this.path}/$fileName');
     return temp['status'] == 200;
+  }
+}
+
+class GetSpace {
+  String baseUrl;
+  String token;
+  GetSpace({
+    @required this.baseUrl,
+    @required this.token,
+  });
+  Future<List<int>> get() async {
+    dynamic temp = await AuthUtil(token: this.token, baseUrl: this.baseUrl)
+        .get(path: '/api/intro/space');
+    print(temp);
+    return [temp['used'], temp['free']];
   }
 }

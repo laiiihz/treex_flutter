@@ -10,10 +10,12 @@ class CloudListTileWidget extends StatefulWidget {
     @required this.cloudFile,
     @required this.delete,
     @required this.index,
+    @required this.onPressed,
   }) : super(key: key);
   final dynamic cloudFile;
   final VoidCallback delete;
   final int index;
+  final VoidCallback onPressed;
   @override
   State<StatefulWidget> createState() => _CloudListTileState();
 }
@@ -60,7 +62,7 @@ class _CloudListTileState extends State<CloudListTileWidget> {
               ),
             ],
             child: InkWell(
-              onTap: () {},
+              onTap: widget.onPressed,
               child: ListTile(
                 leading: widget.cloudFile['isDir']
                     ? Icon(Icons.folder)

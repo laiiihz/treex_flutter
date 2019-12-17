@@ -149,9 +149,16 @@ class _NetworkSettingsState extends State<NetworkSettingsPage> {
                                       Scaffold.of(context).showSnackBar(
                                         SnackBar(
                                           content: Text('保存成功'),
+                                          duration:
+                                              Duration(milliseconds: 1000),
                                           backgroundColor: Colors.green,
                                         ),
                                       );
+
+                                      Future.delayed(
+                                          Duration(milliseconds: 1200), () {
+                                        Navigator.of(context).pop();
+                                      });
                                     });
                                   } else {
                                     showMIUIConfirmDialog(

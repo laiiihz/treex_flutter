@@ -45,12 +45,12 @@ String fileCreateTimeFormat(FileSystemEntity fileSystemEntity) {
 
 String fileChangedTimeFormat(FileSystemEntity fileSystemEntity) {
   return DateFormat('yyyy-MM-dd hh:mm:ss')
-      .format(getFileCreateTime(fileSystemEntity));
+      .format(getFileChangedTime(fileSystemEntity));
 }
 
 String fileAccessedTimeFormat(FileSystemEntity fileSystemEntity) {
   return DateFormat('yyyy-MM-dd hh:mm:ss')
-      .format(getFileCreateTime(fileSystemEntity));
+      .format(getFileAccessedTime(fileSystemEntity));
 }
 
 List<FileSystemEntity> fileFilterDirOrFile(List<FileSystemEntity> files) {
