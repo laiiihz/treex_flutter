@@ -18,7 +18,7 @@ class AppProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  String _serverPrefix = '127.0.0.1:8080';
+  String _serverPrefix = 'http://127.0.0.1:8080';
   get serverPrefix => _serverPrefix;
   setIPAndPort(String prefix) {
     _serverPrefix = prefix;

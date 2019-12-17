@@ -31,6 +31,7 @@ class _SplashState extends State<SplashPage> {
       });
       initIpAndPort().then((_) {
         checkServerConnection().then((value) {
+          print(value);
           Navigator.of(context).pushReplacement(
             MaterialPageRoute(
               builder: (BuildContext context) => UserIntroPage(),
@@ -76,8 +77,10 @@ class _SplashState extends State<SplashPage> {
   Future initIpAndPort() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     final provider = Provider.of<AppProvider>(context);
+
     provider.setIPAndPort(
-        '${sharedPreferences.getString('net_addr') ?? '127.0.0.1'}:${sharedPreferences.getString('net_port') ?? '8080'}');
+        'http://${sharedPreferences.getString('net_addr') ?? '127.0.0.1'}:${sharedPreferences.getString('net_port') ?? '8080'}');
+    print(provider.serverPrefix);
   }
 
   Future<bool> checkServerConnection() async {
