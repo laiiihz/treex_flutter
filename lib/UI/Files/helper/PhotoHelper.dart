@@ -136,6 +136,8 @@ class _PhotoHelperState extends State<PhotoHelperPage>
     _scaleAnimationController.fling(velocity: _scaled ? -1.0 : 1.0);
     setState(() {
       _scaled = !_scaled;
+      _calDx = 0;
+      _calDy = 0;
     });
   }
 }

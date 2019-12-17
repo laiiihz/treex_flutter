@@ -104,7 +104,6 @@ class CheckConnectionUtil {
     int status = ((await NetUtil(
             path: '${this.serverPrefix}/api/check-connection')
         .get()) as dynamic)['status'];
-print(status);
     if (status == 200) {
       return true;
     } else {
