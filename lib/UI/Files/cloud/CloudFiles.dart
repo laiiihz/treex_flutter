@@ -24,6 +24,7 @@ class _CloudFilesState extends State<CloudFilesPage> {
   bool _showViewList = true;
   String _randomKey = '@';
   String _path = '.';
+
   @override
   void initState() {
     super.initState();
@@ -71,9 +72,15 @@ class _CloudFilesState extends State<CloudFilesPage> {
             milliseconds: 400,
           ),
           child: RefreshIndicator(
-            child: AnimationLimiter(
-              child: _showViewList ? _buildList(context) : _buildGrid(context),
-            ),
+            child: (_displayFiles == null)
+                ? _buildLoading(context)
+                : _displayFiles.length == 0
+                    ? _buildEmpty(context)
+                    : AnimationLimiter(
+                        child: _showViewList
+                            ? _buildList(context)
+                            : _buildGrid(context),
+                      ),
             key: Key(_randomKey),
             onRefresh: updateFiles,
           ),
@@ -96,52 +103,27 @@ class _CloudFilesState extends State<CloudFilesPage> {
   }
 
   Widget _buildList(BuildContext context) {
-    final provider = Provider.of<AppProvider>(context);
-    return (_displayFiles == null)
-        ? _buildLoading(context)
-        : _displayFiles.length == 0
-            ? _buildEmpty(context)
-            : ListView.builder(
-                padding: EdgeInsets.only(top: 40),
-                physics: AlwaysScrollableScrollPhysics(
-                    parent: BouncingScrollPhysics()),
-                itemBuilder: (BuildContext context, int index) {
-                  return CloudListTileWidget(
-                    cloudFile: _displayFiles[index],
-                    delete: () {
-                      showMIUIConfirmDialog(
-                        context: context,
-                        child: Text(''),
-                        title: '删除该文件?',
-                        confirm: () {
-                          DeleteFile(
-                                  baseUrl: provider.serverPrefix,
-                                  token: provider.token,
-                                  path: provider.cloudPath)
-                              .delete('${_displayFiles[index]['name']}');
-                          Navigator.of(context).pop();
-                          getFileList('.').then((value) {
-                            setState(() {
-                              _displayFiles = value;
-                            });
-                          });
-                        },
-                        confirmString: S.of(context).confirm,
-                        cancelString: S.of(context).cancel,
-                      );
-                    },
-                    index: index,
-                    onPressed: () {
-                      setState(() {
-                        _path = _displayFiles[index]['path'];
-                        _displayFiles = null;
-                      });
-                      updateFiles();
-                    },
-                  );
-                },
-                itemCount: _displayFiles.length,
-              );
+    return ListView.builder(
+      padding: EdgeInsets.only(top: 40),
+      physics: AlwaysScrollableScrollPhysics(parent: BouncingScrollPhysics()),
+      itemBuilder: (BuildContext context, int index) {
+        return CloudListTileWidget(
+          cloudFile: _displayFiles[index],
+          delete: () {
+            onDelete(context, index);
+          },
+          index: index,
+          onPressed: () {
+            setState(() {
+              _path = _displayFiles[index]['path'];
+              _displayFiles = null;
+            });
+            updateFiles();
+          },
+        );
+      },
+      itemCount: _displayFiles.length,
+    );
   }
 
   Widget _buildGrid(BuildContext context) {
@@ -153,6 +135,17 @@ class _CloudFilesState extends State<CloudFilesPage> {
       itemBuilder: (BuildContext context, int index) {
         return CloudGridTileWidget(
           index: index,
+          cloudFile: _displayFiles[index],
+          onPressed: () {
+            setState(() {
+              _path = _displayFiles[index]['path'];
+              _displayFiles = null;
+            });
+            updateFiles();
+          },
+          delete: () {
+            onDelete(context, index);
+          },
         );
       },
       itemCount: _displayFiles.length,
@@ -194,5 +187,29 @@ class _CloudFilesState extends State<CloudFilesPage> {
       });
     });
     return true;
+  }
+
+  onDelete(BuildContext context, int index) {
+    final provider = Provider.of<AppProvider>(context);
+    showMIUIConfirmDialog(
+      context: context,
+      child: Text(''),
+      title: '删除该文件?',
+      confirm: () {
+        DeleteFile(
+                baseUrl: provider.serverPrefix,
+                token: provider.token,
+                path: provider.cloudPath)
+            .delete('${_displayFiles[index]['name']}');
+        Navigator.of(context).pop();
+        getFileList('.').then((value) {
+          setState(() {
+            _displayFiles = value;
+          });
+        });
+      },
+      confirmString: S.of(context).confirm,
+      cancelString: S.of(context).cancel,
+    );
   }
 }

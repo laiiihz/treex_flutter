@@ -183,7 +183,7 @@ class _LocalFilesState extends State<LocalFilesPage> {
           index: index,
         );
       },
-      itemCount: _nowDirectories == null ? 0 : _nowDirectories.length,
+      itemCount: _nowDirectories.length,
     );
   }
 
@@ -221,7 +221,7 @@ class _LocalFilesState extends State<LocalFilesPage> {
           index: index,
         );
       },
-      itemCount: _nowDirectories == null ? 0 : _nowDirectories.length,
+      itemCount: _nowDirectories.length,
     );
   }
 
