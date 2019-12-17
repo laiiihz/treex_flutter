@@ -16,6 +16,7 @@ class _CloudGridTileState extends State<CloudGridTileWidget> {
       columnCount: 3,
       duration: Duration(milliseconds: 400),
       child: SlideAnimation(
+        duration: Duration(milliseconds: 400),
         verticalOffset: 50,
         horizontalOffset: 50,
         child: FadeInAnimation(

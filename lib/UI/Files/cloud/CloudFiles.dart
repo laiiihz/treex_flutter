@@ -28,9 +28,7 @@ class _CloudFilesState extends State<CloudFilesPage> {
     Future.delayed(Duration.zero, () {
       final provider = Provider.of<AppProvider>(context);
       provider.setCloudPath('.');
-      getFileList('.').then((value) {
-        setState(() => _displayFiles = value);
-      });
+      updateFiles();
     });
   }
 
@@ -67,19 +65,14 @@ class _CloudFilesState extends State<CloudFilesPage> {
       ),
       child: AnimatedSwitcher(
         duration: Duration(
-          milliseconds: 500,
+          milliseconds: 400,
         ),
         child: RefreshIndicator(
           child: AnimationLimiter(
             child: _showViewList ? _buildList(context) : _buildGrid(context),
           ),
           key: Key(_randomKey),
-          onRefresh: () async {
-            List<dynamic> result = await getFileList('.');
-            setState(() => _randomKey = Random().nextDouble().toString());
-            setState(() => _displayFiles = result);
-            return true;
-          },
+          onRefresh: updateFiles,
         ),
       ),
     );
@@ -162,5 +155,16 @@ class _CloudFilesState extends State<CloudFilesPage> {
     return await GetFileList(
             baseUrl: provider.serverPrefix, token: provider.token)
         .get(path);
+  }
+
+  Future updateFiles() async {
+    getFileList('.').then((getList) {
+      List<dynamic> result = getList;
+      setState(() {
+        _displayFiles = result;
+        _randomKey = Random().nextDouble().toString();
+      });
+    });
+    return true;
   }
 }

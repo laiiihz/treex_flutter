@@ -36,6 +36,7 @@ class _CloudListTileState extends State<CloudListTileWidget> {
     return AnimationConfiguration.staggeredList(
       position: widget.index,
       child: SlideAnimation(
+        duration: Duration(milliseconds: 400),
         horizontalOffset: 50,
         verticalOffset: 100,
         child: FadeInAnimation(
