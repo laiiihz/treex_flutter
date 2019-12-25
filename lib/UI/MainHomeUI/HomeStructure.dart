@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_miui/flutter_miui.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:outline_material_icons/outline_material_icons.dart';
 import 'package:provider/provider.dart';
 import 'package:treex_flutter/Provider/AppProvider.dart';
@@ -206,6 +207,12 @@ class _HomeStructureState extends State<HomeStructurePage> {
           );
         },
       ),
+      actions: <Widget>[
+        IconButton(
+          icon: Icon(FontAwesomeIcons.cloudDownloadAlt),
+          onPressed: () {},
+        )
+      ],
       title: _textTile,
       centerTitle: true,
     );

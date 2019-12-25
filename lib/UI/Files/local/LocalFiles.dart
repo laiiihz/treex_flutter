@@ -162,23 +162,7 @@ class _LocalFilesState extends State<LocalFilesPage> {
             );
           },
           rename: () {
-            _renameTextEditor.text = getFileShortPath(_nowDirectories[index]);
-            showMIUIConfirmDialog(
-              context: context,
-              child: MIUIDialogTextField(
-                textEditingController: _renameTextEditor,
-                title: getFileShortPath(
-                  _nowDirectories[index],
-                ),
-              ),
-              title: '重命名该文件',
-              confirm: () {
-                _nowDirectories[index].renameSync('/storage/emulated/0/123');
-                updateFiles();
-              },
-              cancelString: S.of(context).cancel,
-              confirmString: S.of(context).confirm,
-            );
+            fileRename(index);
           },
           index: index,
         );
@@ -219,6 +203,9 @@ class _LocalFilesState extends State<LocalFilesPage> {
           },
           upload: () {},
           index: index,
+          rename: () {
+            fileRename(index);
+          },
         );
       },
       itemCount: _nowDirectories.length,
@@ -326,5 +313,25 @@ class _LocalFilesState extends State<LocalFilesPage> {
         },
       );
     }
+  }
+
+  fileRename(int index) {
+    _renameTextEditor.text = getFileShortPath(_nowDirectories[index]);
+    showMIUIConfirmDialog(
+      context: context,
+      child: MIUIDialogTextField(
+        textEditingController: _renameTextEditor,
+        title: getFileShortPath(
+          _nowDirectories[index],
+        ),
+      ),
+      title: '重命名该文件',
+      confirm: () {
+        _nowDirectories[index].renameSync('/storage/emulated/0/123');
+        updateFiles();
+      },
+      cancelString: S.of(context).cancel,
+      confirmString: S.of(context).confirm,
+    );
   }
 }

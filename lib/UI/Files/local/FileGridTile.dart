@@ -15,10 +15,12 @@ class FileGridTileWidget extends StatefulWidget {
     @required this.delete,
     @required this.upload,
     @required this.index,
+    @required this.rename,
   }) : super(key: key);
   final VoidCallback onPressed;
   final VoidCallback delete;
   final VoidCallback upload;
+  final VoidCallback rename;
   final FileSystemEntity fileSystemEntity;
   final int index;
 
@@ -63,6 +65,9 @@ class _FileGridTileState extends State<FileGridTileWidget> {
                     PopupMenuItem(
                       child: Text('共享'),
                       value: 'share',
+                    ),
+                    PopupMenuItem(
+                      child: Text('重命名'),
                     ),
                     PopupMenuItem(
                       child: Text(

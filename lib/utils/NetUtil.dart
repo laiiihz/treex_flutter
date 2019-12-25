@@ -101,9 +101,10 @@ class CheckConnectionUtil {
   String serverPrefix;
   CheckConnectionUtil({@required this.serverPrefix});
   Future<bool> check() async {
-    int status = ((await NetUtil(
-            path: '${this.serverPrefix}/api/check-connection')
-        .get()) as dynamic)['status'];
+    dynamic temp = await NetUtil(
+        path: '${this.serverPrefix}/api/check-connection')
+        .get();
+    int status = temp['status'];
     if (status == 200) {
       return true;
     } else {

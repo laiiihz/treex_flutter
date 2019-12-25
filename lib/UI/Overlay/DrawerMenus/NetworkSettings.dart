@@ -154,11 +154,6 @@ class _NetworkSettingsState extends State<NetworkSettingsPage> {
                                           backgroundColor: Colors.green,
                                         ),
                                       );
-
-                                      Future.delayed(
-                                          Duration(milliseconds: 1200), () {
-                                        Navigator.of(context).pop();
-                                      });
                                     });
                                   } else {
                                     showMIUIConfirmDialog(
@@ -214,7 +209,8 @@ class _NetworkSettingsState extends State<NetworkSettingsPage> {
 
   Future<bool> checkConnectionBuild() async {
     return CheckConnectionUtil(
-            serverPrefix: '${_ipAddrController.text}:${_portController.text}')
+            serverPrefix:
+                'http://${_ipAddrController.text}:${_portController.text}')
         .check();
   }
 }

@@ -37,7 +37,10 @@ class MyApp extends StatelessWidget {
       title: 'Treex',
       theme: defaultTheme,
       darkTheme: darkTheme,
-      home: SplashPage(),
+      initialRoute: '/',
+      routes:{
+        '/':(context)=>SplashPage(),
+      },
       localizationsDelegates: [
         S.delegate,
         GlobalMaterialLocalizations.delegate,

@@ -30,9 +30,9 @@ class _SingleFileHelperState extends State<SingleFileHelperPage> {
   void initState() {
     super.initState();
     _listScroller.addListener(() {
-      if (_listScroller.offset <= 300 && _listScroller.offset >= 100) {
+      if (_listScroller.offset <= 200 && _listScroller.offset >= 0) {
         setState(() {
-          _titleOpacityValue = (_listScroller.offset - 100) / 200;
+          _titleOpacityValue = _listScroller.offset / 200;
         });
       }
     });
