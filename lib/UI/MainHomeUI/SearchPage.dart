@@ -7,7 +7,6 @@ import 'package:treex_flutter/UI/Files/FilesFunctions.dart';
 import 'package:treex_flutter/generated/i18n.dart';
 
 class SearchPage extends SearchDelegate<String> {
-
   @override
   List<Widget> buildActions(BuildContext context) {
     return [];

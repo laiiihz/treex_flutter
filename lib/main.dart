@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:treex_flutter/ColorSchemes.dart';
 import 'package:treex_flutter/Provider/AppProvider.dart';
 import 'package:treex_flutter/UI/Intro/Splash.dart';
+import 'package:treex_flutter/UI/MainHomeUI/Pages/Download.dart';
 import 'package:treex_flutter/generated/i18n.dart';
 
 void main() {
@@ -38,8 +39,9 @@ class MyApp extends StatelessWidget {
       theme: defaultTheme,
       darkTheme: darkTheme,
       initialRoute: '/',
-      routes:{
-        '/':(context)=>SplashPage(),
+      routes: {
+        '/': (context) => SplashPage(),
+        '/download': (context) => DownloadPage(),
       },
       localizationsDelegates: [
         S.delegate,

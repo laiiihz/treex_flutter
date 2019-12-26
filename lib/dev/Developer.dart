@@ -8,6 +8,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:treex_flutter/UI/AddTools/QrGenerate.dart';
+import 'package:treex_flutter/dev/DevFileSearch.dart';
 import 'package:treex_flutter/widget/TransparentPageRoute.dart';
 
 class DeveloperPage extends StatefulWidget {
@@ -80,6 +81,12 @@ class _DeveloperState extends State<DeveloperPage> {
           parent: BouncingScrollPhysics(),
         ),
         children: <Widget>[
+          MIUIButton(
+            onPressed: () {
+              Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => DevFileSearchPage()));
+            },
+          ),
           RaisedButton.icon(
             icon: Icon(FontAwesomeIcons.qrcode),
             label: Text('QRCODE'),

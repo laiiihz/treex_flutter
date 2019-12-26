@@ -93,7 +93,9 @@ class _HomeStructureState extends State<HomeStructurePage> {
 
   Widget _buildBottomNavBar(BuildContext context) {
     return BottomNavigationBar(
-      type: BottomNavigationBarType.fixed,
+      type: BottomNavigationBarType.shifting,
+      showSelectedLabels: true,
+      showUnselectedLabels: false,
       onTap: (index) {
         switch (index) {
           case 0:
@@ -210,10 +212,17 @@ class _HomeStructureState extends State<HomeStructurePage> {
       actions: <Widget>[
         IconButton(
           icon: Icon(FontAwesomeIcons.cloudDownloadAlt),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.of(context).pushNamed('/download');
+          },
         )
       ],
-      title: _textTile,
+      title: AnimatedSwitcher(
+        switchInCurve: Curves.easeInCubic,
+        switchOutCurve: Curves.easeOutCubic,
+        duration: Duration(milliseconds: 1000),
+        child: _textTile,
+      ),
       centerTitle: true,
     );
   }
