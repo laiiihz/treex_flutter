@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_miui/flutter_miui.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -57,29 +58,24 @@ class _HomeStructureState extends State<HomeStructurePage> {
       physics: NeverScrollableScrollPhysics(),
       controller: _pageController,
       itemBuilder: (BuildContext context, int index) {
-        switch (index) {
-          case 0:
-            return HomeUIPage();
-            break;
-          case 1:
-            return CloudFilesPage();
-            break;
-          case 2:
-            return LocalFilesPage();
-            break;
-          case 3:
-            return AccountPage();
-          default:
-            return HomeUIPage();
-            break;
+        List<Widget> pageList = [
+          HomeUIPage(),
+          CloudFilesPage(),
+          LocalFilesPage(),
+          AccountPage(),
+        ];
+        if (kIsWeb) {
+          pageList.removeAt(2);
+          return pageList[index];
         }
+        return pageList[index];
       },
       itemCount: 4,
     );
   }
 
   List<BottomNavigationBarItem> _buildNavBarItems(BuildContext context) {
-    return [
+    List<BottomNavigationBarItem> temp = [
       _buildSingleBottomNaviItem(
           context, Icons.home, OMIcons.home, 0, S.of(context).home),
       _buildSingleBottomNaviItem(
@@ -89,6 +85,11 @@ class _HomeStructureState extends State<HomeStructurePage> {
       _buildSingleBottomNaviItem(
           context, Icons.person, OMIcons.person, 3, S.of(context).me),
     ];
+    if (kIsWeb) {
+      temp.removeAt(2);
+      return temp;
+    }
+    return temp;
   }
 
   Widget _buildBottomNavBar(BuildContext context) {
