@@ -24,7 +24,6 @@ class _CloudListTileState extends State<CloudListTileWidget> {
   String _date;
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     DateTime date =
         DateTime.fromMillisecondsSinceEpoch(widget.cloudFile['date']);
