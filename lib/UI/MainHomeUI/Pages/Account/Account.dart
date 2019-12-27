@@ -10,7 +10,6 @@ import 'package:treex_flutter/UI/Overlay/DrawerMenus/NetworkSettings.dart';
 import 'package:treex_flutter/UI/Overlay/DrawerMenus/UserSettings.dart';
 import 'package:treex_flutter/UI/UserLogin/UserIntro.dart';
 import 'package:treex_flutter/canvas/PaintAccount.dart';
-import 'package:treex_flutter/dev/Developer.dart';
 import 'package:treex_flutter/generated/i18n.dart';
 import 'package:treex_flutter/utils/AuthNetUtils.dart';
 import 'package:treex_flutter/utils/NetUtil.dart';
@@ -153,21 +152,6 @@ class _AccountState extends State<AccountPage> {
                                   onTap: () {
                                     Share.share(
                                         'https://github.com/laiiihz/treex_flutter');
-                                  },
-                                ),
-                                //TEST ONLY
-                                InkWell(
-                                  child: ListTile(
-                                    leading: Icon(Icons.developer_mode),
-                                    title: Text(S.of(context).developer_mode),
-                                  ),
-                                  onTap: () {
-                                    Navigator.of(context).push(
-                                      MaterialPageRoute(
-                                        builder: (BuildContext context) =>
-                                            DeveloperPage(),
-                                      ),
-                                    );
                                   },
                                 ),
                                 InkWell(

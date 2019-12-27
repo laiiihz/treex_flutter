@@ -9,7 +9,6 @@ import 'package:treex_flutter/UI/MainHomeUI/Pages/Download.dart';
 import 'package:treex_flutter/generated/i18n.dart';
 
 void main() {
-  print('--APP START--');
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
@@ -31,7 +30,6 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
